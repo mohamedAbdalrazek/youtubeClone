@@ -1,0 +1,18 @@
+:root {
+    --background-color: #0f0f0f;
+    --box-color: #222222;
+    --text-color: #fff;
+    --border-color:#303030;
+    --input-background-color:#121212
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Roboto', Arial, sans-serif !important;
+}

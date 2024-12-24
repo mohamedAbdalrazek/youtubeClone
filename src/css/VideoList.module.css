@@ -1,0 +1,77 @@
+/* SearchResults.module.css */
+.resultsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    padding-right: 16px;
+    padding-left: 16px;
+}
+
+.resultItem {
+    padding: 10px;
+    display: flex;
+    gap: 16px;
+    align-items: start;
+    background-color: #181818; /* Dark mode background */
+    border-radius: 8px;
+    transition: transform 0.2s, background-color 0.2s;
+    cursor: pointer;
+    min-height: fit-content;
+}
+
+.resultsLink {
+    text-decoration: none;
+}
+.resultItem:hover {
+    transform: scale(1.02);
+    background-color: #202020;
+}
+
+.thumbnail {
+    flex-shrink: 0;
+    min-height: fit-content;
+}
+
+.image {
+    border-radius: 4px;
+
+    width: 340px;
+    height: 190px;
+    object-fit: cover;
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+}
+
+.title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #f1f1f1; /* Bright text for the title */
+    line-height: 1.4;
+}
+
+.date {
+    font-size: 0.8rem;
+    color: #aaaaaa; /* Subdued gray for date */
+}
+
+.channelTitle {
+    font-size: 0.9rem;
+    color: #909090; /* Subdued gray for channel name */
+}
+@media (max-width: 600px) {
+    .image {
+        width: 240px;
+        height: 135px;
+    }
+
+    .title {
+        font-size: 0.9rem; /* Slightly smaller font for smaller screens */
+    }
+}

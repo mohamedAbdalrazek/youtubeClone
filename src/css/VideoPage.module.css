@@ -1,0 +1,51 @@
+/* VideoDetails.module.css */
+.videoDetails {
+    font-family: "Roboto", Arial, sans-serif;
+    max-width: 100%;
+    margin: 10px;
+    padding: 16px;
+    color: #f1f1f1; /* Light text color for dark mode */
+    background-color: #181818; /* Dark background */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #ffffff; /* Bright white for the title */
+}
+
+.channelTitle {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 12px;
+    color: #aaaaaa; /* Subdued gray for the channel name */
+}
+
+.meta {
+    display: flex;
+    gap: 16px;
+    font-size: 0.9rem;
+    color: #aaaaaa; /* Light gray for meta information */
+    margin-bottom: 16px;
+}
+
+.views {
+    font-weight: 500;
+}
+
+.date {
+    font-weight: 400;
+}
+
+.description {
+    font-size: 1rem;
+    line-height: 1.6;
+    white-space: pre-wrap; /* Preserve formatting */
+    color: #d1d1d1; /* Slightly lighter gray for description */
+    background-color: #282828; /* Darker gray for description box */
+    padding: 12px;
+    border-radius: 4px;
+}
