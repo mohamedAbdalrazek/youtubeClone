@@ -13,7 +13,7 @@
     padding: 10px;
     display: flex;
     gap: 16px;
-    align-items: start;
+    align-items: flex-start;
     background-color: #181818; /* Dark mode background */
     border-radius: 8px;
     transition: transform 0.2s, background-color 0.2s;

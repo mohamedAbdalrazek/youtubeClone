@@ -60,7 +60,7 @@ export default async function Page({
 }) {
     const videoId = (await params).videoId;
     const res = await fetch(
-        `http://localhost:3000/api/getVideo?videoId=${videoId}`
+        `${process.env.ROOT}/api/getVideo?videoId=${videoId}`
     );
     const jsonRes = await res.json();
     const data = jsonRes.data[0] as Data;

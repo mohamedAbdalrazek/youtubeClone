@@ -18,9 +18,11 @@ const Search = () => {
     const searchParams = useSearchParams();
     const query = searchParams.get("search");
     const [data, setData] = useState<Item[]>();
-    console.log({ query });
     useEffect(() => {
-        fetch(`http://localhost:3000/api/searchVideos?query=${query}`)
+        if(!query){
+            return
+        }
+        fetch(`/api/searchVideos?query=${query}`)
             .then((res) => res.json())
             .then((data) => {
                 setData(data.formedData);
