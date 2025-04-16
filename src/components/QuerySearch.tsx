@@ -1,9 +1,15 @@
 "use client";
-import React, { ChangeEvent, FormEvent, useCallback, useState } from "react";
+import React, {
+    ChangeEvent,
+    FormEvent,
+    Suspense,
+    useCallback,
+    useState,
+} from "react";
 import styles from "@/css/Search.module.css";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function QuerySearch() {
+function Search() {
     const searchParams = useSearchParams();
     const router = useRouter();
 
@@ -11,7 +17,7 @@ export default function QuerySearch() {
         (name: string, value: string) => {
             const params = new URLSearchParams(searchParams.toString());
             params.set(name, value);
-            params.delete("title")
+            params.delete("title");
             return params.toString();
         },
         [searchParams]
@@ -27,8 +33,8 @@ export default function QuerySearch() {
         }
         setQuery(e.target.value);
     };
-    const handleSubmit = async (e:FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         router.push("/" + "?" + createQueryString("search", query));
     };
     return (
@@ -52,5 +58,12 @@ export default function QuerySearch() {
                 </button>
             </label>
         </form>
+    );
+}
+export default function QuerySearch() {
+    return (
+        <Suspense>
+            <Search />
+        </Suspense>
     );
 }

@@ -2,8 +2,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import styles from "@/css/VideoList.module.css";
+import { formatRelativeDate } from "@/utils/utils";
 type Item = {
     videoId: string;
     title: string;
@@ -13,38 +14,11 @@ type Item = {
     width: number;
     channelTitle: string;
 };
-export default function VideosList() {
-    function formatRelativeDate(isoDateString: string): string {
-        const date = new Date(isoDateString);
-        const now = new Date();
-        const diffInSeconds = Math.floor(
-            (now.getTime() - date.getTime()) / 1000
-        );
-
-        const timeUnits: { unit: string; seconds: number }[] = [
-            { unit: "year", seconds: 60 * 60 * 24 * 365 },
-            { unit: "month", seconds: 60 * 60 * 24 * 30 },
-            { unit: "week", seconds: 60 * 60 * 24 * 7 },
-            { unit: "day", seconds: 60 * 60 * 24 },
-            { unit: "hour", seconds: 60 * 60 },
-            { unit: "minute", seconds: 60 },
-            { unit: "second", seconds: 1 },
-        ];
-
-        for (const { unit, seconds } of timeUnits) {
-            const count = Math.floor(diffInSeconds / seconds);
-            if (count >= 1) {
-                return count === 1 ? `1 ${unit} ago` : `${count} ${unit}s ago`;
-            }
-        }
-
-        return "just now";
-    }
-
+const Search = () => {
     const searchParams = useSearchParams();
     const query = searchParams.get("search");
     const [data, setData] = useState<Item[]>();
-
+    console.log({ query });
     useEffect(() => {
         fetch(`http://localhost:3000/api/searchVideos?query=${query}`)
             .then((res) => res.json())
@@ -59,7 +33,9 @@ export default function VideosList() {
                     item.videoId && (
                         <Link
                             key={item.videoId}
-                            href={`/watch/${item.videoId}?title=${item.title.split(" ").join("+")}`}
+                            href={`/watch/${item.videoId}?title=${item.title
+                                .split(" ")
+                                .join("+")}`}
                             className={styles.resultsLink}
                         >
                             <div className={styles.resultItem}>
@@ -89,5 +65,12 @@ export default function VideosList() {
                 );
             })}
         </div>
+    );
+};
+export default function VideosList() {
+    return (
+        <Suspense>
+            <Search />
+        </Suspense>
     );
 }

@@ -3,6 +3,7 @@ import React from "react";
 export const dynamic = "force-dynamic";
 import styles from "@/css/VideoPage.module.css";
 import QuerySearch from "@/components/QuerySearch";
+import { Metadata } from "next";
 type Data = {
     id: string;
     description: string;
@@ -11,15 +12,17 @@ type Data = {
     date: string;
     viewCount: number;
 };
+type Props = {
+    params: Promise<{ videoId: string }>;
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
 export async function generateMetadata({
     params,
     searchParams,
-}: {
-    params: { videoId: string };
-    searchParams: { title?: string };
-}) {
-    const { videoId } = params;
-    const title = searchParams.title || "Default Title";
+}: Props): Promise<Metadata> {
+    const { videoId } = await params;
+    const param = await searchParams;
+    const title = param.title === "string" ? param.title : "Clean Youtube";
 
     return {
         title: title,
