@@ -28,6 +28,7 @@ export async function GET(request: NextRequest) {
             return Response.json({ ok: false, error: "somthing went wrong in the server side please try again" }, { status: 500 })
         }
         const formedData = data.items.map((item: Item) => {
+
             return {
                 videoId: item.id.videoId,
                 title: item.snippet.title,

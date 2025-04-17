@@ -24,3 +24,24 @@ export function formatRelativeDate(isoDateString: string): string {
 
     return "just now";
 }
+
+export function formatDate(dateString: string | undefined): string {
+    if (dateString) {
+        const date = new Date(dateString);
+
+        const options: Intl.DateTimeFormatOptions = {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+        };
+        return new Intl.DateTimeFormat("en-US", options).format(date);
+    }
+    return ""
+}
+export function formatNumberWithCommas(number: number | undefined) {
+    if (number)
+        return new Intl.NumberFormat("en-US").format(number);
+
+    return ""
+
+}

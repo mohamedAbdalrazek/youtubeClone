@@ -1,4 +1,14 @@
 /* VideoDetails.module.css */
+.iframe {
+    display: block;
+    margin: 10px auto;
+    /* background-color: #000; */
+    border: none;
+    border-radius: 8px;
+    width: 1280px;
+    height: calc(100vh - 150px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
 .videoDetails {
     font-family: "Roboto", Arial, sans-serif;
     max-width: 100%;
@@ -43,9 +53,34 @@
 .description {
     font-size: 1rem;
     line-height: 1.6;
-    white-space: pre-wrap; /* Preserve formatting */
-    color: #d1d1d1; /* Slightly lighter gray for description */
-    background-color: #282828; /* Darker gray for description box */
+    white-space: wrap;
+    color: #d1d1d1;
+    background-color: #282828;
     padding: 12px;
     border-radius: 4px;
+    overflow: auto;
+}
+@media (max-width: 1290px) {
+    .iframe {
+        width: 95%;
+        /* height: 600px; */
+    }   
+}
+
+
+@media (max-width: 580px) {
+    .iframe {
+        height: 300px;
+    }
+    .title {
+        font-size: 1.4rem;
+    }
+    .channelTitle {
+        font-size: 1rem;
+    }
+}
+@media (max-width: 420px) {
+    .iframe {
+        height: 200px;
+    }
 }

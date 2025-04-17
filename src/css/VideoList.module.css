@@ -25,7 +25,7 @@
     text-decoration: none;
 }
 .resultItem:hover {
-    transform: scale(1.02);
+    transform: scale(1.01);
     background-color: #202020;
 }
 
@@ -54,6 +54,12 @@
     font-weight: bold;
     color: #f1f1f1; /* Bright text for the title */
     line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Adjust number of lines */
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .date {
@@ -67,11 +73,21 @@
 }
 @media (max-width: 600px) {
     .image {
-        width: 240px;
-        height: 135px;
+        width: 220px;
+        height: 124px;
     }
 
     .title {
         font-size: 0.9rem; /* Slightly smaller font for smaller screens */
+    }
+}
+
+@media (max-width: 420px) { 
+    .image {
+        width: 120px;
+        height: 68px;
+    }
+    .details{
+        gap: 5px;
     }
 }

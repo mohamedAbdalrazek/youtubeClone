@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import React, { Suspense, useEffect, useState } from "react";
 import styles from "@/css/VideoList.module.css";
 import { formatRelativeDate } from "@/utils/utils";
+import VideoListSkeleton from "./VideoListSkeleton";
 type Item = {
     videoId: string;
     title: string;
@@ -18,6 +19,7 @@ const Search = () => {
     const searchParams = useSearchParams();
     const query = searchParams.get("search");
     const [data, setData] = useState<Item[]>();
+    const [loading, setLoading] = useState(true)
     useEffect(() => {
         if(!query){
             return
@@ -26,8 +28,13 @@ const Search = () => {
             .then((res) => res.json())
             .then((data) => {
                 setData(data.formedData);
+            }).finally(()=>{
+                setLoading(false)
             });
     }, [query]);
+    if(loading){
+        return <VideoListSkeleton number={10} />
+    }
     return (
         <div className={styles.resultsContainer}>
             {data?.map((item) => {

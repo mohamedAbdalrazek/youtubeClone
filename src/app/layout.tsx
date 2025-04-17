@@ -1,3 +1,5 @@
+import QuerySearch from "@/components/QuerySearch";
+import UrlSearch from "@/components/UrlSearch";
 import "@/css/global.css";
 import { Roboto } from "next/font/google";
 const roboto = Roboto({
@@ -22,7 +24,10 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${roboto.className}`}>{children}</body>
+            <body className={`${roboto.className}`}>
+            <UrlSearch />
+            <QuerySearch />
+            {children}</body>
         </html>
     );
 }

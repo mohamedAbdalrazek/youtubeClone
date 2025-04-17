@@ -57,3 +57,25 @@
     opacity: .5;
     cursor:default;
 }
+
+@media (max-width: 580px) {
+    .inputWrapper{
+        width: 95%;
+    }
+    .inputButton{
+        width: 80px;
+    }
+    .input{
+        width: calc(100% - 80px);
+    }
+
+}
+@media (max-width: 420px) { 
+    .inputButton{
+        font-size: 14px;
+        width: 60px;
+    }
+    .input{
+        width: calc(100% - 60px);
+    }
+}

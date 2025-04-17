@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
             date: item.snippet.publishedAt,
             viewCount: item.statistics.viewCount
         }))
-        return Response.json({ ok: true, data:cleanedData })
+        return Response.json({ ok: true, data: cleanedData })
     } catch (error) {
         return Response.json({ ok: false, error }, { status: 500 })
     }
