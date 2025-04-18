@@ -14,7 +14,6 @@ type Data = {
 };
 export default function VideoPage({ videoId }: { videoId: string }) {
     const [data, setData] = useState<Data>();
-    console.log(data);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         const fetchData = async () => {
@@ -22,9 +21,7 @@ export default function VideoPage({ videoId }: { videoId: string }) {
                 const res = await fetch(
                     `${process.env.NEXT_PUBLIC_ROOT}/api/getVideo?videoId=${videoId}`
                 );
-                console.log({ res });
                 const jsonRes = await res.json();
-                console.log({ jsonRes });
                 setData(jsonRes.data[0] as Data);
             } catch (error) {
                 console.error("Failed to fetch video data:", error);
@@ -58,7 +55,7 @@ export default function VideoPage({ videoId }: { videoId: string }) {
                 <h2 className={styles.channelTitle}>{data?.channelTitle}</h2>
                 <div className={styles.meta}>
                     <span className={styles.views}>
-                        {formatNumberWithCommas(data?.viewCount)} views
+                        {formatNumberWithCommas(data?.viewCount)} Views
                     </span>
                     <span className={styles.date}>
                         {formatDate(data?.date)}

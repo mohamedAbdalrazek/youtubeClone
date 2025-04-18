@@ -19,11 +19,12 @@ const Search = () => {
     const searchParams = useSearchParams();
     const query = searchParams.get("search");
     const [data, setData] = useState<Item[]>();
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     useEffect(() => {
         if(!query){
             return
         }
+        setLoading(true)
         fetch(`/api/searchVideos?query=${query}`)
             .then((res) => res.json())
             .then((data) => {
@@ -32,6 +33,7 @@ const Search = () => {
                 setLoading(false)
             });
     }, [query]);
+
     if(loading){
         return <VideoListSkeleton number={10} />
     }

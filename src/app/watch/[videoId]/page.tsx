@@ -13,7 +13,6 @@ export async function generateMetadata({
 }: Props): Promise<Metadata> {
     const { videoId } = await params;
     const param = await searchParams;
-    console.log(param.title);
     const title =
         typeof param.title === "string" ? param.title : "Clean Youtube";
 

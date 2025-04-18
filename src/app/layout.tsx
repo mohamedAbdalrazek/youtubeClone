@@ -25,9 +25,28 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={`${roboto.className}`}>
-            <UrlSearch />
-            <QuerySearch />
-            {children}</body>
+                <div
+                    style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        gap: "10px",
+                        border: " 1px solid var(--border-color)",
+                        alignItems:"center",
+                        padding:"0 20px"
+                    }}
+                >   
+                    
+                    <QuerySearch />
+                    <UrlSearch />
+                    <div style={{
+                        width:"20% "
+                    }} >
+                        Login
+                    </div>
+                </div>
+
+                {children}
+            </body>
         </html>
     );
 }
