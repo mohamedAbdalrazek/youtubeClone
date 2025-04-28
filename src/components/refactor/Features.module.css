@@ -1,0 +1,56 @@
+.features {
+    padding: 4rem 0;
+    text-align: center;
+    background-color: var(--surface-color);
+}
+
+.featuresTitle {
+    font-size: 2rem;
+    margin-bottom: 2.5rem;
+    color: var(--primary-color);
+}
+
+.featureGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2.5rem;
+    padding: 0 1rem;
+}
+
+.featureCard {
+    padding: 2rem;
+    border-radius: 12px;
+    background-color: var(--background-color);
+    box-shadow: var(--shadow);
+    transition: all var(--transition-normal);
+}
+
+.featureCard:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.featureIcon {
+    width: 2.4rem; /* Same as font-size for consistency */
+    height: 2.4rem;
+    margin-bottom: 1.5rem;
+    fill: var(--primary-color); /* Will inherit to SVG via currentColor */
+    transition: all var(--transition-fast);
+
+}
+
+.featureCard:hover .featureIcon{
+    fill: var(--primary-hover);
+}
+.featureTitle {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.featureText {
+    color: var(--text-light);
+    line-height: 1.6;
+}

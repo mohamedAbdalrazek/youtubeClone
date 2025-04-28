@@ -8,26 +8,33 @@
     padding-right: 16px;
     padding-left: 16px;
 }
-
-.resultItem {
+.resultItemContainer{
     padding: 10px;
     display: flex;
-    gap: 16px;
+    justify-content: space-between;
+    gap: 20px;
     align-items: flex-start;
-    background-color: #181818; /* Dark mode background */
     border-radius: 8px;
     transition: transform 0.2s, background-color 0.2s;
     cursor: pointer;
     min-height: fit-content;
+    background-color: var(--box-color);
+}
+.resultItemContainer:hover {
+    transform: scale(1.01);
+    background-color: #202020;
+}
+.resultItem {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+
 }
 
 .resultsLink {
     text-decoration: none;
 }
-.resultItem:hover {
-    transform: scale(1.01);
-    background-color: #202020;
-}
+
 
 .thumbnail {
     flex-shrink: 0;
@@ -70,6 +77,22 @@
 .channelTitle {
     font-size: 0.9rem;
     color: #909090; /* Subdued gray for channel name */
+}
+.addPlaylist{
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    
+
+}
+.addPlaylist rect,
+.addPlaylist polygon{
+    fill: var(--text-color);
+}
+.addPlaylist:hover rect,
+.addPlaylist:hover polygon{
+    fill: #cfcdcd;
 }
 @media (max-width: 600px) {
     .image {

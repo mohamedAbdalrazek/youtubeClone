@@ -1,0 +1,29 @@
+.videoWrapper{
+    width: 60%;
+}
+.video{
+    width: 100% !important;
+    aspect-ratio: 16/9;
+    margin-bottom: 10px;
+}
+.videoTitle {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #ffffff; /* Bright white for the title */
+}
+.info{
+    display: flex;
+    gap: 10px;
+}
+.channelTitle {
+    font-weight: 500;
+    color: #aaaaaa; /* Subdued gray for the channel name */
+}
+
+.date {
+    display: flex;
+    gap: 16px;
+    font-size: 0.9rem;
+    color: #aaaaaa; /* Light gray for meta information */
+}

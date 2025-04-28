@@ -1,9 +1,9 @@
-import VideosList from "@/components/VideosList";
+import HomePage from "@/components/refactor/HomePage";
 
 export default function Home() {
     return (
         <div>
-            <VideosList />
+            <HomePage />
         </div>
     );
 }

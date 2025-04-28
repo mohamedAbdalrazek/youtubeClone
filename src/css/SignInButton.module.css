@@ -1,0 +1,54 @@
+.profileWrapper {
+    position: relative;
+}
+.profilePicture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.dropDown {
+    position: absolute;
+    background-color: var(--box-color);
+    width: 90px;
+    padding: 15px 10px;
+    right: 0;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.dropDownItem {
+    cursor: pointer;
+    background-color: transparent;
+    text-decoration: none;
+    color: var(--text-color);
+    border: none;
+    outline: none;
+    width: fit-content;
+    font-size: 16px;
+}
+.dropDownItem:hover {
+    text-decoration: underline;
+}
+.dropDownItem[disabled]:hover {
+    text-decoration: none;
+}
+.signInButton {
+    background-color: var(--box-color);
+    color: #ffffff;
+    padding: 12px 24px;
+    border: 1px solid var(--border-color);
+
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+.signInButton:hover {
+    border-radius: 0;
+}
+.signInButton[disabled]:hover {
+    border-radius: 8px;
+}

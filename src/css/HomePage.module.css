@@ -1,0 +1,35 @@
+/* Features Section */
+
+/* Footer */
+.footer {
+    background-color: var(--neutral-900);
+    color: var(--neutral-100);
+    padding: 3rem 0;
+    text-align: center;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .hero {
+        padding: 3rem 1rem;
+        min-height: auto;
+    }
+
+    .heroTitle {
+        font-size: 2rem;
+    }
+
+    .heroSubtitle {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+
+    .inputSection {
+        padding: 0 1rem;
+    }
+
+    .featureGrid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}

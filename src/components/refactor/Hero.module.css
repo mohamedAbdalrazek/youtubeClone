@@ -1,0 +1,41 @@
+.hero {
+    text-align: center;
+    padding: 5rem 0;
+    background: linear-gradient(
+        135deg,
+        var(--neutral-50) 0%,
+        var(--neutral-200) 100%
+    );
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.heroTitle {
+    font-size: 2.5rem;
+    margin-bottom: 1.25rem;
+    color: var(--primary-color);
+    line-height: 1.2;
+}
+
+.heroSubtitle {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    color: var(--text-color);
+    opacity: 0.9;
+}
+.inputSection {
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.inputLabel {
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+    color: var(--text-color);
+    font-weight: 500;
+}

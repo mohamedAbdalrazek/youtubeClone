@@ -6,7 +6,7 @@ import React, {
     useCallback,
     useState,
 } from "react";
-import styles from "@/css/Search.module.css";
+import styles from ".//Search.module.css";
 import { useRouter, useSearchParams } from "next/navigation";
 
 function Search() {
@@ -35,26 +35,24 @@ function Search() {
     };
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        router.push("/" + "?" + createQueryString("search", query));
+        router.push("/search/" + "?" + createQueryString("search", query));
     };
     return (
-        <form className={styles.urlSearch} onSubmit={handleSubmit}>
-            <label className={styles.inputWrapper}>
-                <input
-                    onChange={handleChange}
-                    placeholder="e.g., الفقرة الصباحية الجميلة"
-                    type="text"
-                    className={`${styles.input}`}
-                />
-                <button
-                    className={`${styles.inputButton} ${
-                        (empty === null || empty) && styles.notValidLink
-                    }`}
-                    disabled={empty === null ? true : empty}
-                >
-                    Search
-                </button>
-            </label>
+        <form className={styles.urlInput} onSubmit={handleSubmit}>
+            <input
+                onChange={handleChange}
+                placeholder="Search for videos..."
+                type="text"
+                className={`${styles.inputField}`}
+            />
+            <button
+                className={`${styles.submitButton} ${
+                    (empty === null || empty) && styles.notValidLink
+                }`}
+                disabled={empty === null ? true : empty}
+            >
+                Search
+            </button>
         </form>
     );
 }

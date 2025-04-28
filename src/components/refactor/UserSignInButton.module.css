@@ -1,0 +1,140 @@
+/* Base Styles */
+.profileWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.profileButton {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: transform var(--transition-fast);
+}
+
+.profileButton:hover {
+    transform: scale(1.05);
+}
+
+.profilePicture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: var(--shadow-md);
+    transition: border-color var(--transition-fast);
+}
+
+.profileButton:hover .profilePicture {
+    border-color: var(--primary-hover);
+}
+
+/* Dropdown Styles */
+.dropDown {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    background-color: var(--dropdown-bg);
+    min-width: 180px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-md);
+    padding: 0.75rem 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    animation: fadeIn var(--transition-fast) ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.userInfo {
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 0.5rem;
+}
+
+.userName {
+    font-weight: 600;
+    color: var(--text-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dropDownItem {
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    transition: background-color var(--transition-fast);
+    text-align: left;
+}
+
+.dropDownItem:hover {
+    background-color: var(--dropdown-hover);
+    color: var(--primary-color);
+}
+
+.logoutButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-color);
+    color: var(--error-color);
+}
+
+.logoutButton:hover {
+    color: var(--error-hover);
+}
+
+/* Sign In Button Styles */
+.signInButton {
+    background-color: var(--primary-color);
+    color: var(--text-on-primary);
+    padding: 0.6rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+}
+
+.signInButton:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.loadingDots {
+    display: inline-block;
+    width: 1em;
+    text-align: left;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0%,
+    100% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 1;
+    }
+}

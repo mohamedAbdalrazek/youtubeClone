@@ -1,0 +1,40 @@
+.signInPage{
+    height: calc(100vh - 69px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.signInContainer{
+    background-color: var(--box-color);
+    width: 50%;
+    height: 50vh;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.googleButton {
+    display: flex;
+    gap: 20px;
+    padding: 12px 50px;
+    font-size: 16px;
+    font-weight: 500;
+    align-items: center;
+    background-color: white;
+    color: #242424;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    border: 1px solid #dcdce5;
+}
+.googleButton:hover {
+    border-color: #3f77f3;
+}
+.googleIcon {
+    width: 35px;
+    height: 35px;
+}
+.googleButton p {
+    text-align: center;
+    width: 100%;
+}

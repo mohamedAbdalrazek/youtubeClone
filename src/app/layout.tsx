@@ -1,8 +1,11 @@
-import QuerySearch from "@/components/QuerySearch";
-import UrlSearch from "@/components/UrlSearch";
+
 import "@/css/global.css";
 import { Analytics } from "@vercel/analytics/next";
 import { Roboto } from "next/font/google";
+import { AuthProvider } from "../context/AuthContext";
+import { Toaster } from "react-hot-toast";
+import Nav from "@/components/refactor/Nav";
+import Footer from "@/components/refactor/Footer";
 const roboto = Roboto({
     weight: ["900", "700", "500", "400", "300"],
     subsets: ["latin"],
@@ -12,9 +15,9 @@ export const metadata = {
     title: "Streamura",
     description: "Youtube videos without ads",
     icons: {
-        icon: "/logo.png", // Path to your favicon file
-        shortcut: "/logo.png",
-        apple: "/logo.png", // Optional for Apple devices
+        icon: "/icon.png", // Path to your favicon file
+        shortcut: "/icon.png",
+        apple: "/icon.png", // Optional for Apple devices
     },
 };
 
@@ -26,28 +29,28 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={`${roboto.className}`}>
-                <div
-                    style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        gap: "10px",
-                        borderBottom: " 1px solid var(--border-color)",
-                        alignItems:"center",
-                        padding:"0 20px"
-                    }}
-                >   
-                    
-                    <QuerySearch />
-                    <UrlSearch />
-                    <div style={{
-                        width:"20% "
-                    }} >
-                        Login
-                    </div>
-                </div>
+                <AuthProvider>
+                    {/* <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "space-around",
+                            gap: "10px",
+                            borderBottom: " 1px solid var(--border-color)",
+                            alignItems: "center",
+                            padding: "0 20px",
+                        }}
+                    >
+                        <QuerySearch />
+                        <UrlSearch />
+                        <SignInButton />
+                    </div> */}
+                    <Nav />
+                    {children}
+                    <Footer />
+                    <Toaster position="top-center" reverseOrder={false} />
 
-                {children}
-                <Analytics />
+                    <Analytics />
+                </AuthProvider>
             </body>
         </html>
     );

@@ -1,0 +1,41 @@
+.urlInput,
+.searchInput {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+}
+
+.inputField {
+    flex: 1;
+    padding: 0.9rem 1rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px 0 0 8px;
+    font-size: 1rem;
+    transition: all var(--transition-fast);
+}
+
+.inputField:focus {
+    outline: none;
+    border-color: var(--primary-hover);
+    box-shadow: 0 0 0 3px var(--primary-100);
+}
+
+.submitButton {
+    padding: 0.9rem 1.75rem;
+    background-color: var(--primary-color);
+    color: var(--text-on-primary);
+    border: none;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all var(--transition-fast);
+}
+
+.submitButton:hover {
+    background-color: var(--primary-hover);
+}
+.submitButton[disabled]{
+    background-color: var(--primary-color);
+
+}

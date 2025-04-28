@@ -14,7 +14,7 @@ export async function generateMetadata({
     const { videoId } = await params;
     const param = await searchParams;
     const title =
-        typeof param.title === "string" ? param.title : "Clean Youtube";
+        typeof param.title === "string" ? param.title : "Streamura";
 
     return {
         title: title,

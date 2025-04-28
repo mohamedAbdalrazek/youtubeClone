@@ -1,0 +1,133 @@
+/* FAQ.module.css */
+
+.howItWorks {
+    padding: 5rem 0;
+    background: linear-gradient(
+        135deg,
+        var(--neutral-50) 0%,
+        var(--neutral-200) 100%
+    );
+    position: relative;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.howItWorks h2 {
+    text-align: center;
+    font-size: 2.25rem;
+    color: var(--primary-color);
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.howItWorks h2::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: var(--primary-color);
+    margin: 1rem auto 0;
+    border-radius: 2px;
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    margin-top: 3rem;
+}
+
+.step {
+    background: var(--background-color);
+    padding: 2.5rem 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    text-align: center;
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.step:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 25px rgba(67, 97, 238, 0.15);
+}
+
+.step::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--primary-color);
+}
+
+.stepNumber {
+    width: 60px;
+    height: 60px;
+    background: var(--primary-100);
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    border: 3px solid var(--primary-200);
+}
+
+.step h3 {
+    font-size: 1.25rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.step p {
+    color: var(--text-light);
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+/* Decorative elements */
+.howItWorks::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(var(--primary-50) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.3;
+    z-index: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .howItWorks {
+        padding: 3rem 0;
+    }
+
+    .steps {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .step {
+        padding: 2rem 1.5rem;
+    }
+
+    .howItWorks h2 {
+        font-size: 1.75rem;
+        margin-bottom: 2rem;
+    }
+}

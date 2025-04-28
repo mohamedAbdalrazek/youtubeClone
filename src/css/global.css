@@ -1,18 +1,154 @@
 :root {
-    --background-color: #0f0f0f;
+    /* --background-color: #0f0f0f;
     --box-color: #222222;
-    --text-color: #fff;
-    --border-color:#303030;
-    --input-background-color:#121212
+    /* --text-color: #fff; */
+    /* --border-color: #303030; */
+    /* --input-background-color: #121212; */
+    /* --primary: #4361ee; */
+    /* --secondary: #3f37c9; */
+    /* --light: #f8f9fa; */
+    /* --dark: #212529; */ 
+}
+:root {
+    /* Primary Colors */
+    --primary-50: #f0f4ff;
+    --primary-100: #dbe8fe;
+    --primary-200: #bfd7fe;
+    --primary-300: #93bbfd;
+    --primary-400: #6094fa;
+    --primary-500: #4361ee; /* Base primary color */
+    --primary-600: #3f37c9; /* Primary hover/dark */
+    --primary-700: #352d9e;
+    --primary-800: #2d267d;
+    --primary-900: #292464;
+    --primary-950: #18153b;
+
+    /* Neutral/Gray Colors */
+    --neutral-50: #f8f9fa;
+    --neutral-100: #f1f3f5;
+    --neutral-200: #e9ecef;
+    --neutral-300: #dee2e6;
+    --neutral-400: #ced4da;
+    --neutral-500: #adb5bd;
+    --neutral-600: #868e96;
+    --neutral-700: #495057;
+    --neutral-800: #343a40;
+    --neutral-900: #212529;
+    --neutral-950: #16191c;
+
+    /* Success Colors */
+    --success-50: #f0fdf4;
+    --success-100: #dcfce7;
+    --success-200: #bbf7d0;
+    --success-300: #86efac;
+    --success-400: #4ade80;
+    --success-500: #22c55e;
+    --success-600: #16a34a;
+    --success-700: #15803d;
+    --success-800: #166534;
+    --success-900: #14532d;
+    --success-950: #052e16;
+
+    /* Warning Colors */
+    --warning-50: #fefce8;
+    --warning-100: #fef9c3;
+    --warning-200: #fef08a;
+    --warning-300: #fde047;
+    --warning-400: #facc15;
+    --warning-500: #eab308;
+    --warning-600: #ca8a04;
+    --warning-700: #a16207;
+    --warning-800: #854d0e;
+    --warning-900: #713f12;
+    --warning-950: #422006;
+
+    /* Error/Danger Colors */
+    --error-50: #fef2f2;
+    --error-100: #fee2e2;
+    --error-200: #fecaca;
+    --error-300: #fca5a5;
+    --error-400: #f87171;
+    --error-500: #ef4444;
+    --error-600: #dc2626;
+    --error-700: #b91c1c;
+    --error-800: #991b1b;
+    --error-900: #7f1d1d;
+    --error-950: #450a0a;
+
+    /* Semantic Aliases (for easier usage) */
+    --primary-color: var(--primary-500);
+    --primary-hover: var(--primary-600);
+    --primary-active: var(--primary-700);
+
+    --text-color: var(--neutral-900);
+    --text-light: var(--neutral-600);
+    --text-semi-light:var(--neutral-700);
+    --text-on-primary: white;
+
+    --background-color: white;
+    --surface-color: var(--neutral-50);
+
+    --border-color: var(--neutral-200);
+    --border-dark: var(--neutral-300);
+
+    --success-color: var(--success-500);
+    --warning-color: var(--warning-500);
+    --error-color: var(--error-500);
+
+    --navbar-bg: rgba(255, 255, 255, 0.95);
+    --dropdown-bg: white;
+    --dropdown-hover: var(--neutral-50);
+
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -2px rgba(0, 0, 0, 0.1);
+
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
 }
 
+/* Dark mode colors */
+/* @media (prefers-color-scheme: dark) {
+    :root {
+        --text-color: var(--neutral-100);
+        --text-light: var(--neutral-400);
+        --text-on-primary: var(--neutral-50);
+
+        --background-color: var(--neutral-900);
+        --surface-color: var(--neutral-800);
+
+        --border-color: var(--neutral-700);
+        --border-dark: var(--neutral-600);
+
+        --navbar-bg: rgba(33, 37, 41, 0.95);
+        --dropdown-bg: var(--neutral-800);
+        --dropdown-hover: var(--neutral-700);
+
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+        --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25),
+            0 1px 2px -1px rgba(0, 0, 0, 0.25);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.25),
+            0 2px 4px -2px rgba(0, 0, 0, 0.25);
+    }
+} */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-body{
+body {
     background-color: var(--background-color);
     color: var(--text-color);
-    font-family: 'Roboto', Arial, sans-serif !important;
+    font-family: "Roboto", Arial, sans-serif !important;
+}
+button:disabled {
+    opacity: 0.5 !important;
+    cursor: auto !important;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
