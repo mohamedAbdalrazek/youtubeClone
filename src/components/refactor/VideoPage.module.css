@@ -1,0 +1,141 @@
+/* VideoPage.module.css */
+
+.videoPage {
+    padding-bottom: 1.5rem;
+}
+
+.videoFrame {
+    width: 100%;
+    height: 33vw;
+    border: none;
+}
+
+.videoInfo {
+    background: var(--background-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.titleRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    gap: 20px;
+}
+.videoTitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+    line-height: 1.3;
+}
+.addButton {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    cursor: pointer;    
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 700;
+    gap: 5px;
+}
+.addIcon {
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    
+}
+.addIcon rect,
+.addIcon polygon {
+    fill: var(--text-color);
+}
+
+.addButton:hover .addIcon rect,
+.addButton:hover .addIcon polygon,
+.addButton:hover {
+    fill: var(--primary-hover);
+    color: var(--primary-hover);
+}
+
+.channelInfo {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.channelName {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.subscribeButton {
+    background-color: var(--primary-color);
+    color: var(--text-on-primary);
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.subscribeButton:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.videoStats {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+.videoDescription {
+    background: var(--surface-color);
+    padding: 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.videoDescription pre {
+    margin: 0;
+    font-family: inherit;
+    white-space: pre-wrap;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .videoContainer {
+        padding: 1rem;
+    }
+
+    .videoTitle {
+        font-size: 1.5rem;
+    }
+
+    .channelInfo {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .videoStats {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}

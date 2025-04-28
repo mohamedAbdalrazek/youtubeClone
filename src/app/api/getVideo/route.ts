@@ -18,7 +18,13 @@ export async function GET(request: NextRequest) {
                 description: string, channelTitle: string,
                 title: string,
                 publishedAt: string,
-
+                thumbnails: {
+                    high: {
+                        url: string,
+                        width: number;
+                        height: number
+                    }
+                }
             }, statistics: { viewCount: number }
         }) => ({
             id: item.id,
@@ -26,7 +32,10 @@ export async function GET(request: NextRequest) {
             channelTitle: item.snippet.channelTitle,
             title: item.snippet.title,
             date: item.snippet.publishedAt,
-            viewCount: item.statistics.viewCount
+            viewCount: item.statistics.viewCount,
+            url:item.snippet.thumbnails.high.url,
+            height:item.snippet.thumbnails.high.height,
+            width:item.snippet.thumbnails.high.width
         }))
         return Response.json({ ok: true, data: cleanedData })
     } catch (error) {

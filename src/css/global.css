@@ -1,4 +1,4 @@
-:root {
+/* :root { */
     /* --background-color: #0f0f0f;
     --box-color: #222222;
     /* --text-color: #fff; */
@@ -7,8 +7,8 @@
     /* --primary: #4361ee; */
     /* --secondary: #3f37c9; */
     /* --light: #f8f9fa; */
-    /* --dark: #212529; */ 
-}
+    /* --dark: #212529; */
+/* } */
 :root {
     /* Primary Colors */
     --primary-50: #f0f4ff;
@@ -82,7 +82,7 @@
 
     --text-color: var(--neutral-900);
     --text-light: var(--neutral-600);
-    --text-semi-light:var(--neutral-700);
+    --text-semi-light: var(--neutral-700);
     --text-on-primary: white;
 
     --background-color: white;
@@ -98,7 +98,8 @@
     --navbar-bg: rgba(255, 255, 255, 0.95);
     --dropdown-bg: white;
     --dropdown-hover: var(--neutral-50);
-
+    --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.15),
+        0 8px 10px -6px rgba(0, 0, 0, 0.1);
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
