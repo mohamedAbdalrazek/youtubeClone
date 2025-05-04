@@ -12,7 +12,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 2rem;
+    /* gap: 2rem; */
 }
 
 .logo {
@@ -28,7 +28,7 @@
 .navRight {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 20px;
 }
 
 .navLinks a {
@@ -58,13 +58,24 @@
 .navLinks a:hover::after {
     width: 100%;
 }
+/* Add these to your existing nav styles */
+.searchContainer {
+    display: flex;
+    width: fit-content;
+    justify-content: center;
+    gap: 5px;
+}
+
+@media (max-width: 1024px) {
+    
+    
+}
 
 @media (max-width: 768px) {
     .nav {
         flex-direction: column;
         gap: 1rem;
     }
-
     .navLinks {
         display: flex;
         gap: 1rem;

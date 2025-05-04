@@ -1,18 +1,19 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import YouTubePlaylist from "./PlaylistPlayer";
-import { useParams } from "next/navigation";
+import YouTubePlaylist from "@/components/playlist/PlaylistPlayer";
+import { useParams, useSearchParams } from "next/navigation";
 import { parseCookies } from "nookies";
-import { PlaylistDocument } from "@/utils/types";
-import PlaylistVideosList from "@/components/PlaylistVideosList";
-import PlaylistVideoMobility from "@/components/PlaylistVideoMobility";
+import PlaylistVideosList from "@/components/playlist/PlaylistVideosList";
+import PlaylistVideoMobility from "@/components/playlist/PlaylistVideoMobility";
+import { PlaylistMap } from "@/utils/types";
 
 export default function Page() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [loading, setLoading] = useState(true);
     const params = useParams();
     const playlistId = params.id;
-    const [playlist, setPlaylist] = useState<PlaylistDocument>();
+    const isYoutube = useSearchParams().get("youtube")
+    const [playlist, setPlaylist] = useState<PlaylistMap>();
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     useEffect(() => {
@@ -22,7 +23,7 @@ export default function Page() {
                 const cookies = parseCookies();
                 const authToken = cookies.token;
                 const res = await fetch(
-                    `/api/getOnePlaylist?playlistId=${playlistId}`,
+                    `/api/getOnePlaylist?playlistId=${playlistId}&youtube=${isYoutube}`,
                     {
                         headers: {
                             Authorization: `Bearer ${authToken}`,
@@ -46,7 +47,7 @@ export default function Page() {
             }
         };
         fetchUserData();
-    }, [playlistId]);
+    }, [playlistId, isYoutube]);
     if (!playlistId) {
         return <div>Invalid playlist link.</div>;
     }

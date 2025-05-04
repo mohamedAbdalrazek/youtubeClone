@@ -1,6 +1,6 @@
 import { authAdmin, firestoreAdmin } from "@/utils/firebaseAdmin";
 import { badRequest, forbidden, internalServerError, unauthorized } from "@/utils/responses";
-import { Playlist, PlaylistDocument } from "@/utils/types";
+import { NewPlaylistMap, UserPlaylistMap } from "@/utils/types";
 import { FieldValue } from "firebase-admin/firestore";
 import { NextRequest } from "next/server";
 
@@ -12,8 +12,8 @@ export async function POST(request: NextRequest) {
         console.error("Failed to parse JSON:", error);
         return badRequest("Invalid JSON format")
     }
-    const newPlaylist: Playlist = data.newPlaylist
-    const requiredFields = [data.uid, data.userName, newPlaylist?.visibility, newPlaylist?.title];
+    const newPlaylist: UserPlaylistMap = data.newPlaylist
+    const requiredFields = [data.uid, data.userName, newPlaylist.visibility, newPlaylist.title];
     if (requiredFields.some(field => !field)) {
         console.error("Missing required data");
 
@@ -36,14 +36,13 @@ export async function POST(request: NextRequest) {
             playlists: FieldValue.arrayUnion(newPlaylist)
         })
 
-        const playlistDoc: PlaylistDocument = {
+        const playlistDoc: NewPlaylistMap = {
             title: newPlaylist.title,
             userName: data.userName,
             createdAt: new Date().toISOString(),
             userId: data.uid,
             videos: [],
             isPublic: newPlaylist.visibility === "public"
-
         }
         await firestoreAdmin.collection("playlists").doc(newPlaylist.playlistId).set(playlistDoc)
 

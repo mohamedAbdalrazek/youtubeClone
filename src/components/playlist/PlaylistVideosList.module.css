@@ -1,9 +1,9 @@
-.activeVideo{
-    background-color: var(--box-color);
-}
+
 .listWrapper{
     border-radius: 10px;
     border: 1px solid var(--border-color);
+    background-color: var(--surface-color);
+    box-shadow: var(--shadow-md);
     height: fit-content;
     width: 40%;
     overflow: hidden;
@@ -19,7 +19,7 @@
     display: flex;
     flex-direction: column;
     padding: 10px 0;
-    height: 55vh;
+    height: 70vh;
     overflow-y: auto;
     /* gap: 10px; */
 }
@@ -30,7 +30,11 @@
     padding: 10px 5px;
 }
 .videoWrapper:hover{
-    background-color: var(--box-color);
+    background-color: var(--neutral-200);
+
+}
+.activeVideo{
+    background-color: var(--neutral-300);
 }
 .imageWrapper{
     width: 30%;
@@ -54,6 +58,6 @@
     font-size: 17px;
 }
 .channelTitle{
-    color: #bbbaba;
+    color: var(--neutral-700);
     font-size: 14px;
 }

@@ -1,23 +1,51 @@
-export interface Playlist {
-    playlistId: string;
-    title: string;
-    visibility: "private" | "public";
-}
-export interface Video {
-    videoId: string;
+
+export interface SearchResultMap {
+    type: "playlist" | "video",
+    playlistId?: string,
+    videoId?: string;
     title: string;
     date: string;
-    url: string;
-    height: number;
-    width: number;
+    thumbnail: string;
     channelTitle: string;
 };
-export interface PlaylistDocument {
-    id?: string; // Firestore document ID
-    userId: string; // Firebase Auth ID of the owner
+export interface PlaylistVideoMap {
+    videoId: string;
+    thumbnail: string,
+    channelTitle: string,
+    title: string,
+    date: string,
+}
+export interface WatchVideoMap {
+    videoId: string,
+    description: string,
+    channelTitle: string,
+    title: string,
+    date: string,
+    viewCount: number,
+    thumbnail: string,
+}
+export interface UserPlaylistMap {
+    playlistId: string;
+    title: string
+    visibility: "private" | "public"
+    thumbnail:string;
+    count:number
+}
+export interface NewPlaylistMap {
+    userId: string; 
     userName: string;
     title: string;
-    videos: Array<Video>;
+    videos: Array<PlaylistVideoMap>;
+    createdAt: string;
+    isPublic: boolean;
+}
+export interface PlaylistMap{
+    playlistId: string; 
+    userName: string;
+    title: string;
+    videos: Array<PlaylistVideoMap>;
+    isOwner:boolean;
+    isFav:boolean;
     createdAt: string;
     isPublic: boolean;
 }

@@ -1,0 +1,208 @@
+.videoLink{
+    text-decoration: none;
+}
+.videoCard {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform var(--transition-fast);
+    padding-bottom: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.thumbnailWrapper {
+    position: relative;
+    aspect-ratio: 16/9;
+    margin-bottom: 0.75rem;
+}
+
+.thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+}
+
+.videoCard:hover .thumbnail {
+    transform: scale(1.05);
+}
+
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 30px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.5rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+
+.videoInfo {
+    padding: 0 0.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+.channel {
+    margin-bottom: 10px;
+    font-size: .9rem;
+    color: var(--text-light);
+    font-weight: 700;
+}
+.date {
+    font-size: 0.8rem;
+    color: var(--text-light); /* Subdued gray for date */
+}
+
+.addButton{
+    outline: none;
+    border: none;
+    padding: 0;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--background-color);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.addIcon {
+    width: 25px;
+    height: 25px;
+    min-width: 20px;
+    min-height: 20px;
+    cursor: pointer;
+    background-color: transparent;
+}
+.addIcon rect,
+.addIcon polygon{
+    fill: var(--text-color);
+}
+.addIcon:hover rect,
+.addIcon:hover polygon{
+    fill: var(--primary-hover);
+}
+
+.playlistCard {
+    position: relative;
+    overflow: visible;
+    background-color: var(--primary-50);
+    border: none;
+}
+
+.playlistCard .thumbnailWrapper {
+    position: relative;
+
+    overflow: visible; /* Changed from hidden to visible */
+}
+.hoverWrapper{
+    width: 100%;
+    height: 100%;
+    border-radius: 12px 12px 0 0 ;
+    overflow: hidden;
+
+}
+
+.playlistCard .thumbnail{
+    border-radius: 12px 12px 0 0;
+
+}
+.playlistCard .thumbnailWrapper::before,
+.playlistCard .thumbnailWrapper::after {
+    content: '';
+    position: absolute;
+    border-radius: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* First shape behind thumbnail */
+.playlistCard .thumbnailWrapper::before {
+    width: 98%;
+    height: 98%;
+    top: -5px;
+    z-index: -1;
+    background-color: var(--neutral-500);
+}
+
+/* Second shape behind thumbnail */
+.playlistCard .thumbnailWrapper::after {
+    width: 95%;
+    height: 95%;
+    top: -10px;
+    z-index: -2;
+    background-color: var(--neutral-700);
+
+}
+
+/* .playlistOverlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, transparent 30%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1rem;
+} */
+
+.playlistBadge {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: var(--text-on-primary);
+    padding: 0.5rem 0.75rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    align-self: flex-start;
+    backdrop-filter: blur(2px);
+}
+
+.playlistIcon {
+    width: 18px;
+    height: 18px;
+}
+.playlistIcon path{
+    fill: var(--text-on-primary);
+    stroke: var(--text-on-primary);
+}
+.videoCount {
+    margin-top: 0.5rem;
+    color: var(--text-on-primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+/* Remove the default overlay for playlists */
+.playlistCard .overlay {
+    display: none;
+}

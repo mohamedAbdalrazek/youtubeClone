@@ -1,7 +1,7 @@
-import { PlaylistDocument } from "@/utils/types";
 import Image from "next/image";
 import React from "react";
-import styles from "@/css/PlaylistVideosList.module.css";
+import styles from "./PlaylistVideosList.module.css";
+import { PlaylistMap } from "@/utils/types";
 export default function PlaylistVideosList({
     currentIndex,
     setCurrentIndex,
@@ -9,7 +9,7 @@ export default function PlaylistVideosList({
 }: {
     currentIndex: number;
     setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
-    playlist: PlaylistDocument;
+    playlist: PlaylistMap;
 }) {
     return (
         <div className={styles.listWrapper}>
@@ -30,10 +30,10 @@ export default function PlaylistVideosList({
                             <div className={styles.imageWrapper}>
 
                                 <Image
-                                    src={video.url}
+                                    src={video.thumbnail}
                                     alt={video.title}
-                                    width={video.width}
-                                    height={video.height}
+                                    width={480}
+                                    height={360}
                                     className={styles.thumbnail}
                                 />
                             </div>

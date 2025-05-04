@@ -1,9 +1,8 @@
-"use server"
-import PlaylistCard from "@/components/PlaylistCard";
+"use server";
 import { authAdmin } from "@/utils/firebaseAdmin";
-import { PlaylistDocument } from "@/utils/types";
 import { cookies } from "next/headers";
 import React from "react";
+import Playlists from "./Playlists";
 
 const getPlaylists = async () => {
     const cookieStore = cookies();
@@ -21,15 +20,12 @@ const getPlaylists = async () => {
     }
 
     try {
-        const res = await fetch(
-            `${process.env.ROOT}/api/getFullPlaylists`,
-            {
-                headers: {
-                    Authorization: `Bearer ${authToken}`,
-                },
-                cache: "no-store", // optional: prevents caching in SSR
-            }
-        );
+        const res = await fetch(`${process.env.ROOT}/api/getFullPlaylists`, {
+            headers: {
+                Authorization: `Bearer ${authToken}`,
+            },
+            cache: "no-store", // optional: prevents caching in SSR
+        });
 
         return res.json(); // don't forget to extract the actual JSON
     } catch (err) {
@@ -57,17 +53,5 @@ export default async function Page() {
         );
     }
 
-    return (
-        <div style={{
-            padding:"20px",
-            display:"flex",
-            gap:"13px",
-            flexWrap:"wrap",
-            justifyContent:"center"
-        }}>
-            {playlists.map((playlist:PlaylistDocument) => (
-                <PlaylistCard key={playlist.id} playlist={playlist} />
-            ))}
-        </div>
-    );
+    return <Playlists playlists={playlists} />;
 }

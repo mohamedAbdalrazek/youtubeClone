@@ -1,0 +1,75 @@
+/* Compact form styles for navbar */
+.navUrlForm,
+.navQueryForm {
+    display: flex;
+    width: fit-content;
+    overflow: hidden;
+    padding: 0;
+}
+
+.navInput {
+    padding: 0;
+    border: none;
+    width: 0;
+    font-size: 0.9rem;
+    background: var(--surface-color);
+    transform: scaleX(0);
+    transform-origin: right;
+    pointer-events: none;
+    transition: all var(--transition-normal);
+    border: 0px solid var(--border-color);
+
+}
+.opened .navInput {
+    width: 250px;
+    padding: 0.5rem 1rem;
+    border-width: 1px;
+    transform: scaleX(1);
+    pointer-events: auto;
+}
+
+.navInput:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-100);
+}
+
+.navUrlButton,
+.navQueryButton {
+    position: relative;
+    z-index: 2;
+    font-size: 16px;
+    border: none;
+    /* border-radius: 10px; */
+    padding: .7rem 1.2rem;
+    font-weight: 700;
+    background: var(--primary-dark-color);
+    /* background-color: transparent; */
+    color: white;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+}
+/* .opened button{
+    border-radius: 0 10px 10px 0;
+
+} */
+.navUrlButton:disabled,
+.navQueryButton:disabled {
+    opacity: 1;
+}
+
+.navUrlButton:hover:not(:disabled),
+.navQueryButton:hover:not(:disabled) {
+    background: var(--primary-600);
+}
+
+/* .closed .navInput {
+    pointer-events: none;
+} */
+
+/* Optional: make the form shrink visually when closed */
+/* .closed {
+    max-width: fit-content;
+} */
+
+/* Mobile responsiveness */

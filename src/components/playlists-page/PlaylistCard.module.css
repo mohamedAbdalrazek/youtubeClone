@@ -1,0 +1,140 @@
+.card {
+    display: flex;
+    width: calc((100% / 4) - 10px);
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--text-color);
+    background: var(--background-color);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-fast);
+}
+
+.imageWrapper {
+    width: 100%;
+    height: 12.7vw;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--neutral-100);
+}
+
+.image {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    object-fit: cover;
+    transition: transform var(--transition-normal);
+}
+
+.videosNumber {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 2px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--text-on-primary);
+}
+
+.playlistIcon {
+    width: 22px;
+    height: 22px;
+}
+
+.playlistIcon path {
+    fill: var(--text-on-primary);
+    stroke: var(--text-on-primary);
+}
+
+.playOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-on-primary);
+    font-size: 18px;
+    display: none;
+}
+
+.playIcon {
+    width: 25px;
+    height: 25px;
+    fill: var(--text-on-primary);
+}
+
+.card:hover .playOverlay {
+    display: flex;
+}
+
+.iconWrapper {
+    position: absolute;
+    fill: var(--text-on-primary);
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    bottom: 10px;
+    left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon {
+    width: 15px;
+    height: 15px;
+}
+
+.title {
+    font-weight: 400;
+    padding: 0 10px 10px;
+    color: var(--text-color);
+}
+
+
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .card {
+        width: calc((100% / 3) - 10px);
+    }
+
+    .imageWrapper {
+        height: 18vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: calc((100% / 2) - 10px);
+    }
+
+    .imageWrapper {
+        height: 25vw;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        width: 100%;
+    }
+
+    .imageWrapper {
+        height: 50vw;
+    }
+}

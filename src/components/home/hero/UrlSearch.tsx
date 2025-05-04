@@ -2,17 +2,8 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import styles from "./Search.module.css";
 import { useRouter } from "next/navigation";
+import { extractVideoId, isValidYouTubeUrl } from "@/lib/searchFunctions";
 export default function UrlSearch() {
-    function isValidYouTubeUrl(url: string) {
-        const regex =
-            /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/(watch\?v=|embed\/|v\/)?[A-Za-z0-9_-]{11}(&.*)?$/;
-        return regex.test(url);
-    }
-    function extractVideoId(url: string) {
-        const regex = /(?:v=|\/)([0-9A-Za-z_-]{11})/;
-        const match = url.match(regex);
-        return match ? match[1] : "";
-    }
     const router = useRouter();
 
     const [valid, setValid] = useState<null | boolean>(null);
@@ -20,10 +11,10 @@ export default function UrlSearch() {
     const handleChangeUrl = (e: ChangeEvent<HTMLInputElement>) => {
         if (isValidYouTubeUrl(e.target.value)) {
             setValid(true);
+            setUrl(extractVideoId(e.target.value));
         } else {
             setValid(false);
         }
-        setUrl(extractVideoId(e.target.value));
     };
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();

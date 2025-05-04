@@ -77,6 +77,7 @@
 
     /* Semantic Aliases (for easier usage) */
     --primary-color: var(--primary-500);
+    --primary-dark-color :#002147;
     --primary-hover: var(--primary-600);
     --primary-active: var(--primary-700);
 
@@ -145,8 +146,8 @@ body {
     font-family: "Roboto", Arial, sans-serif !important;
 }
 button:disabled {
-    opacity: 0.5 !important;
-    cursor: auto !important;
+    opacity: 0.5 ;
+    cursor: auto;
 }
 .container {
     max-width: 1200px;

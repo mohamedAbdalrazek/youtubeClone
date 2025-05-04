@@ -3,6 +3,7 @@ import DOMPurify from "dompurify";
 import { parseCookies } from "nookies";
 import styles from "@/css/NewPlaylistForm.module.css";
 import toast from "react-hot-toast";
+import { UserPlaylistMap } from "@/utils/types";
 export default function NewPlaylistForm({
     uid,
     setShowAdd,
@@ -10,10 +11,12 @@ export default function NewPlaylistForm({
     uid?: string;
     setShowAdd: Dispatch<SetStateAction<boolean>>;
 }) {
-    const [newPlaylist, setNewPlaylist] = useState({
+    const [newPlaylist, setNewPlaylist] = useState<UserPlaylistMap>({
         title: "",
         visibility: "public",
         playlistId: crypto.randomUUID(),
+        thumbnail:"",
+        count:0
     });
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);

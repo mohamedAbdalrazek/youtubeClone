@@ -1,6 +1,6 @@
 import React from "react";
 export const dynamic = "force-dynamic";
-import VideoPage from "@/components/refactor/VideoPage";
+import VideoPage from "./VideoPage";
 import { Metadata } from "next";
 
 type Props = {

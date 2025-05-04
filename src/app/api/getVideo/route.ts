@@ -1,3 +1,4 @@
+import { WatchVideoMap } from "@/utils/types";
 import { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -27,16 +28,14 @@ export async function GET(request: NextRequest) {
                 }
             }, statistics: { viewCount: number }
         }) => ({
-            id: item.id,
+            videoId: item.id,
             description: item.snippet.description,
             channelTitle: item.snippet.channelTitle,
             title: item.snippet.title,
             date: item.snippet.publishedAt,
             viewCount: item.statistics.viewCount,
-            url:item.snippet.thumbnails.high.url,
-            height:item.snippet.thumbnails.high.height,
-            width:item.snippet.thumbnails.high.width
-        }))
+            thumbnail: item.snippet.thumbnails.high.url,
+        }) as WatchVideoMap)
         return Response.json({ ok: true, data: cleanedData })
     } catch (error) {
         return Response.json({ ok: false, error }, { status: 500 })

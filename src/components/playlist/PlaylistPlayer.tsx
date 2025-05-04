@@ -1,9 +1,9 @@
 // components/YouTubePlaylist.tsx
 
-import { PlaylistDocument } from "@/utils/types";
 import { formatDate } from "@/utils/utils";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import styles from "@/css/PlaylistPlayer.module.css";
+import styles from "./PlaylistPlayer.module.css";
+import { PlaylistMap } from "@/utils/types";
 // Light type definitions for YouTube IFrame Player
 type YTPlayer = {
     loadVideoById: (videoId: string) => void;
@@ -43,7 +43,7 @@ export default function YouTubePlaylist({
 }: {
     currentIndex: number;
     setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
-    playlist: PlaylistDocument;
+    playlist: PlaylistMap;
 }) {
     const playerRef = useRef<YTPlayer | null>(null);
     const [isApiReady, setIsApiReady] = useState(false);

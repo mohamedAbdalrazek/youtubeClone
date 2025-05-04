@@ -4,22 +4,19 @@ import styles from "@/css/AddPlaylistPopup.module.css";
 import NewPlaylistForm from "./NewPlaylistForm";
 import GlobeIcon from "@/icons/GlobeIcon";
 import LockIcon from "@/icons/LockIcon";
-import { Playlist, Video } from "@/utils/types";
+import {PlaylistVideoMap, UserPlaylistMap } from "@/utils/types";
 import { parseCookies } from "nookies";
 import toast from "react-hot-toast";
-// interface UserData {
-//     playlists: string[]; // or whatever type your playlists are
-// }
 
 export default function AddPlaylistPopup({
     setShowPopup,
     video,
 }: {
     setShowPopup: Dispatch<SetStateAction<boolean>>;
-    video: Video | null;
+    video: PlaylistVideoMap | null;
 }) {
     const uid = auth.currentUser?.uid;
-    const [playlists, setPlaylists] = useState<null | Playlist[]>(null);
+    const [playlists, setPlaylists] = useState<null | UserPlaylistMap[]>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [showAdd, setShowAdd] = useState(false);

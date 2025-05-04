@@ -1,4 +1,4 @@
-import VideosList from "@/components/refactor/VideosList";
+import VideosList from "./VideosList";
 import React from "react";
 
 export default function page() {
