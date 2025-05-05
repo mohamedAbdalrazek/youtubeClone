@@ -1,7 +1,7 @@
 "use client";
-import React, { Dispatch, FormEvent, useCallback, useState } from "react";
+import React, { Dispatch, FormEvent,useState } from "react";
 import styles from "./NavSearch.module.css"; // Shared style file
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function NavQuerySearch({
     openedInput,
@@ -12,24 +12,25 @@ export default function NavQuerySearch({
 }) {
     const router = useRouter();
     const [query, setQuery] = useState<null | string>(null);
-    const searchParams = useSearchParams();
-    const createQueryString = useCallback(
-        (name: string, value: string) => {
-            const params = new URLSearchParams(searchParams.toString());
-            params.set(name, value);
-            params.delete("title");
-            return params.toString();
-        },
-        [searchParams]
-    );
-    const handleClick = (e:FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+    // const searchParams = useSearchParams();
+    const params = new URLSearchParams();
+    // const createQueryString = useCallback(
+    //     (name: string, value: string) => {
+    //         const params = new URLSearchParams(searchParams.toString());
+    //         params.set(name, value);
+    //         params.delete("title");
+    //         return params.toString();
+    //     },
+    //     [searchParams]
+    // );
+    const handleClick = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         if (openedInput === "search") {
             if (query) {
-                console.log(query)
-                router.push(
-                    "/search/" + "?" + createQueryString("search", query)
-                );
+                console.log(query);
+                params.set("search", query);
+                params.set("type", "video");
+                router.push(`/search/?${params.toString()}`);
             }
         } else {
             setOpenedInput("search");

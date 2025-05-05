@@ -1,13 +1,24 @@
 
-export interface SearchResultMap {
-    type: "playlist" | "video",
-    playlistId?: string,
-    videoId?: string;
+export interface VideoResultMap {
+    type:"video",
+    videoId: string;
     title: string;
     date: string;
-    thumbnail: string;
+    thumbnail: string | null;
     channelTitle: string;
-};
+    duration: string;
+    numberOfViews: string;
+}
+export interface PlaylistResultMap{
+    type:"playlist",
+    title:string,
+    playlistId:string;
+    videoCount:number;
+    thumbnail:string;
+    channelTitle:string
+}
+
+
 export interface PlaylistVideoMap {
     videoId: string;
     thumbnail: string,

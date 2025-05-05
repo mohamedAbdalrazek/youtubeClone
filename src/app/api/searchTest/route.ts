@@ -1,25 +1,22 @@
-import { NextRequest } from "next/server";
-
+import { searchVideos } from '@/lib/fetchFunction';
+import { NextRequest, NextResponse } from 'next/server';
 export async function GET(request: NextRequest) {
-    const id = request.nextUrl.searchParams.get("id")
-    if (!id) {
-        return Response.json({ ok: false, error: "please provide a search query" }, { status: 400 })
-    }
+    const query = request.nextUrl.searchParams.get('query');
+
     try {
-        // const res = await fetch(`https://youtube.googleapis.com/youtube/v3/search?q=${query}&type=video,playlist&maxResults=25&part=snippet&key=${process.env.GOOGLE_API_KEY}`)
-        const res = await fetch(
-            `https://youtube.googleapis.com/youtube/v3/playlists?part=snippet&id=${id}&key=${process.env.GOOGLE_API_KEY}`
-        );
-        const data = await res.json()
-        if (!data) {
-            return Response.json({ ok: false, error: "somthing went wrong in the server side please try again" }, { status: 500 })
+        if (!query) {
+            return NextResponse.json(
+                { error: 'Missing query parameter' },
+                { status: 400 }
+            );
         }
-
-
-        return Response.json({ ok: true, data }, { status: 200 })
+        const videosList = await searchVideos(query)
+        return NextResponse.json({ videosList }, { status: 200 });
     } catch (error) {
-        return Response.json({ ok: false, error }, { status: 500 })
-
+        console.error('YouTube search failed:', error);
+        return NextResponse.json(
+            { error: 'Failed to fetch playlists' },
+            { status: 500 }
+        );
     }
 }
-

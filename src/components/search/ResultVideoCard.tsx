@@ -2,31 +2,34 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { MouseEvent } from "react";
 import styles from "./ResultCard.module.css";
-import { formatRelativeDate, htmlDecode } from "@/utils/utils";
+import { htmlDecode } from "@/utils/utils";
 import AddPlaylistIcon from "@/icons/AddPlaylistIcon";
-import { SearchResultMap } from "@/utils/types";
+import { VideoResultMap } from "@/utils/types";
 export default function ResultVideoCard({
-    item,
+    video,
     handleAddVideo,
 }: {
-    item: SearchResultMap;
+    video: VideoResultMap;
     handleAddVideo: (
         e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
-        video: SearchResultMap
+        video: VideoResultMap
     ) => void;
 }) {
+    if (!video.thumbnail) return;
     return (
-        <div key={item.videoId} className={styles.videoCard}>
+        <div key={video.videoId} className={styles.videoCard}>
             <Link
-                href={`/watch/${item.videoId}?title=${item.title.split(" ").join("+")}`}
+                href={`/watch/${video.videoId}?title=${video.title
+                    .split(" ")
+                    .join("+")}`}
                 className={styles.videoLink}
             >
                 <div className={styles.thumbnailWrapper}>
                     <Image
-                        src={item.thumbnail}
+                        src={video.thumbnail}
                         width={480}
                         height={360}
-                        alt={item.title}
+                        alt={video.title}
                         className={styles.thumbnail}
                     />
                 </div>
@@ -34,17 +37,17 @@ export default function ResultVideoCard({
 
             <div className={styles.videoInfo}>
                 <Link
-                    href={`/watch/${item.videoId}?title=${item.title
+                    href={`/watch/${video.videoId}?title=${video.title
                         .split(" ")
                         .join("+")}`}
                     className={styles.videoLink}
                 >
-                    <h3 className={styles.title}>{htmlDecode(item.title)}</h3>
+                    <h3 className={styles.title}>{htmlDecode(video.title)}</h3>
                 </Link>
-                <span className={styles.channel}>{item.channelTitle}</span>
-                <span>{item.type}</span>
+                <span className={styles.channel}>{video.channelTitle}</span>
+                <span>{video.type}</span>
                 <span className={styles.date}>
-                    {formatRelativeDate(item.date)}
+                    {video.date}
                 </span>
             </div>
 
@@ -52,7 +55,7 @@ export default function ResultVideoCard({
                 className={styles.addButton}
                 onClick={(e) => {
                     e.preventDefault();
-                    handleAddVideo(e, item);
+                    handleAddVideo(e, video);
                 }}
                 aria-label="Add to playlist"
             >
