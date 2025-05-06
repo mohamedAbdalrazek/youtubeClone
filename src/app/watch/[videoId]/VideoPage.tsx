@@ -1,19 +1,15 @@
 "use client";
-import React, { MouseEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 export const dynamic = "force-dynamic";
 import styles from "./VideoPage.module.css";
 import { formatDate, formatNumberWithCommas } from "@/utils/utils";
 import VideoPageSkeleton from "@/components/VideoPageSkeleton";
-import AddPlaylistIcon from "@/icons/AddPlaylistIcon";
-import AddPlaylistPopup from "../../../components/AddPlaylistPopup";
-import { PlaylistVideoMap, WatchVideoMap } from "@/utils/types";
-
+import { WatchVideoMap } from "@/utils/types";
+import AddToPlaylistButton from "@/components/refactor/AddToPlaylistButton";
 
 export default function VideoPage({ videoId }: { videoId: string }) {
     const [data, setData] = useState<WatchVideoMap | null>(null);
     const [loading, setLoading] = useState(true);
-    const [showPopup, setShowPopup] = useState(false);
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -21,7 +17,7 @@ export default function VideoPage({ videoId }: { videoId: string }) {
                     `${process.env.NEXT_PUBLIC_ROOT}/api/getVideo?videoId=${videoId}`
                 );
                 const jsonRes = await res.json();
-                setData({ ...jsonRes.data[0], videoId });
+                setData({ ...jsonRes.data, videoId });
             } catch (error) {
                 console.error("Failed to fetch video data:", error);
             } finally {
@@ -33,34 +29,14 @@ export default function VideoPage({ videoId }: { videoId: string }) {
             fetchData();
         }
     }, [videoId]);
-    const handleAddVideo = (
-        e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-    ) => {
-        e.stopPropagation();
-        e.preventDefault();
-        setShowPopup(true);
-    };
     if (loading) {
         return <VideoPageSkeleton number={10} />;
     }
     if (!data) {
         return;
     }
-    const formedVideo: PlaylistVideoMap = {
-        videoId,
-        thumbnail: data.thumbnail,
-        channelTitle: data.channelTitle,
-        title: data.title,
-        date: data.date,
-    };
     return (
         <div className={styles.videoPage}>
-            {showPopup && (
-                <AddPlaylistPopup
-                    video={formedVideo}
-                    setShowPopup={setShowPopup}
-                />
-            )}
             <iframe
                 src={`https://www.youtube.com/embed/${videoId}`}
                 title="YouTube video player"
@@ -70,17 +46,12 @@ export default function VideoPage({ videoId }: { videoId: string }) {
             <div className={styles.videoInfo}>
                 <div className={styles.titleRow}>
                     <h1 className={styles.videoTitle}>{data?.title}</h1>
-                    <button
+                    <AddToPlaylistButton
+                        video={data}
                         className={styles.addButton}
-                        onClick={(e) => {
-                            e.preventDefault();
-                            handleAddVideo(e);
-                        }}
-                        aria-label="Add to playlist"
-                    >
-                        <span>Add to Playlist</span>
-                        <AddPlaylistIcon className={styles.addIcon} />
-                    </button>
+
+                        isText={true}
+                    />
                 </div>
 
                 <div className={styles.channelInfo}>

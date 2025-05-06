@@ -1,9 +1,10 @@
 // components/YouTubePlaylist.tsx
 
-import { formatDate } from "@/utils/utils";
+// import { formatDate } from "@/utils/utils";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./PlaylistPlayer.module.css";
 import { PlaylistMap } from "@/utils/types";
+import AddToPlaylistButton from "../refactor/AddToPlaylistButton";
 // Light type definitions for YouTube IFrame Player
 type YTPlayer = {
     loadVideoById: (videoId: string) => void;
@@ -130,16 +131,20 @@ export default function YouTubePlaylist({
     return (
         <div className={styles.videoWrapper}>
             <div id="player" className={styles.video} />
-            <h3 className={styles.videoTitle}>
-                {playlist.videos[currentIndex].title}
-            </h3>
+            <div className={styles.titleWrapper}>
+                <h3 className={styles.videoTitle}>
+                    {playlist.videos[currentIndex].title}
+                </h3>
+                <AddToPlaylistButton
+                    video={playlist.videos[currentIndex]}
+                    className={styles.addButton}
+                    isText={true}
+                />
+            </div>
             <div className={styles.info}>
                 <p className={styles.channelTitle}>
                     {playlist.videos[currentIndex].channelTitle}
                 </p>
-                <span className={styles.date}>
-                    {formatDate(playlist.videos[currentIndex].date)}
-                </span>
             </div>
         </div>
     );

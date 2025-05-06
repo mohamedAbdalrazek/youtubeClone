@@ -8,24 +8,12 @@
 }
 
 .navInput {
-    padding: 0;
-    border: none;
-    width: 0;
     font-size: 0.9rem;
     background: var(--surface-color);
-    transform: scaleX(0);
-    transform-origin: right;
-    pointer-events: none;
     transition: all var(--transition-normal);
-    border: 0px solid var(--border-color);
-
-}
-.opened .navInput {
-    width: 250px;
+    border: 1px solid var(--border-color);
+    width: 380px;
     padding: 0.5rem 1rem;
-    border-width: 1px;
-    transform: scaleX(1);
-    pointer-events: auto;
 }
 
 .navInput:focus {
@@ -41,7 +29,7 @@
     font-size: 16px;
     border: none;
     /* border-radius: 10px; */
-    padding: .7rem 1.2rem;
+    padding: 0.7rem 1.2rem;
     font-weight: 700;
     background: var(--primary-dark-color);
     /* background-color: transparent; */
@@ -62,14 +50,3 @@
 .navQueryButton:hover:not(:disabled) {
     background: var(--primary-600);
 }
-
-/* .closed .navInput {
-    pointer-events: none;
-} */
-
-/* Optional: make the form shrink visually when closed */
-/* .closed {
-    max-width: fit-content;
-} */
-
-/* Mobile responsiveness */

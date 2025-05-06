@@ -23,11 +23,11 @@ export default function PlaylistVideoMobility({
     };
     return (
         <div className={styles.mobilityWrapper}>
-            <span onClick={handleprev} className={styles.pointer}>&lt;</span>
+            <span onClick={handleprev} className={`${styles.pointer} ${currentIndex ===0 && styles.disabled}`}>&lt;</span>
             <span>
                 {currentIndex + 1}/{videosLength}
             </span>
-            <span onClick={handleNext} className={styles.pointer}>&gt;</span>
+            <span onClick={handleNext} className={`${styles.pointer} ${currentIndex + 1 === videosLength && styles.disabled}`}>&gt;</span>
         </div>
     );
 }

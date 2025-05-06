@@ -7,10 +7,12 @@ const nextConfig: NextConfig = {
             {
                 protocol: 'https',
                 hostname: 'i.ytimg.com',
-                port: '',
-                pathname: '/**',
-                search: '',
             },
+            {
+                protocol: 'https',
+                hostname: 'i9.ytimg.com',
+            },
+
             {
                 protocol: 'https',
                 hostname: "lh3.googleusercontent.com",

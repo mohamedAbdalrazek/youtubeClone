@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
         return badRequest("Invalid JSON format");
     }
 
-    const requiredFields = [uid, playlistId, video.channelTitle, video.date, video.thumbnail, video.videoId, video.title];
+    const requiredFields = [uid, playlistId, video.channelTitle, video.thumbnail, video.videoId, video.title];
     if (requiredFields.some(field => !field)) {
         console.error("Missing required data");
         return badRequest("Please provide all the required data");

@@ -24,7 +24,6 @@ export interface PlaylistVideoMap {
     thumbnail: string,
     channelTitle: string,
     title: string,
-    date: string,
 }
 export interface WatchVideoMap {
     videoId: string,
@@ -44,7 +43,7 @@ export interface UserPlaylistMap {
 }
 export interface NewPlaylistMap {
     userId: string; 
-    userName: string;
+    creator: string;
     title: string;
     videos: Array<PlaylistVideoMap>;
     createdAt: string;
@@ -52,7 +51,7 @@ export interface NewPlaylistMap {
 }
 export interface PlaylistMap{
     playlistId: string; 
-    userName: string;
+    creator: string;
     title: string;
     videos: Array<PlaylistVideoMap>;
     isOwner:boolean;

@@ -32,7 +32,7 @@ const Search = () => {
             .then((res) => res.json())
             .then((data) => {
                 if (type === "playlist") {
-                    console.log({data})
+                    console.log({ data });
                     setPlaylists(data.playlists);
                 } else {
                     setVideos(data.videosList);
@@ -64,7 +64,7 @@ const Search = () => {
     if (loading) {
         return <VideoListSkeleton number={10} />;
     }
-    console.log(playlists)
+    console.log(playlists);
     const SearchResultList = () => {
         if (type === "playlist") {
             return (
@@ -100,6 +100,7 @@ const Search = () => {
 
     return (
         <div className={styles.resultsContainer}>
+
             {showPopup && (
                 <AddPlaylistPopup
                     video={selectedVideo}

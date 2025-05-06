@@ -36,6 +36,11 @@
 .activeVideo{
     background-color: var(--neutral-300);
 }
+.videoIndex{
+    display: flex;
+    align-self: center;
+    font-weight: 700;
+}
 .imageWrapper{
     width: 30%;
     height: 6.4vw;
@@ -53,9 +58,37 @@
 .info{
     width: 70%;
 }
+.titleWrapper{
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+}
 .videoTitle{
     margin-bottom: 5px;
     font-size: 17px;
+}
+.addButton{
+    outline: none;
+    border: none;
+    background-color: transparent;
+    width: fit-content;
+    height: fit-content;
+}
+.addButton svg {
+    width:28px;
+    height:28px;
+    min-width: 20px;
+    min-height: 20px;
+    cursor: pointer;
+    background-color: transparent;
+}
+.addButton svg rect,
+.addButton svg polygon{
+    fill: var(--text-color);
+}
+.addButton svg:hover rect,
+.addButton svg:hover polygon{
+    fill: var(--primary-hover);
 }
 .channelTitle{
     color: var(--neutral-700);

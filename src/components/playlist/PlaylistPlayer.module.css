@@ -17,14 +17,54 @@
     border: 1px solid var(--border-color);
 }
 
+.titleWrapper{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    gap: 20px;
+}
 .videoTitle {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-weight: 700;
-    margin-bottom: 1rem;
-    color: var(--text-color); /* Using your text color variable */
+    color: var(--text-color);
     line-height: 1.3;
 }
+.addButton {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    cursor: pointer;    
+    color: var(--text-color);
+    font-size: 15px;
+    font-weight: 700;
+    min-width: fit-content;
+    width: fit-content;
+    height: fit-content;
+    gap: 5px;
+}
+.addButton svg {
+    width: 25px;
+    height: 25px;
+    background-color: transparent;
+    
+}
+.addButton rect,
+.addButton polygon {
+    fill: var(--text-color);
+}
 
+.addButton:hover rect,
+.addButton:hover polygon,
+.addButton:hover {
+    fill: var(--primary-hover);
+    color: var(--primary-hover);
+}
+.addButton span{
+    min-width: fit-content;
+}
 .info {
     display: flex;
     gap: 1rem;
@@ -37,12 +77,8 @@
     color: var(--neutral-700); /* Subdued text color */
     transition: color var(--transition-fast);
 }
-.date {
-    display: flex;
-    gap: 1rem;
-    font-size: 0.9rem;
-    color: var(--neutral-600); /* Matching channel title */
-}
+
+
 
 /* Responsive design */
 @media (max-width: 1024px) {

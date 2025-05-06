@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
 
         const playlistDoc: NewPlaylistMap = {
             title: newPlaylist.title,
-            userName: data.userName,
+            creator: data.userName,
             createdAt: new Date().toISOString(),
             userId: data.uid,
             videos: [],

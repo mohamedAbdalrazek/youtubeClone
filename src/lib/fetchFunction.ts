@@ -1,4 +1,5 @@
-import { PlaylistResultMap, VideoResultMap } from '@/utils/types';
+import { PlaylistMap, PlaylistResultMap, PlaylistVideoMap, VideoResultMap } from '@/utils/types';
+import { Client, Playlist } from 'youtubei';
 import { Innertube } from 'youtubei.js';
 
 interface Thumbnail {
@@ -140,22 +141,22 @@ export const searchPlaylists = async (query: string) => {
 
 export const searchVideos = async (query: string): Promise<VideoResultMap[]> => {
     const youtube = await Innertube.create();
-    const search = await youtube.search(query, { type: 'video'});
+    const search = await youtube.search(query, { type: 'video' });
 
     return search.results
         .filter((item: VideoItem) => item.type === 'Video')
         .map((item: VideoItem) => {
             // Get highest resolution thumbnail
             const thumbnails = item.thumbnails || [];
-            const thumbnail = thumbnails.reduce((highest: Thumbnail | null, current: Thumbnail) =>
-                (current.width > (highest?.width || 0)) ? current : highest, null
-            )?.url.split('?')[0] || null; // Remove query params for Next.js Image
-            
+            // const thumbnail = thumbnails.reduce((highest: Thumbnail | null, current: Thumbnail) =>
+            //     (current.width > (highest?.width || 0)) ? current : highest, null
+            // )?.url.split('?')[0] || null; // Remove query params for Next.js Image
+
             return {
                 videoId: item.video_id || '',
                 title: item.title?.text || 'No title',
                 date: item.published?.text || 'No date',
-                thumbnail,
+                thumbnail:thumbnails[0].url||null,
                 channelTitle: item.author?.name || 'Unknown channel',
                 duration: item.length_text?.text || '0:00',
                 numberOfViews: item.short_view_count?.text || '0 views'
@@ -163,3 +164,106 @@ export const searchVideos = async (query: string): Promise<VideoResultMap[]> => 
         })
         .filter(video => video.videoId); // Remove invalid entries
 };
+
+
+export interface WatchVideoMap {
+    videoId: string;
+    description: string;
+    channelTitle: string;
+    title: string;
+    date: string;
+    viewCount: number;
+    thumbnail: string;
+}
+
+export async function getVideoDetails(videoId: string): Promise<WatchVideoMap | null> {
+    try {
+        const youtube = new Client();
+        const video = await youtube.getVideo(videoId);
+
+        if (!video) {
+            return null;
+        }
+
+        return {
+            videoId: video.id,
+            title: video.title,
+            description: video.description,
+            channelTitle: video.channel?.name || "Unknown Channel",
+            date: video.uploadDate || "",
+            viewCount: video.viewCount || 0,
+            thumbnail: video.thumbnails.best || "",
+        } as WatchVideoMap;
+    } catch (error) {
+        console.error("Error fetching video details:", error);
+        return null;
+    }
+}
+
+export async function getYoutubePlaylist(playlistId: string): Promise<PlaylistMap | null> {
+    const youtube = new Client();
+    const dataPlaylist = await youtube.getPlaylist(playlistId) as Playlist;
+    if (!dataPlaylist) return null;
+
+    const videos: PlaylistVideoMap[] = [];
+    const seenVideoIds = new Set<string>(); // Track unique IDs
+
+    // Process initial batch
+    for (const video of dataPlaylist.videos.items) {
+        if (videos.length >= 1000) break;
+        if (seenVideoIds.has(video.id)) continue; // Skip duplicates
+
+        try {
+            seenVideoIds.add(video.id);
+            videos.push({
+                videoId: video.id,
+                title: video.title,
+                channelTitle: video.channel?.name || "Unknown Channel",
+                thumbnail: `https://i.ytimg.com/vi/${video.id}/maxresdefault.jpg`,
+            });
+        } catch (error) {
+            console.warn(`Skipping video ${video.id}:`, error);
+        }
+    }
+
+    // Process continuations
+    while (
+        dataPlaylist.videos.continuation &&
+        videos.length < 1000 &&
+        videos.length < dataPlaylist.videoCount
+    ) {
+        try {
+            // Clear previous items before loading next batch
+            dataPlaylist.videos.items = [];
+            
+            await dataPlaylist.videos.next();
+            
+            for (const video of dataPlaylist.videos.items) {
+                if (videos.length >= 1000) break;
+                if (seenVideoIds.has(video.id)) continue;
+
+                seenVideoIds.add(video.id);
+                videos.push({
+                    videoId: video.id,
+                    title: video.title,
+                    channelTitle: video.channel?.name || "Unknown Channel",
+                    thumbnail: `https://i.ytimg.com/vi/${video.id}/maxresdefault.jpg`,
+                });
+            }
+        } catch (error) {
+            console.error("Continuation error:", error);
+            break;
+        }
+    }
+
+    return {
+        playlistId: dataPlaylist.id,
+        title: dataPlaylist.title,
+        creator: dataPlaylist.channel?.name || "Unknown Creator",
+        videos,
+        createdAt: dataPlaylist.lastUpdatedAt || "",
+        isPublic: true,
+        isFav: false,
+        isOwner: false,
+    };
+}

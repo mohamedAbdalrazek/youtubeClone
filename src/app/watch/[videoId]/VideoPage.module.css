@@ -43,19 +43,19 @@
     font-weight: 700;
     gap: 5px;
 }
-.addIcon {
+.addButton svg {
     width: 30px;
     height: 30px;
     background-color: transparent;
     
 }
-.addIcon rect,
-.addIcon polygon {
+.addButton rect,
+.addButton polygon {
     fill: var(--text-color);
 }
 
-.addButton:hover .addIcon rect,
-.addButton:hover .addIcon polygon,
+.addButton:hover rect,
+.addButton:hover polygon,
 .addButton:hover {
     fill: var(--primary-hover);
     color: var(--primary-hover);

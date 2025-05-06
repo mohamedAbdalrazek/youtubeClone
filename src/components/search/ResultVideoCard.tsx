@@ -1,19 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { MouseEvent } from "react";
+import React from "react";
 import styles from "./ResultCard.module.css";
 import { htmlDecode } from "@/utils/utils";
-import AddPlaylistIcon from "@/icons/AddPlaylistIcon";
 import { VideoResultMap } from "@/utils/types";
+import AddToPlaylistButton from "../refactor/AddToPlaylistButton";
 export default function ResultVideoCard({
-    video,
-    handleAddVideo,
+    video
 }: {
     video: VideoResultMap;
-    handleAddVideo: (
-        e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
-        video: VideoResultMap
-    ) => void;
 }) {
     if (!video.thumbnail) return;
     return (
@@ -32,6 +27,9 @@ export default function ResultVideoCard({
                         alt={video.title}
                         className={styles.thumbnail}
                     />
+                    <div className={styles.duration}>
+                        {video.duration}
+                    </div>
                 </div>
             </Link>
 
@@ -46,12 +44,14 @@ export default function ResultVideoCard({
                 </Link>
                 <span className={styles.channel}>{video.channelTitle}</span>
                 <span>{video.type}</span>
-                <span className={styles.date}>
-                    {video.date}
+                <span className={styles.stats}>
+                    <span>{video.numberOfViews}</span>
+                    <span>|</span>
+                    <span>{video.date}</span>
                 </span>
             </div>
-
-            <button
+            <AddToPlaylistButton video={video} className={styles.addButton} />
+            {/* <button
                 className={styles.addButton}
                 onClick={(e) => {
                     e.preventDefault();
@@ -60,7 +60,7 @@ export default function ResultVideoCard({
                 aria-label="Add to playlist"
             >
                 <AddPlaylistIcon className={styles.addIcon} />
-            </button>
+            </button> */}
         </div>
     );
 }
