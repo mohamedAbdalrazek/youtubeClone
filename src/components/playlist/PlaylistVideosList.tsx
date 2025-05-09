@@ -1,22 +1,61 @@
 import Image from "next/image";
-import React from "react";
+import React, { MouseEvent, useState } from "react";
 import styles from "./PlaylistVideosList.module.css";
-import { PlaylistMap } from "@/utils/types";
-import AddToPlaylistButton from "../refactor/AddToPlaylistButton";
+import { PlaylistMap, UserFavoritePlaylistMap } from "@/utils/types";
+// import AddToPlaylistButton from "../refactor/AddToPlaylistButton";
+import SavePlaylist from "./SavePlaylist";
+import EllipsisIcon from "@/icons/EllipsisIcon";
+import AddBox from "../refactor/AddBox";
+import DeleteYourPlaylist from "../refactor/DeleteYourPlaylist";
 export default function PlaylistVideosList({
     currentIndex,
     setCurrentIndex,
     playlist,
+    isYoutube,
 }: {
     currentIndex: number;
     setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
     playlist: PlaylistMap;
+    isYoutube: boolean;
 }) {
+    const newPlaylist: UserFavoritePlaylistMap = {
+        playlistId: playlist.playlistId,
+        thumbnail: playlist.videos[0].thumbnail,
+        title: playlist.title,
+        count: playlist.videos.length,
+        isYoutube,
+    };
+    const [openedBox, setOpenedBox] = useState<number | null>(null);
+    const handleEllipiseClick = (
+        e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
+        index: number
+    ) => {
+        e.stopPropagation();
+        if (index === openedBox) {
+            setOpenedBox(null);
+        } else {
+            setOpenedBox(index);
+        }
+    };
     return (
         <div className={styles.listWrapper}>
             <div className={styles.listHeader}>
-                <h3>{playlist.title} Playlist</h3>
-                <p>- {playlist.creator}</p>
+                <div>
+                    <h3>{playlist.title} Playlist</h3>
+                    <p>- {playlist.creator}</p>
+                </div>
+
+                {true ? (
+                    <DeleteYourPlaylist
+                        playlistId={playlist.playlistId}
+                        className={styles.deletePlaylist}
+                    />
+                ) : (
+                    <SavePlaylist
+                        playlist={newPlaylist}
+                        className={styles.savePlaylistButton}
+                    />
+                )}
             </div>
             <div className={styles.list}>
                 {playlist.videos.map((video, index) => {
@@ -29,7 +68,7 @@ export default function PlaylistVideosList({
                             key={video.videoId}
                         >
                             <span className={styles.videoIndex}>
-                                {index+1}
+                                {index + 1}
                             </span>
                             <div className={styles.imageWrapper}>
                                 <Image
@@ -45,10 +84,23 @@ export default function PlaylistVideosList({
                                     <p className={styles.videoTitle}>
                                         {video.title}
                                     </p>
-                                    <AddToPlaylistButton
-                                        video={video}
-                                        className={styles.addButton}
-                                    />
+                                    <button
+                                        className={styles.ellipsisWrapper}
+                                        onClick={(e) =>
+                                            handleEllipiseClick(e, index)
+                                        }
+                                    >
+                                        <EllipsisIcon
+                                            className={styles.ellipsisIcon}
+                                        />
+                                    </button>
+                                    {openedBox === index && (
+                                        <AddBox
+                                            data={video}
+                                            playlistId={playlist.playlistId}
+                                            isOwner={true}
+                                        />
+                                    )}
                                 </div>
                                 <p className={styles.channelTitle}>
                                     {video.channelTitle}

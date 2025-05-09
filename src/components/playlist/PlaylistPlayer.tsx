@@ -5,6 +5,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./PlaylistPlayer.module.css";
 import { PlaylistMap } from "@/utils/types";
 import AddToPlaylistButton from "../refactor/AddToPlaylistButton";
+import AddToWatchLater from "../refactor/AddToWatchLater";
 // Light type definitions for YouTube IFrame Player
 type YTPlayer = {
     loadVideoById: (videoId: string) => void;
@@ -131,20 +132,26 @@ export default function YouTubePlaylist({
     return (
         <div className={styles.videoWrapper}>
             <div id="player" className={styles.video} />
-            <div className={styles.titleWrapper}>
-                <h3 className={styles.videoTitle}>
-                    {playlist.videos[currentIndex].title}
-                </h3>
-                <AddToPlaylistButton
-                    video={playlist.videos[currentIndex]}
-                    className={styles.addButton}
-                    isText={true}
-                />
-            </div>
+            <h3 className={styles.videoTitle}>
+                {playlist.videos[currentIndex].title}
+            </h3>
             <div className={styles.info}>
                 <p className={styles.channelTitle}>
                     {playlist.videos[currentIndex].channelTitle}
                 </p>
+                <div className={styles.addRow}>
+                    <AddToWatchLater
+                        isText={true}
+                        className={styles.watchLaterButton}
+                        video={playlist.videos[currentIndex]}
+                    />
+                    <span>|</span>
+                    <AddToPlaylistButton
+                        video={playlist.videos[currentIndex]}
+                        className={styles.addButton}
+                        isText={true}
+                    />
+                </div>
             </div>
         </div>
     );

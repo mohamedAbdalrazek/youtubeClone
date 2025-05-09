@@ -1,5 +1,4 @@
-
-.listWrapper{
+.listWrapper {
     border-radius: 10px;
     border: 1px solid var(--border-color);
     background-color: var(--surface-color);
@@ -8,40 +7,36 @@
     width: 40%;
     overflow: hidden;
 }
-.listHeader{
+.listHeader {
     background-color: var(--box-color);
     padding: 10px;
+    display: flex;
+    justify-content: space-between;
 }
-.listHeader h3{
+
+.listHeader h3 {
     margin-bottom: 10px;
 }
-.list{
-    display: flex;
-    flex-direction: column;
-    padding: 10px 0;
-    height: 70vh;
-    overflow-y: auto;
-    /* gap: 10px; */
-}
-.videoWrapper{
+
+.videoWrapper {
+    position: relative;
     display: flex;
     cursor: pointer;
     gap: 10px;
     padding: 10px 5px;
 }
-.videoWrapper:hover{
+.videoWrapper:hover {
     background-color: var(--neutral-200);
-
 }
-.activeVideo{
+.activeVideo {
     background-color: var(--neutral-300);
 }
-.videoIndex{
+.videoIndex {
     display: flex;
     align-self: center;
     font-weight: 700;
 }
-.imageWrapper{
+.imageWrapper {
     width: 30%;
     height: 6.4vw;
     overflow: hidden;
@@ -49,25 +44,86 @@
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-
 }
-.thumbnail{
+.thumbnail {
     width: 100%;
-    height:  auto;
+    height: auto;
 }
-.info{
+.ellipsisWrapper {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    transition: var(--transition-fast);
+}
+.ellipsisIcon {
+    width: 18px;
+    height: 18px;
+    fill: var(--primary-dark-color);
+}
+.ellipsisWrapper:hover .ellipsisIcon {
+    fill: var(--primary-hover);
+}
+.savePlaylistButton,
+.deletePlaylist {
+    min-width: fit-content;
+    height: fit-content;
+}
+.savePlaylistButton button,
+.deletePlaylist {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    font-weight: 700;
+    transition: var(--transition-fast);
+}
+.savePlaylistButton button:not(:disabled):hover span,
+.savePlaylistButton button:not(:disabled):hover svg,
+.deletePlaylist:not(:disabled):hover span {
+    color: var(--primary-hover);
+    fill: var(--primary-hover);
+}
+.deletePlaylist:not(:disabled):hover svg {
+    fill: var(--error-500);
+}
+.savePlaylistButton button > span {
+    color: var(--primary-dark-color);
+}
+.savePlaylistButton svg {
+    width: 22px;
+    height: 22px;
+}
+.deletePlaylist svg {
+    fill: var(--primary-dark-color);
+    width: 20px;
+    height: 20px;
+}
+.list {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+    height: 70vh;
+    overflow-y: auto;
+}
+.info {
     width: 70%;
 }
-.titleWrapper{
+.titleWrapper {
     display: flex;
     gap: 8px;
     justify-content: space-between;
+    align-items: flex-start;
 }
-.videoTitle{
+.videoTitle {
     margin-bottom: 5px;
     font-size: 17px;
 }
-.addButton{
+.addButton {
     outline: none;
     border: none;
     background-color: transparent;
@@ -75,22 +131,22 @@
     height: fit-content;
 }
 .addButton svg {
-    width:28px;
-    height:28px;
+    width: 28px;
+    height: 28px;
     min-width: 20px;
     min-height: 20px;
     cursor: pointer;
     background-color: transparent;
 }
 .addButton svg rect,
-.addButton svg polygon{
+.addButton svg polygon {
     fill: var(--text-color);
 }
 .addButton svg:hover rect,
-.addButton svg:hover polygon{
+.addButton svg:hover polygon {
     fill: var(--primary-hover);
 }
-.channelTitle{
+.channelTitle {
     color: var(--neutral-700);
     font-size: 14px;
 }

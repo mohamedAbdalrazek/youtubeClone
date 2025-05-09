@@ -12,10 +12,9 @@ export default function Page() {
     const [loading, setLoading] = useState(true);
     const params = useParams();
     const playlistId = params.id;
-    const isYoutube = useSearchParams().get("youtube")
+    const isYoutube = useSearchParams().get("youtube");
     const [playlist, setPlaylist] = useState<PlaylistMap>();
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
     useEffect(() => {
         setLoading(true);
         const fetchUserData = async () => {
@@ -60,7 +59,7 @@ export default function Page() {
     return (
         <div
             style={{
-                padding:"20px"
+                padding: "20px",
             }}
         >
             <PlaylistVideoMobility
@@ -68,11 +67,13 @@ export default function Page() {
                 currentIndex={currentIndex}
                 videosLength={playlist.videos.length}
             />
-            <div style={{
-                display:"flex",
-                gap:"20px",
-                justifyContent:"center"
-            }}>
+            <div
+                style={{
+                    display: "flex",
+                    gap: "20px",
+                    justifyContent: "center",
+                }}
+            >
                 <YouTubePlaylist
                     currentIndex={currentIndex}
                     setCurrentIndex={setCurrentIndex}
@@ -82,6 +83,7 @@ export default function Page() {
                     playlist={playlist}
                     currentIndex={currentIndex}
                     setCurrentIndex={setCurrentIndex}
+                    isYoutube={isYoutube === "true"}
                 />
             </div>
         </div>

@@ -35,7 +35,7 @@ const getPlaylists = async () => {
 };
 
 export default async function Page() {
-    const { ok, message, playlists } = await getPlaylists();
+    const { ok, message, myPlaylists, favPlaylists } = await getPlaylists();
 
     if (!ok) {
         return (
@@ -45,13 +45,18 @@ export default async function Page() {
         );
     }
 
-    if (!playlists || playlists.length === 0) {
+    if (!myPlaylists || myPlaylists.length === 0) {
         return (
             <div>
                 <p>No playlists found.</p>
             </div>
         );
-    }
+    }  
 
-    return <Playlists playlists={playlists} />;
+    return (
+        <>
+            <Playlists header="My Playlists" playlists={myPlaylists} />
+            <Playlists header="Saved Playlists" playlists={favPlaylists} />
+        </>
+    );
 }

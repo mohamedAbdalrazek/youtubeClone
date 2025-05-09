@@ -6,6 +6,7 @@ import { formatDate, formatNumberWithCommas } from "@/utils/utils";
 import VideoPageSkeleton from "@/components/VideoPageSkeleton";
 import { WatchVideoMap } from "@/utils/types";
 import AddToPlaylistButton from "@/components/refactor/AddToPlaylistButton";
+import AddToWatchLater from "@/components/refactor/AddToWatchLater";
 
 export default function VideoPage({ videoId }: { videoId: string }) {
     const [data, setData] = useState<WatchVideoMap | null>(null);
@@ -44,20 +45,25 @@ export default function VideoPage({ videoId }: { videoId: string }) {
                 className={styles.videoFrame}
             ></iframe>
             <div className={styles.videoInfo}>
-                <div className={styles.titleRow}>
-                    <h1 className={styles.videoTitle}>{data?.title}</h1>
-                    <AddToPlaylistButton
-                        video={data}
-                        className={styles.addButton}
-
-                        isText={true}
-                    />
-                </div>
+                <h1 className={styles.videoTitle}>{data?.title}</h1>
 
                 <div className={styles.channelInfo}>
                     <span className={styles.channelName}>
                         {data?.channelTitle}
                     </span>
+                    <div className={styles.addRow}>
+                        <AddToWatchLater
+                            isText={true}
+                            className={styles.watchLaterButton}
+                            video={data}
+                        />
+                        <span>|</span>
+                        <AddToPlaylistButton
+                            video={data}
+                            className={styles.addButton}
+                            isText={true}
+                        />
+                    </div>
                 </div>
                 <div className={styles.videoStats}>
                     <span className={styles.views}>

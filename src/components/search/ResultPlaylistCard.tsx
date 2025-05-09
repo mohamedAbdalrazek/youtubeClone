@@ -3,13 +3,21 @@ import Link from "next/link";
 import Image from "next/image";
 import PlayListIcon from "@/icons/PlayListIcon";
 import { htmlDecode } from "@/utils/utils";
-import { PlaylistResultMap } from "@/utils/types";
+import { PlaylistResultMap, UserFavoritePlaylistMap } from "@/utils/types";
+import SavePlaylist from "../playlist/SavePlaylist";
 
 export const ResultPlaylistCard = ({
     playlist,
 }: {
     playlist: PlaylistResultMap;
 }) => {
+    const newPlaylist: UserFavoritePlaylistMap = {
+        playlistId: playlist.playlistId,
+        title: playlist.title,
+        thumbnail: playlist.thumbnail,
+        videoCount: playlist.videoCount,
+        isYoutube: true,
+    };
     return (
         <div
             key={playlist.playlistId}
@@ -47,6 +55,11 @@ export const ResultPlaylistCard = ({
                 </Link>
                 <span className={styles.channel}>{playlist.channelTitle}</span>
             </div>
+            <SavePlaylist
+                playlist={newPlaylist}
+                className={styles.savePlaylistButton}
+                isText={false}
+            />
         </div>
     );
 };

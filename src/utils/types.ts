@@ -1,6 +1,5 @@
 
 export interface VideoResultMap {
-    type:"video",
     videoId: string;
     title: string;
     date: string;
@@ -10,7 +9,6 @@ export interface VideoResultMap {
     numberOfViews: string;
 }
 export interface PlaylistResultMap{
-    type:"playlist",
     title:string,
     playlistId:string;
     videoCount:number;
@@ -40,6 +38,13 @@ export interface UserPlaylistMap {
     visibility: "private" | "public"
     thumbnail:string;
     count:number
+}
+export interface UserFavoritePlaylistMap {
+    playlistId: string;
+    title: string
+    thumbnail:string;
+    videoCount:number;
+    isYoutube:boolean
 }
 export interface NewPlaylistMap {
     userId: string; 

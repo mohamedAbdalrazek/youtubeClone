@@ -17,12 +17,11 @@
     box-shadow: var(--shadow-sm);
 }
 
-.titleRow {
+.addRow {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 10px;
     margin-bottom: 5px;
-    gap: 20px;
 }
 .videoTitle {
     font-size: 1.5rem;
@@ -30,7 +29,8 @@
     color: var(--text-color);
     line-height: 1.3;
 }
-.addButton {
+.addButton ,
+.watchLaterButton{
     background-color: transparent;
     outline: none;
     border: none;
@@ -44,8 +44,8 @@
     gap: 5px;
 }
 .addButton svg {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     background-color: transparent;
     
 }
@@ -54,16 +54,24 @@
     fill: var(--text-color);
 }
 
-.addButton:hover rect,
-.addButton:hover polygon,
-.addButton:hover {
+.addButton:hover:not(:disabled) rect,
+.addButton:hover:not(:disabled) polygon,
+.addButton:hover:not(:disabled) {
     fill: var(--primary-hover);
     color: var(--primary-hover);
 }
-
+.watchLaterButton svg{
+    width: 20px;
+    height: 20px;
+}
+.watchLaterButton:hover:not(:disabled){
+    color: var(--primary-hover);
+    fill: var(--primary-hover);
+}
 .channelInfo {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 1.5rem;
     margin-bottom: 1.5rem;
     padding-bottom: 1.5rem;

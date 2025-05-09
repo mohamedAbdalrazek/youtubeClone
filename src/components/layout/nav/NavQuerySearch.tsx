@@ -2,18 +2,26 @@
 import React, { FormEvent, useState } from "react";
 import styles from "./NavSearch.module.css"; // Shared style file
 import { useRouter } from "next/navigation";
-import { extractVideoId, isValidYouTubeUrl } from "@/lib/searchFunctions";
+import {
+    extractPlaylistId,
+    extractVideoId,
+    isValidYouTubePlaylistUrl,
+    isValidYouTubeUrl,
+} from "@/lib/searchFunctions";
 
 export default function NavQuerySearch() {
     const router = useRouter();
     const [query, setQuery] = useState<null | string>(null);
     const params = new URLSearchParams();
 
-    const handleClick = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!query) return;
-
-        if (isValidYouTubeUrl(query)) {
+        if (isValidYouTubePlaylistUrl(query)) {
+            const url = extractPlaylistId(query);
+            params.set("youtube", "true");
+            router.push(`/playlist/${url}/?${params.toString()}`);
+        } else if (isValidYouTubeUrl(query)) {
             const url = extractVideoId(query);
             router.push(`/watch/${url}`);
         } else {
@@ -23,16 +31,16 @@ export default function NavQuerySearch() {
         }
     };
     return (
-        <form onSubmit={handleClick} className={`${styles.navUrlForm}`}>
+        <form onSubmit={handleSubmit} className={`${styles.navSearchForm}`}>
             <input
                 placeholder="Search videos, playlists or type a URL..."
                 type="text"
                 onChange={(e) => setQuery(e.target.value)}
-                className={styles.navInput}
+                className={styles.navSearchInput}
             />
             <button
                 disabled={!query}
-                className={styles.navQueryButton}
+                className={styles.navSearchButton}
                 aria-label="Search videos"
             >
                 Search

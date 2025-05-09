@@ -1,0 +1,74 @@
+.addBox{
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    border-radius: 10px;
+    position: absolute;
+    background: var(--background-color);
+    right: 22px;
+    top:10px;
+    box-shadow: var(--shadow-lg);
+    z-index: 50;
+}
+
+.addButton ,
+.watchLaterButton,
+.deleteButton{
+    background-color: transparent;
+    outline: none;
+    border: none;
+    display: flex;
+    padding-top: 7px;
+    align-items: center;
+    cursor: pointer;    
+    color: var(--text-color);
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 700;
+    gap: 20px;
+}
+.addButton span,
+.watchLaterButton span,
+.deleteButton span{
+    text-align: left;
+    width: 150px;
+    min-width: fit-content;
+}
+.addBox button:not(:last-child){
+    border-bottom: 1px solid var(--border-dark);
+    padding-bottom: 9px;
+
+}
+.addBox button:not(:first-child){
+    padding-top: 9px;
+}
+.addButton svg {
+    width: 25px;
+    height: 25px;
+    background-color: transparent;
+    
+}
+.addButton rect,
+.addButton polygon {
+    fill: var(--text-color);
+}
+
+.addButton:hover:not(:disabled) rect,
+.addButton:hover:not(:disabled) polygon,
+.addButton:hover:not(:disabled) {
+    fill: var(--primary-hover);
+    color: var(--primary-hover);
+}
+.watchLaterButton svg,
+.deleteButton svg{
+    width: 18px;
+    height: 18px;
+}
+.watchLaterButton:hover:not(:disabled){
+    color: var(--primary-hover);
+    fill: var(--primary-hover);
+}
+.deleteButton:hover:not(:disabled){
+    color: var(--primary-hover);
+    fill: var(--error-600);
+}

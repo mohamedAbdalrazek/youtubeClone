@@ -1,7 +1,6 @@
 import { authAdmin, firestoreAdmin } from "@/utils/firebaseAdmin";
 import { badRequest, forbidden, internalServerError, unauthorized } from "@/utils/responses";
-import { NewPlaylistMap, UserPlaylistMap } from "@/utils/types";
-import { FieldValue } from "firebase-admin/firestore";
+import { UserFavoritePlaylistMap } from "@/utils/types";
 import { NextRequest } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -12,8 +11,9 @@ export async function POST(request: NextRequest) {
         console.error("Failed to parse JSON:", error);
         return badRequest("Invalid JSON format")
     }
-    const newPlaylist: UserPlaylistMap = data.newPlaylist
-    const requiredFields = [data.uid, data.userName, newPlaylist.visibility, newPlaylist.title, newPlaylist.playlistId];
+    const newPlaylist: UserFavoritePlaylistMap = data.newPlaylist
+    console.log(data)
+    const requiredFields = [data.uid, newPlaylist.title, newPlaylist.thumbnail, newPlaylist.playlistId, newPlaylist.videoCount];
     if (requiredFields.some(field => !field)) {
         console.error("Missing required data");
 
@@ -32,23 +32,30 @@ export async function POST(request: NextRequest) {
     }
 
     try {
-        await firestoreAdmin.collection("users").doc(data.uid).update({
-            playlists: FieldValue.arrayUnion(newPlaylist)
-        })
+        await firestoreAdmin.runTransaction(async (transaction) => {
+            const userRef = firestoreAdmin.collection("users").doc(data.uid);
+            const userDoc = await transaction.get(userRef);
 
-        const playlistDoc: NewPlaylistMap = {
-            title: newPlaylist.title,
-            creator: data.userName,
-            createdAt: new Date().toISOString(),
-            userId: data.uid,
-            videos: [],
-            isPublic: newPlaylist.visibility === "public"
-        }
-        await firestoreAdmin.collection("playlists").doc(newPlaylist.playlistId).set(playlistDoc)
+            if (!userDoc.exists) {
+                throw new Error("User not found");
+            }
 
-        return Response.json({ ok: true, message: "playlist was added successfully" }, {
-            status: 200
+            const currentPlaylists = userDoc.data()?.favoritePlaylists || [];
+            const updatedPlaylists = currentPlaylists.filter(
+                (p: UserFavoritePlaylistMap) => p.playlistId !== newPlaylist.playlistId
+            );
+
+            updatedPlaylists.push(newPlaylist);
+
+            transaction.update(userRef, {
+                favoritePlaylists: updatedPlaylists
+            });
         });
+
+        return Response.json({
+            ok: true,
+            message: "Playlist was updated successfully"
+        }, { status: 200 });
     } catch (dbError) {
         console.error("Failed to add document:", dbError);
         return internalServerError("Failed to save the playlist to the database")

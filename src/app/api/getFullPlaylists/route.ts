@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 // import { firestore } from "@/utils/firebase";
 import { forbidden, unauthorized } from "@/utils/responses";
 import { authAdmin, firestoreAdmin } from "@/utils/firebaseAdmin";
-import {  UserPlaylistMap } from "@/utils/types";
+import { UserFavoritePlaylistMap, UserPlaylistMap } from "@/utils/types";
 
 export async function GET(req: NextRequest) {
     let uid
@@ -28,8 +28,9 @@ export async function GET(req: NextRequest) {
                 { status: 404 }
             );
         }
-        const playlists: UserPlaylistMap[] = userData?.playlists || [];
-        return NextResponse.json({ ok: true, playlists: playlists }, { status: 200 });
+        const myPlaylists: UserPlaylistMap[] = userData.playlists || [];
+        const favPlaylists: UserFavoritePlaylistMap[] = userData.favoritePlaylists || []
+        return NextResponse.json({ ok: true, myPlaylists, favPlaylists }, { status: 200 });
     } catch (error) {
         console.error("Error fetching user playlists:", error);
         return NextResponse.json(

@@ -29,7 +29,20 @@
     color: var(--text-color);
     line-height: 1.3;
 }
-.addButton {
+.info {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+.addRow{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.addButton,
+.watchLaterButton {
     background-color: transparent;
     outline: none;
     border: none;
@@ -45,6 +58,14 @@
     height: fit-content;
     gap: 5px;
 }
+.watchLaterButton svg{
+    width: 18px;
+    height: 18px;
+}
+.watchLaterButton:hover:not(:disabled){
+    color: var(--primary-hover);
+    fill: var(--primary-hover);
+}
 .addButton svg {
     width: 25px;
     height: 25px;
@@ -56,21 +77,16 @@
     fill: var(--text-color);
 }
 
-.addButton:hover rect,
-.addButton:hover polygon,
-.addButton:hover {
+.addButton:hover:not(:disabled) rect,
+.addButton:hover:not(:disabled) polygon,
+.addButton:hover:not(:disabled) {
     fill: var(--primary-hover);
     color: var(--primary-hover);
 }
 .addButton span{
     min-width: fit-content;
 }
-.info {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    margin-bottom: 0.5rem;
-}
+
 
 .channelTitle {
     font-weight: 500;

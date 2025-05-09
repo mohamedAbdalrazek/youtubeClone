@@ -1,16 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./ResultCard.module.css";
 import { htmlDecode } from "@/utils/utils";
-import { VideoResultMap } from "@/utils/types";
-import AddToPlaylistButton from "../refactor/AddToPlaylistButton";
-export default function ResultVideoCard({
-    video
-}: {
-    video: VideoResultMap;
-}) {
+import { PlaylistVideoMap, VideoResultMap } from "@/utils/types";
+import EllipsisIcon from "@/icons/EllipsisIcon";
+import AddBox from "../refactor/AddBox";
+export default function ResultVideoCard({ video }: { video: VideoResultMap }) {
+    const [open, setOpen] = useState(false);
     if (!video.thumbnail) return;
+
     return (
         <div key={video.videoId} className={styles.videoCard}>
             <Link
@@ -27,9 +26,7 @@ export default function ResultVideoCard({
                         alt={video.title}
                         className={styles.thumbnail}
                     />
-                    <div className={styles.duration}>
-                        {video.duration}
-                    </div>
+                    <div className={styles.duration}>{video.duration}</div>
                 </div>
             </Link>
 
@@ -50,17 +47,13 @@ export default function ResultVideoCard({
                     <span>{video.date}</span>
                 </span>
             </div>
-            <AddToPlaylistButton video={video} className={styles.addButton} />
-            {/* <button
-                className={styles.addButton}
-                onClick={(e) => {
-                    e.preventDefault();
-                    handleAddVideo(e, video);
-                }}
-                aria-label="Add to playlist"
+            <button
+                className={styles.ellipsisWrapper}
+                onClick={() => setOpen((prev) => !prev)}
             >
-                <AddPlaylistIcon className={styles.addIcon} />
-            </button> */}
+                <EllipsisIcon className={`${styles.ellipsisIcon} ${open && styles.ellipsisActive}`} />
+            </button>
+            {open && <AddBox className={styles.addBox} data={video as PlaylistVideoMap} />}
         </div>
     );
 }

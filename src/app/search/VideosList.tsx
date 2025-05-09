@@ -1,12 +1,10 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import React, { MouseEvent, Suspense, useEffect, useState } from "react";
+import React, {  Suspense, useEffect, useState } from "react";
 import styles from "./VideosList.module.css";
 import VideoListSkeleton from "../../components/VideoListSkeleton";
-import AddPlaylistPopup from "../../components/AddPlaylistPopup";
 import {
     PlaylistResultMap,
-    PlaylistVideoMap,
     VideoResultMap,
 } from "@/utils/types";
 import ResultVideoCard from "@/components/search/ResultVideoCard";
@@ -19,16 +17,12 @@ const Search = () => {
     const [videos, setVideos] = useState<VideoResultMap[]>();
     const [playlists, setPlaylists] = useState<PlaylistResultMap[]>();
     const [loading, setLoading] = useState(false);
-    const [showPopup, setShowPopup] = useState(false);
-    const [selectedVideo, setSelectedVideo] = useState<null | PlaylistVideoMap>(
-        null
-    );
     useEffect(() => {
         if (!query) {
             return;
         }
         setLoading(true);
-        fetch(`/api/searchVideos?query=${query}&type=${type}`)
+        fetch(`/api/search?query=${query}&type=${type}`)
             .then((res) => res.json())
             .then((data) => {
                 if (type === "playlist") {
@@ -42,25 +36,6 @@ const Search = () => {
                 setLoading(false);
             });
     }, [query, type]);
-    const handleAddVideo = (
-        e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
-        video: VideoResultMap
-    ) => {
-        e.stopPropagation();
-        e.preventDefault();
-        if (!video.videoId || !video.thumbnail) {
-            return;
-        }
-        setShowPopup(true);
-        const formedData = {
-            videoId: video.videoId,
-            thumbnail: video.thumbnail,
-            channelTitle: video.channelTitle,
-            title: video.title,
-            date: video.date,
-        };
-        setSelectedVideo(formedData);
-    };
     if (loading) {
         return <VideoListSkeleton number={10} />;
     }
@@ -89,7 +64,6 @@ const Search = () => {
                             <ResultVideoCard
                                 key={video.videoId}
                                 video={video}
-                                handleAddVideo={handleAddVideo}
                             />
                         );
                     })}
@@ -100,14 +74,6 @@ const Search = () => {
 
     return (
         <div className={styles.resultsContainer}>
-
-            {showPopup && (
-                <AddPlaylistPopup
-                    video={selectedVideo}
-                    setShowPopup={setShowPopup}
-                />
-            )}
-
             <div className={styles.resultsGrid}>
                 <SearchResultList />
             </div>

@@ -50,8 +50,8 @@ export default function AddToPlaylistButton({
                 }}
                 aria-label="Add to playlist"
             >
-                {isText && <span>Add to Playlist</span>}
                 <AddPlaylistIcon />
+                {isText && <span>Add to Playlist</span>}
             </button>
         </>
     );

@@ -84,6 +84,7 @@ export async function GET(req: NextRequest) {
         )
         const playlist = {
             ...playlistWithoutUserId,
+            playlistId :playlistDoc.id,
             isOwner: false,
             isFav: false,
         }

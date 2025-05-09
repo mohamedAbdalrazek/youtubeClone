@@ -12,25 +12,27 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* gap: 2rem; */
-}
-
-.logo {
-    width: 180px;
-    height: auto;
-    transition: color var(--transition-fast);
-}
-
-.logo:hover {
-    color: var(--primary-hover);
-}
-
-.navRight {
-    display: flex;
-    align-items: center;
     gap: 20px;
 }
-
+.logoWrapper{
+    width: 15%;
+}
+.logo {
+    width: 100%;
+    height: auto;
+}
+.searchContainer {
+    justify-content: center;
+    gap: 5px;
+    width: 70%;
+}
+.navRight{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 15%;
+    min-width: fit-content;
+}
 .navLinks a {
     margin-left: 20px;
     text-decoration: none;
@@ -59,12 +61,7 @@
     width: 100%;
 }
 /* Add these to your existing nav styles */
-.searchContainer {
-    display: flex;
-    width: fit-content;
-    justify-content: center;
-    gap: 5px;
-}
+
 
 @media (max-width: 1024px) {
     

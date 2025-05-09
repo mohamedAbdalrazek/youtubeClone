@@ -1,18 +1,24 @@
 import PlaylistCard from "@/components/playlists-page/PlaylistCard";
 import React from "react";
 import styles from "./Playlists.module.css";
-import { UserPlaylistMap } from "@/utils/types";
+import { UserFavoritePlaylistMap, UserPlaylistMap } from "@/utils/types";
 export default function Playlists({
     playlists,
+    header,
 }: {
-    playlists: UserPlaylistMap[];
+    playlists: UserPlaylistMap[] | UserFavoritePlaylistMap[];
+    header: string;
 }) {
+    if(!playlists || playlists.length ===0)return
     return (
         <div className={styles.playlistsPage}>
-            <h1 className={styles.header}>Playlists</h1>
+            <h2 className={styles.header}>{header}</h2>
             <div className={styles.playlistsWrapper}>
-                {playlists.map((playlist: UserPlaylistMap) => (
-                    <PlaylistCard key={playlist.playlistId} playlist={playlist} />
+                {playlists.map((playlist: UserPlaylistMap|UserFavoritePlaylistMap) => (
+                    <PlaylistCard
+                        key={playlist.playlistId}
+                        playlist={playlist}
+                    />
                 ))}
             </div>
         </div>

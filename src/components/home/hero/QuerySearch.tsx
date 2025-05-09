@@ -2,16 +2,20 @@
 import React, { FormEvent, Suspense, useState } from "react";
 import styles from "./Search.module.css";
 import { useRouter } from "next/navigation";
-import { extractVideoId, isValidYouTubeUrl } from "@/lib/searchFunctions";
+import { extractPlaylistId, extractVideoId, isValidYouTubePlaylistUrl, isValidYouTubeUrl } from "@/lib/searchFunctions";
 
 function Search() {
     const router = useRouter();
     const [query, setQuery] = useState<string | null>(null);
     const params = new URLSearchParams();
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!query) return;
-        if (isValidYouTubeUrl(query)) {
+        if (isValidYouTubePlaylistUrl(query)) {
+            const url = extractPlaylistId(query);
+            params.set("youtube", "true");
+            router.push(`/playlist/${url}/?${params.toString()}`);
+        } else if (isValidYouTubeUrl(query)) {
             const url = extractVideoId(query);
             router.push(`/watch/${url}`);
         } else {
