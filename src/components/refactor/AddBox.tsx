@@ -1,4 +1,4 @@
-import React from "react";
+import React, { RefObject } from "react";
 import styles from "./AddBox.module.css";
 import AddToWatchLater from "./AddToWatchLater";
 import AddToPlaylistButton from "./AddToPlaylistButton";
@@ -9,16 +9,19 @@ export default function AddBox({
     data,
     isOwner = false,
     playlistId,
+    ref
 }: {
     className?: string;
     data: PlaylistVideoMap;
     isOwner?: boolean;
     playlistId?: string;
+    ref?:RefObject<HTMLDivElement | null>
 }) {
     return (
         <div
             className={`${styles.addBox} ${className} `}
             onClick={(e) => e.stopPropagation()}
+            ref={ref}
         >
             <AddToWatchLater
                 isText={true}

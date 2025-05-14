@@ -16,7 +16,7 @@ export default function NewPlaylistForm({
         visibility: "public",
         playlistId: crypto.randomUUID(),
         thumbnail:"",
-        count:0
+        videoCount:0
     });
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);

@@ -7,6 +7,7 @@ import SavePlaylist from "./SavePlaylist";
 import EllipsisIcon from "@/icons/EllipsisIcon";
 import AddBox from "../refactor/AddBox";
 import DeleteYourPlaylist from "../refactor/DeleteYourPlaylist";
+import RemovePlaylist from "./RemovePlaylist";
 export default function PlaylistVideosList({
     currentIndex,
     setCurrentIndex,
@@ -22,10 +23,12 @@ export default function PlaylistVideosList({
         playlistId: playlist.playlistId,
         thumbnail: playlist.videos[0].thumbnail,
         title: playlist.title,
-        count: playlist.videos.length,
+        videoCount: playlist.videos.length,
         isYoutube,
     };
     const [openedBox, setOpenedBox] = useState<number | null>(null);
+    const [isFavorite, setIsFavorite] = useState(false);
+
     const handleEllipiseClick = (
         e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
         index: number
@@ -45,14 +48,23 @@ export default function PlaylistVideosList({
                     <p>- {playlist.creator}</p>
                 </div>
 
-                {true ? (
+                {false ? (
                     <DeleteYourPlaylist
                         playlistId={playlist.playlistId}
+                        className={styles.deletePlaylist}
+                    />
+                ) : isFavorite ? (
+                    <RemovePlaylist
+                        playlistId={playlist.playlistId}
+                        setIsFavorite={setIsFavorite}
+                        isText={true}
                         className={styles.deletePlaylist}
                     />
                 ) : (
                     <SavePlaylist
                         playlist={newPlaylist}
+                        isText={true}
+                        setIsFavorite={setIsFavorite}
                         className={styles.savePlaylistButton}
                     />
                 )}

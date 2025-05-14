@@ -36,9 +36,9 @@
     font-size: 12px;
 }
 
-.videoCard:hover .thumbnail {
+/* .videoCard:hover .thumbnail {
     transform: scale(1.05);
-}
+} */
 
 .overlay {
     position: absolute;

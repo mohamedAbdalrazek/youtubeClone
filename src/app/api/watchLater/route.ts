@@ -41,15 +41,27 @@ export async function POST(request: NextRequest) {
         const userData = userDoc.data();
         const playlists: UserPlaylistMap[] = userData?.playlists || [];
         let playlistId;
-        const updatedPlaylists = playlists.map((playlist) => {
-            if (playlist.title !== "Watch later") return playlist;
-            playlistId = playlist.playlistId
-            return {
-                ...playlist,
-                count: (playlist.count || 0) + 1,
-                thumbnail: playlist.thumbnail || video.thumbnail,
-            };
+        let shouldAddVideo = true;
+
+        playlists.forEach((playlist) => {
+            if (playlist.title !== "Watch later") return;
+            playlistId = playlist.playlistId;
         });
+
+        if (playlistId) {
+            const playlistDoc = await firestoreAdmin.collection("playlists").doc(playlistId).get();
+            const playlistData = playlistDoc.data() as NewPlaylistMap;
+
+            const videoExists = playlistData.videos.some(v => v.videoId === video.videoId);
+            if (videoExists) {
+                shouldAddVideo = false;
+            }
+        }
+
+        if (!shouldAddVideo) {
+            return Response.json({ ok: true, message: "Video already exists in playlist" }, { status: 200 });
+        }
+
         if (!playlistId) {
             playlistId = crypto.randomUUID()
             const newPlaylist: UserPlaylistMap = {
@@ -68,18 +80,28 @@ export async function POST(request: NextRequest) {
                 creator: userName,
                 createdAt: new Date().toISOString(),
                 userId: uid,
-                videos: [
-                    video
-                ],
+                videos: [video],
                 isPublic: newPlaylist.visibility === "public"
             }
             await firestoreAdmin.collection("playlists").doc(newPlaylist.playlistId).set(playlistDoc)
-            return Response.json({ ok: true, message: "playlist was added successfully" }, {
+            return Response.json({ ok: true, message: "Playlist was created and video was added successfully" }, {
                 status: 200
             });
         }
-        await userRef.update({ playlists: updatedPlaylists });
-        await firestoreAdmin.collection("playlists").doc(playlistId).update({ videos: FieldValue.arrayUnion(video) })
+
+        const finalUpdatedPlaylists = playlists.map((playlist) => {
+            if (playlist.title !== "Watch later") return playlist;
+            return {
+                ...playlist,
+                count: (playlist.count || 0) + 1,
+                thumbnail: playlist.thumbnail || video.thumbnail,
+            };
+        });
+
+        await userRef.update({ playlists: finalUpdatedPlaylists });
+        await firestoreAdmin.collection("playlists").doc(playlistId).update({
+            videos: FieldValue.arrayUnion(video)
+        });
 
         return Response.json({ ok: true, message: "Video was added successfully" }, { status: 200 });
     } catch (dbError) {

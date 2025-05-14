@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
             pl.playlistId === playlistId
                 ? {
                         ...pl,
-                        count: Math.max((pl.count || 1) - 1, 0),
+                        count: Math.max((pl.videoCount || 1) - 1, 0),
                         thumbnail:updatedVideos[0].thumbnail
                     }
                 : pl

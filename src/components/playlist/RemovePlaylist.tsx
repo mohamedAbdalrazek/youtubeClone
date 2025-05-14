@@ -1,37 +1,39 @@
-import EmptyFavoriteIcon from "@/icons/EmptyFavoriteIcon";
+import FilledFavoriteIcon from "@/icons/FilledFavoriteIcon";
 import { auth } from "@/utils/firebase";
-import { UserFavoritePlaylistMap } from "@/utils/types";
+import { useRouter } from "next/navigation";
 import { parseCookies } from "nookies";
 import React, { Dispatch, useState } from "react";
 import toast from "react-hot-toast";
 
-export default function SavePlaylist({
-    playlist,
+export default function RemovePlaylist({
+    playlistId,
     className,
-    isText = false,
+    isText,
     setIsFavorite,
 }: {
-    playlist: UserFavoritePlaylistMap;
+    playlistId: string;
     className?: string;
     isText?: boolean;
-    setIsFavorite: Dispatch<React.SetStateAction<boolean>>;
+    setIsFavorite?: Dispatch<React.SetStateAction<boolean>>;
 }) {
-    const uid = auth.currentUser?.uid;
     const [loading, setLoading] = useState(false);
-    const handleAddFav = async () => {
+    const uid = auth.currentUser?.uid;
+    const router = useRouter()
+
+    const handleDeleteFav = async () => {
         setLoading(true);
         const cookies = parseCookies();
         const authToken = cookies.token;
         try {
-            const response = await fetch("/api/addFavoritePlaylist", {
-                method: "POST",
+            const response = await fetch("/api/removeFavoritePlaylist", {
+                method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${authToken}`, // If you implemented token-based authentication
                 },
                 body: JSON.stringify({
                     uid,
-                    newPlaylist: playlist,
+                    playlistId,
                 }),
             });
 
@@ -39,24 +41,31 @@ export default function SavePlaylist({
 
             if (response.ok) {
                 console.log("Playlist added successfully:", data.message);
-                toast.success("Playlist added successfully!");
-                setIsFavorite(true);
+                toast.success("Playlist removed successfully!");
+                if (setIsFavorite) {
+                    setIsFavorite(false);
+                } else {
+                    router.push("/playlists")
+                }
             } else {
-                console.error("Failed to add playlist:", data.message);
+                console.error("Failed to remove playlist:", data.message);
                 toast.error("Something went wrong");
             }
         } catch (error) {
-            console.error("Error sending request to add playlist:", error);
+            console.error("Error sending request to remove playlist:", error);
             toast.error("Something went wrong");
         } finally {
             setLoading(false);
         }
     };
-
     return (
-        <button onClick={handleAddFav} disabled={loading} className={className}>
-            {isText && <span>Save playlist</span>}
-            <EmptyFavoriteIcon />
+        <button
+            className={className}
+            onClick={handleDeleteFav}
+            disabled={loading}
+        >
+            {isText && <span>Remove playlist</span>}
+            <FilledFavoriteIcon />
         </button>
     );
 }

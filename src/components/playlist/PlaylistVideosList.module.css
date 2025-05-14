@@ -64,12 +64,12 @@
 .ellipsisWrapper:hover .ellipsisIcon {
     fill: var(--primary-hover);
 }
-.savePlaylistButton,
+/* .savePlaylistButton,
 .deletePlaylist {
     min-width: fit-content;
     height: fit-content;
-}
-.savePlaylistButton button,
+} */
+.savePlaylistButton,
 .deletePlaylist {
     background-color: transparent;
     border: none;
@@ -82,8 +82,8 @@
     font-weight: 700;
     transition: var(--transition-fast);
 }
-.savePlaylistButton button:not(:disabled):hover span,
-.savePlaylistButton button:not(:disabled):hover svg,
+.savePlaylistButton:not(:disabled):hover span,
+.savePlaylistButton:not(:disabled):hover svg,
 .deletePlaylist:not(:disabled):hover span {
     color: var(--primary-hover);
     fill: var(--primary-hover);
@@ -91,7 +91,7 @@
 .deletePlaylist:not(:disabled):hover svg {
     fill: var(--error-500);
 }
-.savePlaylistButton button > span {
+.savePlaylistButton  > span {
     color: var(--primary-dark-color);
 }
 .savePlaylistButton svg {

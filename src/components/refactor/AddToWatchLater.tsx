@@ -45,16 +45,15 @@ export default function AddToWatchLater({
             const data = await response.json();
 
             if (response.ok) {
-                console.log("Video added successfully:", data.message);
                 toast.dismiss();
-                toast.success("Video added to the watch later successfully!");
+                toast.success("Video added to the watch later!");
             } else {
                 console.error("Failed to add video:", data.message);
-                toast.error("Somthing wen wrong try again later");
+                toast.error("Something went wrong try again later");
             }
         } catch (error) {
             console.error("Error sending request to add playlist:", error);
-            toast.error("Somthing wen wrong try again later");
+            toast.error("Something went wrong try again later");
         } finally {
             setLoading(false);
         }

@@ -26,7 +26,6 @@ const Search = () => {
             .then((res) => res.json())
             .then((data) => {
                 if (type === "playlist") {
-                    console.log({ data });
                     setPlaylists(data.playlists);
                 } else {
                     setVideos(data.videosList);
@@ -39,7 +38,6 @@ const Search = () => {
     if (loading) {
         return <VideoListSkeleton number={10} />;
     }
-    console.log(playlists);
     const SearchResultList = () => {
         if (type === "playlist") {
             return (

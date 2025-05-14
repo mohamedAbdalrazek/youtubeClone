@@ -12,3 +12,7 @@ export function badRequest(message: string) {
 export function internalServerError(message: string = "Internal Server Error") {
     return Response.json({ ok: false, message }, { status: 500 });
 }
+
+export function notFound(message: string) {
+    return Response.json({ ok: false, message }, { status: 403 });
+}

@@ -5,9 +5,12 @@ import styles from "./Nav.module.css";
 import UserSignInButton from "../../sign-in/UserSignInButton";
 import Image from "next/image";
 import NavQuerySearch from "./NavQuerySearch";
+import { useOpenedBox } from "@/context/OpenedBoxContext";
 export default function Nav() {
+    const { setOpenedBoxId } = useOpenedBox();
+
     return (
-        <header className={styles.header}>
+        <header className={styles.header} onClick={() => setOpenedBoxId(null)}>
             <div className={"container"}>
                 <nav className={styles.nav}>
                     <Link href={"/"} className={styles.logoWrapper}>

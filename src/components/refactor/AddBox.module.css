@@ -13,12 +13,12 @@
 
 .addButton ,
 .watchLaterButton,
-.deleteButton{
+.deleteButton,
+.changeButton{
     background-color: transparent;
     outline: none;
     border: none;
     display: flex;
-    padding-top: 7px;
     align-items: center;
     cursor: pointer;    
     color: var(--text-color);
@@ -29,7 +29,8 @@
 }
 .addButton span,
 .watchLaterButton span,
-.deleteButton span{
+.deleteButton span,
+.changeButton span{
     text-align: left;
     width: 150px;
     min-width: fit-content;
@@ -60,11 +61,17 @@
     color: var(--primary-hover);
 }
 .watchLaterButton svg,
-.deleteButton svg{
+.deleteButton svg,
+.changeButton svg{
     width: 18px;
     height: 18px;
 }
-.watchLaterButton:hover:not(:disabled){
+.changeButton svg{
+    width: 27px;
+    height: 27px;
+}
+.watchLaterButton:hover:not(:disabled),
+.changeButton:hover:not(:disabled){
     color: var(--primary-hover);
     fill: var(--primary-hover);
 }

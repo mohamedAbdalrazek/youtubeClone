@@ -34,8 +34,24 @@ export async function POST(request: NextRequest) {
     }
 
     try {
+        // First check if the video already exists in the playlist
+        const playlistDoc = await firestoreAdmin.collection("playlists").doc(playlistId).get();
+        if (!playlistDoc.exists) {
+            return badRequest("Playlist not found");
+        }
+
+        const playlistData = playlistDoc.data();
+        const videos: PlaylistVideoMap[] = playlistData?.videos || [];
+
+        // Check if video already exists in playlist
+        const videoExists = videos.some(v => v.videoId === video.videoId);
+        if (videoExists) {
+            return Response.json({ ok: true, message: "Video already exists in playlist" }, { status: 200 });
+        }
+
+        // If video doesn't exist, proceed with adding it
         const userRef = firestoreAdmin.collection("users").doc(uid);
-        const userDoc = await userRef.get()
+        const userDoc = await userRef.get();
         if (!userDoc.exists) throw new Error("User not found");
 
         const userData = userDoc.data();
@@ -46,16 +62,23 @@ export async function POST(request: NextRequest) {
 
             return {
                 ...playlist,
-                count: (playlist.count || 0) + 1,
+                videoCount: (playlist.videoCount || 0) + 1,
                 thumbnail: playlist.thumbnail || video.thumbnail,
             };
         });
-        await userRef.update({ playlists: updatedPlaylists });
-        await firestoreAdmin.collection("playlists").doc(playlistId).update({ videos: FieldValue.arrayUnion(video) })
+
+        // Update both documents in a batch to ensure atomicity
+        const batch = firestoreAdmin.batch();
+        batch.update(userRef, { playlists: updatedPlaylists });
+        batch.update(firestoreAdmin.collection("playlists").doc(playlistId), {
+            videos: FieldValue.arrayUnion(video)
+        });
+
+        await batch.commit();
 
         return Response.json({ ok: true, message: "Video was added successfully" }, { status: 200 });
     } catch (dbError) {
         console.error("Failed to add document:", dbError);
         return internalServerError("Failed to save the video to the database");
     }
-}
+} 

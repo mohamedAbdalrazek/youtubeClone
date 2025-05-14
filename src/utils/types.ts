@@ -37,7 +37,7 @@ export interface UserPlaylistMap {
     title: string
     visibility: "private" | "public"
     thumbnail:string;
-    count:number
+    videoCount:number
 }
 export interface UserFavoritePlaylistMap {
     playlistId: string;

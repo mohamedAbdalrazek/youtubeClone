@@ -1,16 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 // import { firestore } from "@/utils/firebase";
-import { forbidden, unauthorized } from "@/utils/responses";
+import { badRequest, forbidden, internalServerError, notFound, unauthorized } from "@/utils/responses";
 import { authAdmin, firestoreAdmin } from "@/utils/firebaseAdmin";
 import { UserPlaylistMap } from "@/utils/types";
 
 export async function GET(req: NextRequest) {
     const uid = req.nextUrl.searchParams.get("uid")
     if (!uid) {
-        return NextResponse.json(
-            { error: "UID is required." },
-            { status: 400 }
-        );
+        return badRequest("UID is required.")
     }
     try {
         const token = req.headers.get("Authorization")?.split(" ")[1];
@@ -26,20 +23,14 @@ export async function GET(req: NextRequest) {
         const data = userDocRes.data();
 
         if (!data) {
-            return NextResponse.json(
-                { ok: false, message: "User not found." },
-                { status: 404 }
-            );
+            return notFound("User not found.")
         }
 
-        const playlists:UserPlaylistMap[] = data.playlists || [];
+        const playlists: UserPlaylistMap[] = data.playlists || [];
 
         return NextResponse.json({ ok: true, playlists }, { status: 200 });
     } catch (error) {
         console.error("Error fetching user playlists:", error);
-        return NextResponse.json(
-            { ok: false, message: "Internal server error." },
-            { status: 500 }
-        );
+        return internalServerError("Internal server error.")
     }
 }
