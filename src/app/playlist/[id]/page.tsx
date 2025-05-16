@@ -1,4 +1,5 @@
 "use client";
+import styles from "./PlaylistPage.module.css";
 import React, { useEffect, useState } from "react";
 import YouTubePlaylist from "@/components/playlist/PlaylistPlayer";
 import { useParams, useSearchParams } from "next/navigation";
@@ -6,6 +7,7 @@ import { parseCookies } from "nookies";
 import PlaylistVideosList from "@/components/playlist/PlaylistVideosList";
 import PlaylistVideoMobility from "@/components/playlist/PlaylistVideoMobility";
 import { PlaylistMap } from "@/utils/types";
+import { useOpenedBox } from "@/context/OpenedBoxContext";
 
 export default function Page() {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -15,6 +17,8 @@ export default function Page() {
     const isYoutube = useSearchParams().get("youtube");
     const [playlist, setPlaylist] = useState<PlaylistMap>();
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const { setOpenedBoxId } = useOpenedBox();
+
     useEffect(() => {
         setLoading(true);
         const fetchUserData = async () => {
@@ -47,6 +51,7 @@ export default function Page() {
         };
         fetchUserData();
     }, [playlistId, isYoutube]);
+    console.log({ isOwenr: playlist?.isOwner });
     if (!playlistId) {
         return <div>Invalid playlist link.</div>;
     }
@@ -58,9 +63,9 @@ export default function Page() {
     }
     return (
         <div
-            style={{
-                padding: "20px",
-            }}
+            className={styles.playlistPage}
+
+            onClick={() => setOpenedBoxId(null)}
         >
             <PlaylistVideoMobility
                 setCurrentIndex={setCurrentIndex}
@@ -68,11 +73,8 @@ export default function Page() {
                 videosLength={playlist.videos.length}
             />
             <div
-                style={{
-                    display: "flex",
-                    gap: "20px",
-                    justifyContent: "center",
-                }}
+                className={styles.playlistContainer}
+                
             >
                 <YouTubePlaylist
                     currentIndex={currentIndex}

@@ -1,6 +1,6 @@
 .cardWrapper {
     position: relative;
-    width: calc((100% / 4) - 10px);
+    /* width: calc((100% / 4) - 10px); */
 }
 .card {
     display: flex;
@@ -144,7 +144,7 @@
 .ellipsisWrapper:hover .ellipsisIcon {
     fill: var(--primary-hover);
 }
-.deleteBox {
+.optionsBox {
     right: 35px !important;
     top: 0 !important;
 }
@@ -173,33 +173,12 @@
     height: 18px;
     fill: var(--primary-color);
 }
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-    .card {
-        width: calc((100% / 3) - 10px);
-    }
-
-    .imageWrapper {
-        height: 18vw;
-    }
+.unavailableCard{
+    opacity: .5;
+    cursor: auto;
 }
+.unavailableCard .playOverlay{
+    display: flex;
+    background-color: rgba(77, 77, 77, 0.5);
 
-@media (max-width: 768px) {
-    .card {
-        width: calc((100% / 2) - 10px);
-    }
-
-    .imageWrapper {
-        height: 25vw;
-    }
-}
-
-@media (max-width: 480px) {
-    .card {
-        width: 100%;
-    }
-
-    .imageWrapper {
-        height: 50vw;
-    }
 }

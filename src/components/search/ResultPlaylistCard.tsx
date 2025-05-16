@@ -1,3 +1,4 @@
+"use client"
 import styles from "./ResultCard.module.css";
 import Link from "next/link";
 import Image from "next/image";
@@ -5,26 +6,35 @@ import PlayListIcon from "@/icons/PlayListIcon";
 import { htmlDecode } from "@/utils/utils";
 import { PlaylistResultMap, UserFavoritePlaylistMap } from "@/utils/types";
 import SavePlaylist from "../playlist/SavePlaylist";
+import { useState } from "react";
+import RemovePlaylist from "../playlist/RemovePlaylist";
 
 export const ResultPlaylistCard = ({
     playlist,
+    isYoutube = true,
 }: {
     playlist: PlaylistResultMap;
+    isYoutube?: boolean;
 }) => {
     const newPlaylist: UserFavoritePlaylistMap = {
         playlistId: playlist.playlistId,
         title: playlist.title,
         thumbnail: playlist.thumbnail,
         videoCount: playlist.videoCount,
-        isYoutube: true,
+        isYoutube,
+        isAvailable: true,
     };
+    const [isFavorite, setIsFavorite] = useState(false);
+    const href= `/playlist/${playlist.playlistId}?${
+                    isYoutube ? "youtube=true":""
+                }`
     return (
         <div
             key={playlist.playlistId}
             className={`${styles.videoCard} ${styles.playlistCard}`}
         >
             <Link
-                href={`/playlist/${playlist.playlistId}?youtube=true`}
+                href={href}
                 className={styles.videoLink}
             >
                 <div className={styles.thumbnailWrapper}>
@@ -43,10 +53,9 @@ export const ResultPlaylistCard = ({
                     </span>
                 </div>
             </Link>
-
             <div className={styles.videoInfo}>
                 <Link
-                    href={`/playlist/${playlist.playlistId}?youtube=true`}
+                    href={href}
                     className={styles.videoLink}
                 >
                     <h3 className={styles.title}>
@@ -55,11 +64,19 @@ export const ResultPlaylistCard = ({
                 </Link>
                 <span className={styles.channel}>{playlist.channelTitle}</span>
             </div>
-            <SavePlaylist
-                playlist={newPlaylist}
-                className={styles.savePlaylistButton}
-                isText={false}
-            />
+            {isFavorite ? (
+                <RemovePlaylist
+                    playlistId={playlist.playlistId}
+                    setIsFavorite={setIsFavorite}
+                    className={styles.deletePlaylist}
+                />
+            ) : (
+                <SavePlaylist
+                    playlist={newPlaylist}
+                    setIsFavorite={setIsFavorite}
+                    className={styles.savePlaylistButton}
+                />
+            )}
         </div>
     );
 };

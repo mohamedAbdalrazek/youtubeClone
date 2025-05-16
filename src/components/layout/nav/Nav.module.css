@@ -69,16 +69,4 @@
 }
 
 @media (max-width: 768px) {
-    .nav {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    .navLinks {
-        display: flex;
-        gap: 1rem;
-    }
-
-    .navLinks a {
-        margin-left: 0;
-    }
 }

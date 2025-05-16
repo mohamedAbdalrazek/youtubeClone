@@ -21,7 +21,7 @@ export default function Playlists({
             onClick={() => setOpenedBoxId(null)}
         >
             <h2 className={styles.header}>{header}</h2>
-            <div className={styles.playlistsWrapper}>
+            <div className={styles.playlistsGrid}>
                 {playlists.map(
                     (playlist: UserPlaylistMap | UserFavoritePlaylistMap) => (
                         <PlaylistCard

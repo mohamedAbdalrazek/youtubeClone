@@ -13,11 +13,23 @@
     display: flex;
     justify-content: space-between;
 }
-
-.listHeader h3 {
-    margin-bottom: 10px;
+.headerLeftSide{
+    width: 80%;
 }
-
+.playlistTitleWrapper {
+    display: flex;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+.playlistTitleWrapper svg {
+    width: 22px;
+    height: 22px;
+    fill: var(--primary-dark-color);
+}
+.optionsBox {
+    right: 18px !important;
+    top: -2px !important;
+}
 .videoWrapper {
     position: relative;
     display: flex;
@@ -61,6 +73,9 @@
     height: 18px;
     fill: var(--primary-dark-color);
 }
+.ellipsisActive {
+    fill: var(--primary-hover);
+}
 .ellipsisWrapper:hover .ellipsisIcon {
     fill: var(--primary-hover);
 }
@@ -78,6 +93,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
+    height: fit-content;
     font-size: 14px;
     font-weight: 700;
     transition: var(--transition-fast);
@@ -91,7 +107,7 @@
 .deletePlaylist:not(:disabled):hover svg {
     fill: var(--error-500);
 }
-.savePlaylistButton  > span {
+.savePlaylistButton > span {
     color: var(--primary-dark-color);
 }
 .savePlaylistButton svg {
@@ -122,6 +138,11 @@
 .videoTitle {
     margin-bottom: 5px;
     font-size: 17px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 .addButton {
     outline: none;
@@ -149,4 +170,26 @@
 .channelTitle {
     color: var(--neutral-700);
     font-size: 14px;
+}
+@media (max-width: 920px) {
+    .listWrapper {
+        width: 90%;
+        margin: auto;
+    }
+    .imageWrapper {
+        aspect-ratio: 16/9;
+        height: auto;
+    }
+}
+@media (max-width: 678px) {
+    .listWrapper {
+        width: 100%;
+    }
+}
+@media (max-width: 380px) {
+
+    .videoTitle{
+        font-size: 15px;
+    }
+
 }

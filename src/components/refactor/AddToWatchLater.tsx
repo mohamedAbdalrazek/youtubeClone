@@ -66,7 +66,7 @@ export default function AddToWatchLater({
             disabled={loading}
         >
             <WatchLaterIcon />
-            {isText && <span>Add to Watch later</span>}
+            {isText && <span>Watch later</span>}
         </button>
     );
 }

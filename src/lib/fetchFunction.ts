@@ -263,7 +263,6 @@ export async function getYoutubePlaylist(playlistId: string): Promise<PlaylistMa
         videos,
         createdAt: dataPlaylist.lastUpdatedAt || "",
         isPublic: true,
-        isFav: false,
         isOwner: false,
     };
 }

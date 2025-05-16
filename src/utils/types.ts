@@ -44,7 +44,8 @@ export interface UserFavoritePlaylistMap {
     title: string
     thumbnail:string;
     videoCount:number;
-    isYoutube:boolean
+    isYoutube:boolean;
+    isAvailable:boolean
 }
 export interface NewPlaylistMap {
     userId: string; 
@@ -60,7 +61,7 @@ export interface PlaylistMap{
     title: string;
     videos: Array<PlaylistVideoMap>;
     isOwner:boolean;
-    isFav:boolean;
+    // isFav:boolean;
     createdAt: string;
     isPublic: boolean;
 }

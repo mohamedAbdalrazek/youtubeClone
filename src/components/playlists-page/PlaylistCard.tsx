@@ -31,6 +31,8 @@ export default function PlaylistCard({
 }) {
     const { openedBoxId, setOpenedBoxId } = useOpenedBox();
     const isOpen = openedBoxId === playlist.playlistId;
+    const isUnavailable =
+        isUserFavoritePlaylistMap(playlist) && !playlist.isAvailable;
     const href =
         isUserFavoritePlaylistMap(playlist) && playlist.isYoutube
             ? `/playlist/${playlist.playlistId}?youtube=true`
@@ -38,7 +40,12 @@ export default function PlaylistCard({
 
     return (
         <div style={{ position: "relative" }} className={styles.cardWrapper}>
-            <Link href={href} className={styles.card}>
+            <Link
+                href={href}
+                className={`${styles.card} ${
+                    isUnavailable && styles.unavailableCard
+                }`}
+            >
                 {playlist.thumbnail && (
                     <div className={styles.imageWrapper}>
                         <Image
@@ -55,17 +62,26 @@ export default function PlaylistCard({
                                 {playlist.videoCount > 1 && "s"}
                             </span>
                         </div>
-                        <div className={styles.playOverlay}>
-                            <PlayIcon className={styles.playIcon} />
-                            <span>
-                                Play{" "}
-                                {playlist.title
-                                    .split(" ")
-                                    .slice(0, 2)
-                                    .join(" ")}
-                                {playlist.title.split(" ").length > 2 && "..."}
-                            </span>
-                        </div>
+                        {!isUnavailable ? (
+                            <div className={styles.playOverlay}>
+                                <PlayIcon className={styles.playIcon} />
+                                <span>
+                                    Play{" "}
+                                    {playlist.title
+                                        .split(" ")
+                                        .slice(0, 2)
+                                        .join(" ")}
+                                    {playlist.title.split(" ").length > 2 &&
+                                        "..."}
+                                </span>
+                            </div>
+                        ) : (
+                            <div className={styles.playOverlay}>
+                                <span>
+                                    Playlist is Unavailable
+                                </span>
+                            </div>
+                        )}
                         {isUserPlaylistMap(playlist) && (
                             <div className={styles.iconWrapper}>
                                 {playlist.visibility === "public" ? (
@@ -100,7 +116,7 @@ export default function PlaylistCard({
                     </button>
                     {isOpen && (
                         <PlaylistOptionsBox
-                            className={styles.deleteBox}
+                            className={styles.optionsBox}
                             playlistId={playlist.playlistId}
                             visibility={
                                 playlist.visibility === "public"

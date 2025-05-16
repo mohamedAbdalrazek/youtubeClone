@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
                 playlistId,
                 thumbnail: video.thumbnail,
                 visibility: "private",
-                count: 1
+                videoCount: 1
             }
             await firestoreAdmin.collection("users").doc(uid).update({
                 playlists: FieldValue.arrayUnion(newPlaylist)
@@ -93,7 +93,7 @@ export async function POST(request: NextRequest) {
             if (playlist.title !== "Watch later") return playlist;
             return {
                 ...playlist,
-                count: (playlist.count || 0) + 1,
+                videoCount: (playlist.videoCount || 0) + 1,
                 thumbnail: playlist.thumbnail || video.thumbnail,
             };
         });

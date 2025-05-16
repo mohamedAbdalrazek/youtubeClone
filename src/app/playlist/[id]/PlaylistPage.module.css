@@ -1,0 +1,13 @@
+.playlistPage {
+    padding: 20px;
+}
+.playlistContainer {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+@media (max-width: 920px) {
+    .playlistContainer {
+        flex-direction: column;
+    }
+}

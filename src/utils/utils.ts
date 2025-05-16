@@ -45,7 +45,12 @@ export function formatNumberWithCommas(number: number | undefined) {
     return ""
 
 }
-export function htmlDecode(input:string) {
-  const doc = new DOMParser().parseFromString(input, "text/html");
-  return doc.documentElement.textContent;
+export function htmlDecode(input: string) {
+    if (typeof window !== "undefined") {
+        const doc = new DOMParser().parseFromString(input, "text/html");
+        return doc.documentElement.textContent;
+    }
+    else {
+        return input
+    }
 }

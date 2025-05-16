@@ -198,7 +198,8 @@
     align-items: center;
     gap: 0.25rem;
 }
-.savePlaylistButton button{
+.savePlaylistButton,
+.deletePlaylist{
     outline: none;
     border: none;
     padding: 0;
@@ -215,11 +216,13 @@
     justify-content: center;
     align-items: center;
 }
-.savePlaylistButton button:hover:not(:disabled) svg{
+.savePlaylistButton:hover:not(:disabled) svg,
+.deletePlaylist:hover:not(:disabled) svg{
     fill: var(--primary-hover);
 }
 
-.savePlaylistButton svg{
+.savePlaylistButton svg,
+.deletePlaylist svg{
     width: 20px;
     height: 20px;
     fill: var(--primary-color);

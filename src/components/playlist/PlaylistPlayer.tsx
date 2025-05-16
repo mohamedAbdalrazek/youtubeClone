@@ -52,10 +52,16 @@ export default function YouTubePlaylist({
 
     const onPlayerStateChange = useCallback(
         (event: YTPlayerStateChangeEvent) => {
-            if (event.data === window.YT?.PlayerState?.ENDED) {
-                if (currentIndex < playlist.videos.length - 1) {
-                    setCurrentIndex((prev) => prev + 1);
-                }
+            if (
+                event.data === window.YT?.PlayerState?.ENDED &&
+                currentIndex < playlist.videos.length - 1
+            ) {
+                setCurrentIndex((prev) => {
+                    const nextIndex = prev + 1;
+                    return nextIndex < playlist.videos.length
+                        ? nextIndex
+                        : prev;
+                });
             }
         },
         [currentIndex, setCurrentIndex, playlist.videos.length]
@@ -63,7 +69,6 @@ export default function YouTubePlaylist({
 
     useEffect(() => {
         if (!window.YT) {
-            console.log("YouTube API not found, loading...");
             const tag = document.createElement("script");
             tag.src = "https://www.youtube.com/iframe_api";
             document.body.appendChild(tag);
@@ -83,52 +88,28 @@ export default function YouTubePlaylist({
     }, []);
 
     useEffect(() => {
-        console.log(
-            "Second useEffect triggered. isApiReady:",
-            isApiReady,
-            "playerRef.current:",
-            playerRef.current,
-            "videoId:",
-            playlist?.videos?.[currentIndex]?.videoId
-        );
-        if (
-            isApiReady &&
-            playlist?.videos?.[currentIndex]?.videoId &&
-            !playerRef.current
-        ) {
-            console.log("Attempting to create new YouTube Player...");
+        const video = playlist?.videos?.[currentIndex];
+        if (!isApiReady || !video?.videoId) {
+            return;
+        }
+
+        if (!playerRef.current) {
             try {
                 playerRef.current = new window.YT.Player("player", {
-                    videoId: playlist.videos[currentIndex].videoId,
-                    events: {
-                        onStateChange: onPlayerStateChange,
-                    },
+                    videoId: video.videoId,
+                    events: { onStateChange: onPlayerStateChange },
                 });
             } catch (error) {
                 console.error("Error creating YouTube Player:", error);
             }
-        } else if (
-            isApiReady &&
-            playerRef.current &&
-            playlist?.videos?.[currentIndex]?.videoId
-        ) {
-            // Add a check to ensure loadVideoById exists
-            if (typeof playerRef.current.loadVideoById === "function") {
-                try {
-                    playerRef.current.loadVideoById(
-                        playlist.videos[currentIndex].videoId
-                    );
-                } catch (error) {
-                    console.error("Error loading video:", error);
-                }
-            } else {
-                console.warn(
-                    "playerRef.current.loadVideoById is not a function yet."
-                );
+        } else if (typeof playerRef.current.loadVideoById === "function") {
+            try {
+                playerRef.current.loadVideoById(video.videoId);
+            } catch (error) {
+                console.error("Error loading video:", error);
             }
         }
     }, [isApiReady, currentIndex, onPlayerStateChange, playlist.videos]);
-
     return (
         <div className={styles.videoWrapper}>
             <div id="player" className={styles.video} />
