@@ -34,7 +34,7 @@
 /* Dropdown Styles */
 .dropDown {
     position: absolute;
-    top: calc(100% + 0.5rem);
+    top: calc(100% + 10px);
     right: 0;
     background-color: var(--dropdown-bg);
     min-width: 180px;

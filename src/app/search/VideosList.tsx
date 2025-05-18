@@ -9,6 +9,7 @@ import {
 } from "@/utils/types";
 import ResultVideoCard from "@/components/search/ResultVideoCard";
 import { ResultPlaylistCard } from "@/components/search/ResultPlaylistCard";
+import Loading from "../loading";
 
 const Search = () => {
     const searchParams = useSearchParams();
@@ -36,7 +37,7 @@ const Search = () => {
             });
     }, [query, type]);
     if (loading) {
-        return <VideoListSkeleton number={10} />;
+        return <Loading height="65vh" />;
     }
     const SearchResultList = () => {
         if (type === "playlist") {

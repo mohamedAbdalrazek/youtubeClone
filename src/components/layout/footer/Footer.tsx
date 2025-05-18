@@ -2,19 +2,22 @@ import React from "react";
 import styles from "./Footer.module.css";
 import Link from "next/link";
 import Image from "next/image";
+
 export default function Footer() {
     return (
         <footer className={styles.footer}>
-            <div className="container">
+            <div className={styles.container}>
                 <div className={styles.footerColumns}>
                     <div className={styles.footerColumn}>
-
                         <div className={styles.logoWrapper}>
-
-                            <Image className={styles.logo} src={"/icon.png"} alt="Streamura" width={141} height={138} />
-                            <h3 className={styles.logoText}>
-                                Streamura
-                            </h3>
+                            <Image
+                                className={styles.logo}
+                                src={"/icon.png"}
+                                alt="Streamura"
+                                width={35}
+                                height={35}
+                            />
+                            <h3 className={styles.logoText}>Streamura</h3>
                         </div>
                         <p className={styles.footerText}>
                             Watch YouTube videos without ads and create custom
@@ -26,30 +29,12 @@ export default function Footer() {
                         <h3 className={styles.footerHeading}>Legal</h3>
                         <ul className={styles.footerLinks}>
                             <li>
-                                <Link href="/terms">Terms of Service</Link>
+                                <Link href="/privacy-policy">Privacy Policy</Link>
                             </li>
                             <li>
-                                <Link href="/privacy">Privacy Policy</Link>
-                            </li>
-                            <li>
-                                <Link href="/disclaimer">Disclaimer</Link>
+                                <Link href="/contact">Contact</Link>
                             </li>
                         </ul>
-                    </div>
-
-                    <div className={styles.footerColumn}>
-                        <h3 className={styles.footerHeading}>Connect</h3>
-                        <div className={styles.socialLinks}>
-                            <Link href="#" aria-label="Twitter">
-                                Twitter
-                            </Link>
-                            <Link href="#" aria-label="GitHub">
-                                GitHub
-                            </Link>
-                            <Link href="#" aria-label="Discord">
-                                Discord
-                            </Link>
-                        </div>
                     </div>
                 </div>
 
@@ -59,8 +44,7 @@ export default function Footer() {
                         Google.
                     </p>
                     <p className={styles.footerNote}>
-                        This service complies with YouTube&apos;s Terms of
-                        Service.
+                        Built with ❤️ for seamless viewing.
                     </p>
                 </div>
             </div>

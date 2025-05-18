@@ -37,7 +37,6 @@ export default function DeleteYourPlaylist({
             const data = await response.json();
 
             if (response.ok) {
-                console.log("Playlist deleted successfully:", data.message);
                 toast.dismiss();
                 toast.success("Playlist was deleted!");
                 setOpenedBoxId(null)

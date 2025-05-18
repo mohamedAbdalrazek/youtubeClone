@@ -15,7 +15,7 @@
     gap: 20px;
 }
 .logoWrapper{
-    width: 15%;
+    width: 200px;
 }
 .logo {
     width: 100%;
@@ -28,9 +28,10 @@
 }
 .navRight{
     display: flex;
+
     align-items: center;
     gap: 15px;
-    width: 15%;
+    width: fit-content;
     min-width: fit-content;
 }
 .navLinks a {
@@ -63,10 +64,19 @@
 /* Add these to your existing nav styles */
 
 
-@media (max-width: 1024px) {
-    
+@media (max-width: 540px) {
+    .nav{
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .searchContainer{
+        order: 3;
+        width: 100%;
+    }
     
 }
-
-@media (max-width: 768px) {
+@media (max-width: 400px) {
+    .logoWrapper{
+        width: 150px;
+    }
 }

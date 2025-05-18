@@ -8,6 +8,7 @@ import PlaylistVideosList from "@/components/playlist/PlaylistVideosList";
 import PlaylistVideoMobility from "@/components/playlist/PlaylistVideoMobility";
 import { PlaylistMap } from "@/utils/types";
 import { useOpenedBox } from "@/context/OpenedBoxContext";
+import Loading from "@/app/loading";
 
 export default function Page() {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -51,12 +52,11 @@ export default function Page() {
         };
         fetchUserData();
     }, [playlistId, isYoutube]);
-    console.log({ isOwenr: playlist?.isOwner });
     if (!playlistId) {
         return <div>Invalid playlist link.</div>;
     }
     if (loading) {
-        return <div>loading</div>;
+        return <Loading height="85vh" />;
     }
     if (errorMessage || !playlist) {
         return <div>{errorMessage}</div>;

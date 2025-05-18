@@ -1,5 +1,6 @@
 import React from "react";
-import styles from "./HowItWorks.module.css"
+import styles from "./HowItWorks.module.css";
+
 export default function HowItWorks() {
     return (
         <section className={styles.howItWorks}>
@@ -8,23 +9,27 @@ export default function HowItWorks() {
                 <div className={styles.steps}>
                     <div className={styles.step}>
                         <div className={styles.stepNumber}>1</div>
-                        <h3>Paste YouTube URL</h3>
+                        <h3>Search or Paste a Link</h3>
                         <p>
-                            Copy any YouTube video link and paste it into
-                            Streamura
+                            Find any YouTube video or playlist using the search bar —
+                            or just paste a link directly.
                         </p>
                     </div>
                     <div className={styles.step}>
                         <div className={styles.stepNumber}>2</div>
-                        <h3>Enjoy Ad-Free Viewing</h3>
+                        <h3>Watch Without Distractions</h3>
                         <p>
-                            Watch immediately without any ads or interruptions
+                            Stream instantly in an ad-free interface for a clean,
+                            uninterrupted viewing experience.
                         </p>
                     </div>
                     <div className={styles.step}>
                         <div className={styles.stepNumber}>3</div>
-                        <h3>Save to Playlists</h3>
-                        <p>Organize your favorite videos in custom playlists</p>
+                        <h3>Save & Organize</h3>
+                        <p>
+                            Sign in to save full YouTube playlists, create your playlists,
+                            build watch-later lists, and fully manage your content.
+                        </p>
                     </div>
                 </div>
             </div>

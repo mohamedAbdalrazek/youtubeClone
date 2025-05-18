@@ -27,11 +27,11 @@ export default function Nav() {
                         <NavQuerySearch />
                     </div>
                     <div className={styles.navRight}>
-                        <div className={styles.navLinks}>
+                        {/* <div className={styles.navLinks}>
                             <Link href="/discover-playlists">
                                 Discover Playlists
                             </Link>
-                        </div>
+                        </div> */}
                         <UserSignInButton />
                     </div>
                 </nav>

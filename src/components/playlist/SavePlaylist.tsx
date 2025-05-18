@@ -1,6 +1,7 @@
 import EmptyFavoriteIcon from "@/icons/EmptyFavoriteIcon";
 import { auth } from "@/utils/firebase";
 import { UserFavoritePlaylistMap } from "@/utils/types";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { parseCookies } from "nookies";
 import React, { Dispatch, useState } from "react";
 import toast from "react-hot-toast";
@@ -18,7 +19,16 @@ export default function SavePlaylist({
 }) {
     const uid = auth.currentUser?.uid;
     const [loading, setLoading] = useState(false);
+    const router = useRouter()
+    const pathname = usePathname();
+        const searchParams = useSearchParams();
     const handleAddFav = async () => {
+        if (!auth.currentUser) {
+            const query = searchParams.toString();
+            const fullPath = `${pathname}${query ? `?${query}` : ""}`;
+            router.push(`/sign-in?redirect=${encodeURIComponent(fullPath)}`);
+            return;
+        }
         setLoading(true);
         const cookies = parseCookies();
         const authToken = cookies.token;
@@ -38,7 +48,6 @@ export default function SavePlaylist({
             const data = await response.json();
 
             if (response.ok) {
-                console.log("Playlist added successfully:", data.message);
                 toast.success("Playlist added successfully!");
                 setIsFavorite(true);
             } else {

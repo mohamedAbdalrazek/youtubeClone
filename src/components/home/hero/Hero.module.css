@@ -1,6 +1,6 @@
 .hero {
     text-align: center;
-    padding: 5rem 0;
+    padding: 5rem 1.5rem;
     background: linear-gradient(
         135deg,
         var(--neutral-50) 0%,
@@ -26,11 +26,13 @@
     color: var(--text-color);
     opacity: 0.9;
 }
+
 .inputSection {
     margin-bottom: 2rem;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+    padding: 0 1rem;
 }
 
 .inputLabel {
@@ -38,4 +40,52 @@
     font-size: 1.1rem;
     color: var(--text-color);
     font-weight: 500;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .heroTitle {
+        font-size: 2rem;
+    }
+
+    .heroSubtitle {
+        font-size: 1rem;
+    }
+
+    .inputLabel {
+        font-size: 1rem;
+    }
+
+    .hero {
+        padding: 3rem 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    
+    .hero{
+        padding: 10px;
+        height: auto;
+        display: block;
+    }
+    .container{
+        padding: 0;
+    }
+    .heroTitle {
+        font-size: 1.75rem;
+    }
+
+    .heroSubtitle {
+        font-size: 0.95rem;
+    }
+
+    .inputSection {
+        padding: 0;
+    }
+    .inputLabel {
+        font-size: 0.95rem;
+    }
+    .inputSection {
+        width: 100%;
+    }
 }

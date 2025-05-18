@@ -1,6 +1,7 @@
 import WatchLaterIcon from "@/icons/WatchLaterIcon";
 import { auth } from "@/utils/firebase";
 import { PlaylistVideoMap, VideoResultMap, WatchVideoMap } from "@/utils/types";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { parseCookies } from "nookies";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
@@ -17,8 +18,16 @@ export default function AddToWatchLater({
     const [loading, setLoading] = useState(false);
     const uid = auth.currentUser?.uid;
     const userName = auth.currentUser?.displayName;
-
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
     const addVideo = async () => {
+        if (!auth.currentUser) {
+            const query = searchParams.toString();
+            const fullPath = `${pathname}${query ? `?${query}` : ""}`;
+            router.push(`/sign-in?redirect=${encodeURIComponent(fullPath)}`);
+            return;
+        }
         setLoading(true);
         const formedData = {
             videoId: video.videoId,

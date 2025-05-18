@@ -60,7 +60,6 @@ export default function NewPlaylistForm({
             const data = await response.json();
 
             if (response.ok) {
-                console.log("Playlist added successfully:", data.message);
                 toast.success("Playlist added successfully!");
 
                 setShowAdd(false);

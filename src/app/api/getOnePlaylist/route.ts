@@ -29,7 +29,6 @@ export async function GET(req: NextRequest) {
     const isPlaylistSaved = userData
         ? checkSavedPlaylist(playlistId, userData.favoritePlaylists)
         : false;
-    console.log({isPlaylistSaved}, {userData})
     const getUpdatedPlaylist = (available: boolean, favoritePlaylists: UserFavoritePlaylistMap[], playlist?: PlaylistMap) => {
         const updatedPlaylists = favoritePlaylists.map(p =>
             p.playlistId === playlistId

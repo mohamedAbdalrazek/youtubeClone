@@ -12,7 +12,6 @@ export async function POST(request: NextRequest) {
         return badRequest("Invalid JSON format")
     }
     const newPlaylist: UserFavoritePlaylistMap = data.newPlaylist
-    console.log(data)
     const requiredFields = [data.uid, newPlaylist.title, newPlaylist.thumbnail, newPlaylist.playlistId, newPlaylist.videoCount];
     if (requiredFields.some(field => !field)) {
         console.error("Missing required data");

@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 export const dynamic = "force-dynamic";
 import styles from "./VideoPage.module.css";
 import { formatDate, formatNumberWithCommas } from "@/utils/utils";
-import VideoPageSkeleton from "@/components/VideoPageSkeleton";
 import { WatchVideoMap } from "@/utils/types";
 import AddToPlaylistButton from "@/components/refactor/AddToPlaylistButton";
 import AddToWatchLater from "@/components/refactor/AddToWatchLater";
+import Loading from "@/app/loading";
 
 export default function VideoPage({ videoId }: { videoId: string }) {
     const [data, setData] = useState<WatchVideoMap | null>(null);
@@ -31,7 +31,7 @@ export default function VideoPage({ videoId }: { videoId: string }) {
         }
     }, [videoId]);
     if (loading) {
-        return <VideoPageSkeleton number={10} />;
+        return <Loading height="85vh"/>;
     }
     if (!data) {
         return;

@@ -74,11 +74,9 @@ export default function YouTubePlaylist({
             document.body.appendChild(tag);
 
             window.onYouTubeIframeAPIReady = () => {
-                console.log("YouTube API Ready callback triggered.");
                 setIsApiReady(true);
             };
         } else {
-            console.log("YouTube API already present.");
             setIsApiReady(true);
         }
 

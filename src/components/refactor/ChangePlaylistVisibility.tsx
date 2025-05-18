@@ -41,10 +41,7 @@ export default function ChangePlaylistVisibility({
             const data = await response.json();
 
             if (response.ok) {
-                console.log(
-                    `Playlist is ${visibility} successfully`,
-                    data.message
-                );
+            
                 toast.dismiss();
                 toast.success(`Playlist is ${visibility}`);
                 setOpenedBoxId(null)

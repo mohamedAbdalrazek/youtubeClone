@@ -7,12 +7,7 @@
     text-align: center;
     font-size: 2.2rem;
 }
-/* .playlistsWrapper{
-    display: flex;
-    justify-content: left;
-    gap: 10px;
-    flex-wrap: wrap;
-} */
+
 .playlistsGrid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

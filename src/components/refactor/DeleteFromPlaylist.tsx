@@ -38,7 +38,6 @@ export default function AddToWatchLater({
             const data = await response.json();
 
             if (response.ok) {
-                console.log("Video deleted successfully:", data.message);
                 toast.dismiss();
                 toast.success("Video deleted from playlist!");
                 window.location.reload();

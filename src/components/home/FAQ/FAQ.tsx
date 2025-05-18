@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import styles from "./FAQ.module.css";
 
@@ -11,16 +11,32 @@ export default function FAQ() {
 
     const faqs = [
         {
-            question: "Is Streamura free to use?",
-            answer: "Yes! Streamura is completely free with no hidden costs.",
+            question: "How does the ad-free viewing work?",
+            answer: "Our player loads YouTube videos directly while skipping ads and distractions, giving you just the content you want to watch.",
         },
         {
-            question: "Do I need to create an account?",
-            answer: "Only if you want to save playlists. Watching videos requires no login.",
+            question: "Can I import my existing YouTube playlists?",
+            answer: "Yes! Just paste your public playlist URL and we'll import all videos while maintaining their original order.",
         },
         {
-            question: "Is this legal?",
-            answer: "Streamura operates within fair use guidelines by not hosting content directly.",
+            question: "What happens if a video gets deleted from YouTube?",
+            answer: "Deleted or private videos will show as unavailable in your playlists, but all other videos will remain accessible.",
+        },
+        {
+            question: "Is there a limit to how many playlists I can create?",
+            answer: "You can create unlimited playlists and save as many videos as you want - we don't impose arbitrary limits.",
+        },
+        {
+            question: "Can I share my custom playlists with others?",
+            answer: "Absolutely! Each public playlist has a shareable link that works even for people without an account.",
+        },
+        {
+            question: "Can I use this on my TV or streaming device?",
+            answer: "While we're web-based, you can cast from your device or use a browser on smart TVs for full-screen viewing.",
+        },
+        {
+            question: "How often is new functionality added?",
+            answer: "We release updates every 2-3 weeks based on user feedback. You can suggest features through our feedback system.",
         },
     ];
 

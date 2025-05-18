@@ -1,5 +1,3 @@
-"use server";
-import { authAdmin } from "@/utils/firebaseAdmin";
 import { cookies } from "next/headers";
 import React from "react";
 import Playlists from "./Playlists";
@@ -13,21 +11,14 @@ const getPlaylists = async () => {
     }
 
     try {
-        await authAdmin.verifyIdToken(authToken);
-    } catch (err) {
-        console.error("Token verification failed", err);
-        return { ok: false, message: "Invalid token" };
-    }
-
-    try {
         const res = await fetch(`${process.env.ROOT}/api/getFullPlaylists`, {
             headers: {
                 Authorization: `Bearer ${authToken}`,
             },
-            cache: "no-store", // optional: prevents caching in SSR
+            next: { revalidate: 60 },
         });
 
-        return res.json(); // don't forget to extract the actual JSON
+        return res.json();
     } catch (err) {
         console.error("Failed to fetch playlists:", err);
         return { ok: false, message: "Failed to fetch playlists" };
@@ -51,7 +42,7 @@ export default async function Page() {
                 <p>No playlists found.</p>
             </div>
         );
-    }  
+    }
 
     return (
         <>

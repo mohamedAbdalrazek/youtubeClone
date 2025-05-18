@@ -1,40 +1,130 @@
-.signInPage{
-    height: calc(100vh - 69px);
+/* signInPage.module.css */
+
+.signInPage {
     display: flex;
-    justify-content: center;
     align-items: center;
-}
-.signInContainer{
-    background-color: var(--box-color);
-    width: 50%;
-    height: 50vh;
-    border-radius: 10px;
-    display: flex;
     justify-content: center;
-    align-items: center;
+    min-height: 86vh;
+    background-color: var(--surface-color);
+    padding: 1rem;
 }
+
+.signInContainer {
+    background-color: var(--background-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    padding: 2rem;
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    margin: 1rem;
+}
+
+/* Mobile-first styles */
+.signInContainer h1 {
+    color: var(--primary-dark-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.signinText {
+    color: var(--text-light);
+    margin-bottom: 2rem;
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
 .googleButton {
     display: flex;
-    gap: 20px;
-    padding: 12px 50px;
-    font-size: 16px;
-    font-weight: 500;
     align-items: center;
-    background-color: white;
-    color: #242424;
-    cursor: pointer;
-    border-radius: 10px;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    border: 1px solid #dcdce5;
-}
-.googleButton:hover {
-    border-color: #3f77f3;
-}
-.googleIcon {
-    width: 35px;
-    height: 35px;
-}
-.googleButton p {
-    text-align: center;
+    justify-content: center;
+    gap: 10px;
     width: 100%;
+    padding: 0.75rem 1.25rem;
+    background-color: white;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Tablet and larger screens */
+@media (min-width: 768px) {
+    .signInContainer {
+        padding: 3rem;
+    }
+
+    .signInContainer h1 {
+        font-size: 1.75rem;
+        margin-bottom: 2rem;
+    }
+
+    .signInContainer p {
+        font-size: 1rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .googleButton {
+        padding: 0.875rem 1.5rem;
+        font-size: 1rem;
+        gap: 12px;
+    }
+}
+
+/* Hover states (not on touch devices) */
+@media (hover: hover) {
+    .googleButton:hover {
+        background-color: var(--neutral-50);
+        box-shadow: var(--shadow);
+        border-color: var(--border-dark);
+    }
+}
+
+.googleButton:active {
+    background-color: var(--neutral-100);
+    transform: translateY(1px);
+}
+
+.googleIcon {
+    width: 20px;
+    height: 20px;
+}
+
+.errorMessage {
+    margin-top: 1.5rem;
+    color: var(--error-color);
+    font-size: 0.875rem;
+}
+
+/* Loading state */
+.googleButton[disabled] {
+    cursor: not-allowed;
+    opacity: 0.8;
+    transform: none !important;
+}
+
+/* Very small mobile devices */
+@media (max-width: 360px) {
+    .signInContainer {
+        padding: 1.5rem;
+    }
+
+    .signInContainer h1 {
+        font-size: 1.3rem;
+    }
+
+    .signInContainer p {
+        font-size: 0.85rem;
+    }
+
+    .googleButton {
+        font-size: 0.9rem;
+        flex-direction: column;
+        padding: 0.65rem;
+    }
 }

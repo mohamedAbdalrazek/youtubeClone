@@ -83,7 +83,6 @@ export default function AddPlaylistPopup({
             const data = await response.json();
 
             if (response.ok) {
-                console.log("Video added successfully:", data.message);
                 toast.dismiss();
                 toast.success("Video added to the playlist successfully!");
                 setShowPopup(false);

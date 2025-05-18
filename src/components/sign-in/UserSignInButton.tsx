@@ -1,29 +1,16 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import styles from "./UserSignInButton.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import { useAuth } from "@/context/AuthContext";
+import { useOpenedBox } from "@/context/OpenedBoxContext";
 
 export default function UserSignInButton() {
     const { photoURL, userName, loading, signOut } = useAuth();
-    const [showDropDown, setShowDropDown] = useState(false);
-    const dropdownRef = useRef<HTMLDivElement>(null);
+    const { openedBoxId, setOpenedBoxId } = useOpenedBox();
 
     // Close dropdown when clicking outside
-    useEffect(() => {
-        function handleClickOutside(event: MouseEvent) {
-            if (
-                dropdownRef.current &&
-                !dropdownRef.current.contains(event.target as Node)
-            ) {
-                setShowDropDown(false);
-            }
-        }
-        document.addEventListener("mousedown", handleClickOutside);
-        return () =>
-            document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
 
     if (loading) {
         return (
@@ -34,10 +21,18 @@ export default function UserSignInButton() {
     }
 
     return photoURL && userName ? (
-        <div className={styles.profileWrapper} ref={dropdownRef}>
+        <div
+            className={styles.profileWrapper}
+            onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            }}
+        >
             <button
                 className={styles.profileButton}
-                onClick={() => setShowDropDown(!showDropDown)}
+                onClick={() => {
+                    setOpenedBoxId(openedBoxId === "navBox" ? null : "navBox");
+                }}
                 aria-label="User menu"
             >
                 <Image
@@ -49,7 +44,7 @@ export default function UserSignInButton() {
                     priority
                 />
             </button>
-            {showDropDown && (
+            {openedBoxId === "navBox" && (
                 <div className={styles.dropDown}>
                     <div className={styles.userInfo}>
                         <span className={styles.userName}>{userName}</span>
@@ -57,7 +52,7 @@ export default function UserSignInButton() {
                     <Link
                         className={styles.dropDownItem}
                         href="/playlists"
-                        onClick={() => setShowDropDown(false)}
+                        onClick={() => setOpenedBoxId(null)}
                     >
                         My Playlists
                     </Link>
@@ -65,7 +60,7 @@ export default function UserSignInButton() {
                         className={`${styles.dropDownItem} ${styles.logoutButton}`}
                         onClick={() => {
                             signOut();
-                            setShowDropDown(false);
+                            setOpenedBoxId(null);
                         }}
                         disabled={loading}
                     >

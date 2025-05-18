@@ -3,25 +3,24 @@
     display: flex;
     width: 100%;
     max-width: 100%;
+    flex-wrap: nowrap; /* ensures input + button stay in a row */
+    overflow-x: hidden; /* prevents overflow */
 }
 
 .inputField {
-    flex: 1;
+    flex: 1 1 auto; /* allow shrinking */
+    min-width: 0;   /* prevents overflow from long placeholder text */
     padding: 0.9rem 1rem;
     border: 2px solid var(--primary-color);
     border-radius: 8px 0 0 8px;
     font-size: 1rem;
     transition: all var(--transition-fast);
-}
-
-.inputField:focus {
-    outline: none;
-    border-color: var(--primary-hover);
-    box-shadow: 0 0 0 3px var(--primary-100);
+    box-sizing: border-box;
 }
 
 .submitButton {
-    padding: 0.9rem 1.75rem;
+    flex-shrink: 0; /* keep size but prevent it from pushing input */
+    padding: 0.9rem 1.25rem; /* reduce a bit for small screens */
     background-color: var(--primary-color);
     color: var(--text-on-primary);
     border: none;
@@ -30,12 +29,17 @@
     font-size: 1rem;
     font-weight: 600;
     transition: all var(--transition-fast);
+    box-sizing: border-box;
 }
 
-.submitButton:hover {
-    background-color: var(--primary-hover);
-}
-.submitButton[disabled]{
-    background-color: var(--primary-color);
+@media (max-width: 480px) {
+    .submitButton {
+        padding: 0.9rem .65rem;
+        font-size: 0.95rem;
+    }
 
+    .inputField {
+        font-size: 0.95rem;
+        padding: .5rem;
+    }
 }
