@@ -16,7 +16,7 @@ import {
 } from "firebase/auth";
 import { auth, firestore } from "@/utils/firebase";
 import { doc, setDoc } from "firebase/firestore";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { FirebaseError } from "firebase/app";
 import { clearUserCookies, saveUserCookies } from "@/utils/authUtils";
 
@@ -48,8 +48,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
     const pathname = usePathname();
     const router = useRouter();
-    const searchParams = useSearchParams();
-    const redirect = searchParams.get('redirect') || '/';
     useEffect(() => {
         const unsubscribeAuth = onAuthStateChanged(auth, async (authUser) => {
             setLoading(true);
@@ -70,7 +68,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                     { merge: true }
                 );
                 if (pathname === "/sign-in") {
-                    router.push(redirect);
+                    router.push("/");
                 }
                 console.log(
                     "User signed in (onAuthStateChanged) and cookies set/updated."
@@ -101,7 +99,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             unsubscribeAuth();
             unsubscribeToken();
         }; // Cleanup the listener
-    }, [router, pathname, redirect]);
+    }, [router, pathname]);
 
     const signInWithGoogle = async () => {
         const provider = new GoogleAuthProvider();
