@@ -74,12 +74,12 @@ export default function Page() {
                     }
                 );
                 const data = await res.json();
-                if (!res.ok) {
-                    throw {
-                        message: data.message,
-                        status: res.status,
-                    };
-                }
+                // if (!res.ok) {
+                //     throw {
+                //         message: data.message,
+                //         status: res.status,
+                //     };
+                // }
                 setPlaylist(data.playlist);
             } catch (error) {
                 const err = error as FetchError;

@@ -21,14 +21,14 @@ export default function VideoPage({ videoId }: { videoId: string }) {
             try {
                 const res = await fetch(`/api/getVideo?videoId=${videoId}`);
                 const jsonRes = await res.json();
-                if (!res.ok) {
-                    throw {
-                        message:
-                            jsonRes?.error ||
-                            "Something went wrong while loading the video.",
-                        status: res.status,
-                    };
-                }
+                // if (!res.ok) {
+                //     throw {
+                //         message:
+                //             jsonRes?.error ||
+                //             "Something went wrong while loading the video.",
+                //         status: res.status,
+                //     };
+                // }
                 setData({ ...jsonRes.data, videoId });
             } catch (error) {
                 const err = error as FetchError;
