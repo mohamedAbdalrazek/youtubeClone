@@ -1,4 +1,7 @@
-
+export type FetchError = {
+    message?: string;
+    status?: number;
+};
 export interface VideoResultMap {
     videoId: string;
     title: string;

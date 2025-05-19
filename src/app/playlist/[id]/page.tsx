@@ -6,7 +6,7 @@ import { useParams, useSearchParams } from "next/navigation";
 import { parseCookies } from "nookies";
 import PlaylistVideosList from "@/components/playlist/PlaylistVideosList";
 import PlaylistVideoMobility from "@/components/playlist/PlaylistVideoMobility";
-import { PlaylistMap } from "@/utils/types";
+import { FetchError, PlaylistMap } from "@/utils/types";
 import { useOpenedBox } from "@/context/OpenedBoxContext";
 import Loading from "@/app/loading";
 import NotFound from "@/app/not-found";
@@ -23,45 +23,85 @@ export default function Page() {
         message: string;
         status: number;
     } | null>(null);
+    // useEffect(() => {
+    //     setLoading(true);
+    //     const cookies = parseCookies();
+    //     const authToken = cookies.token;
+
+    //     fetch(
+    //         `/api/getOnePlaylist?playlistId=${playlistId}&youtube=${isYoutube}`,
+    //         {
+    //             headers: {
+    //                 Authorization: `Bearer ${authToken}`,
+    //             },
+    //         }
+    //     )
+    //         .then(async (res) => {
+    //             const data = await res.json();
+
+    //             if (!res.ok) {
+    //                 return Promise.reject({
+    //                     message: data.message,
+    //                     status: res.status,
+    //                 });
+    //             }
+
+    //             setPlaylist(data.playlist);
+    //         })
+    //         .catch((err) => {
+    //             setError({
+    //                 message: err.message || "Something went wrong.",
+    //                 status: err.status || 500,
+    //             });
+    //             console.error("Search fetch error:", err);
+    //         })
+    //         .finally(() => {
+    //             setLoading(false);
+    //         });
+    // }, [playlistId, isYoutube]);
     useEffect(() => {
         setLoading(true);
-        const cookies = parseCookies();
-        const authToken = cookies.token;
-
-        fetch(
-            `https://streamura.vercel.app/api/getOnePlaylist?playlistId=${playlistId}&youtube=${isYoutube}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${authToken}`,
-                },
-            }
-        )
-            .then(async (res) => {
+        const fetchUserData = async () => {
+            try {
+                const cookies = parseCookies();
+                const authToken = cookies.token;
+                const res = await fetch(
+                    ` /api/getOnePlaylist?playlistId=${playlistId}&youtube=${isYoutube}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${authToken}`,
+                        },
+                    }
+                );
                 const data = await res.json();
-
                 if (!res.ok) {
-                    return Promise.reject({
+                    throw {
                         message: data.message,
                         status: res.status,
-                    });
+                    };
                 }
-
                 setPlaylist(data.playlist);
-            })
-            .catch((err) => {
+            } catch (error) {
+                const err = error as FetchError;
                 setError({
                     message: err.message || "Something went wrong.",
                     status: err.status || 500,
                 });
-                console.error("Search fetch error:", err);
-            })
-            .finally(() => {
+            } finally {
                 setLoading(false);
-            });
+            }
+        };
+        fetchUserData();
     }, [playlistId, isYoutube]);
-
     if (!playlistId) {
-        return <div>Invalid playlist link.</div>;
+        return (
+            <NotFound
+                target="back"
+                errorMessage={"Invalid playlist link"}
+                statusCode={400}
+                buttonText="Go back"
+            />
+        );
     }
     if (loading) {
         return <Loading height="85vh" />;
