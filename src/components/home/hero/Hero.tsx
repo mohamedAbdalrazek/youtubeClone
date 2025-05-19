@@ -6,13 +6,12 @@ export default function Hero() {
     return (
         <section className={styles.hero}>
             <div className="container">
-                <h1 className={styles.heroTitle}>
-                    Ad-free Youtube
-                </h1>
+                <h1 className={styles.heroTitle}>YouTube, Without the Noise</h1>
                 <p className={styles.heroSubtitle}>
-                    Search and watch YouTube videos and playlists ad-free.
-                    Organize, customize, and manage your favorites like never
-                    before.
+                    Say goodbye to ads, clutter, and distractions. Watch YouTube
+                    videos and playlists in a cleaner, faster experience —
+                    totally ad-free. Save your favorites, build custom
+                    playlists, and access your content anywhere.
                 </p>
 
                 <div className={styles.inputSection}>

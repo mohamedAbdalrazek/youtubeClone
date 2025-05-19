@@ -1,19 +1,22 @@
 .hero {
-    text-align: center;
-    padding: 5rem 1.5rem;
+    padding: 0rem 1.5rem;
     background: linear-gradient(
         135deg,
         var(--neutral-50) 0%,
         var(--neutral-200) 100%
     );
-    min-height: 60vh;
+    height: 85vh;
     display: flex;
-    flex-direction: column;
+    text-align: center;
+    align-items: center;
     justify-content: center;
+}
+.hero .container{
+    height:fit-content;
 }
 
 .heroTitle {
-    font-size: 2.5rem;
+    font-size: 3rem;
     margin-bottom: 1.25rem;
     color: var(--primary-color);
     line-height: 1.2;
@@ -23,12 +26,11 @@
     font-size: 1.2rem;
     max-width: 700px;
     margin: 0 auto 2rem;
-    color: var(--text-color);
+    color: var(--neutral-700);
     opacity: 0.9;
 }
 
 .inputSection {
-    margin-bottom: 2rem;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
@@ -57,7 +59,7 @@
     }
 
     .hero {
-        padding: 3rem 1rem;
+        padding: 0rem 1rem;
     }
 }
 
@@ -65,8 +67,7 @@
     .hero{
         padding-right: 10px;
         padding-bottom: 10px;
-        /* height: auto; */
-        display: block;
+        align-items: center;
     }
     .container{
         padding: 0;

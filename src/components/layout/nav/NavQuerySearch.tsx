@@ -33,7 +33,7 @@ export default function NavQuerySearch() {
     return (
         <form onSubmit={handleSubmit} className={`${styles.navSearchForm}`}>
             <input
-                placeholder="Search videos, playlists or type a URL..."
+                placeholder="Search videos, playlists or a URL..."
                 type="text"
                 onChange={(e) => setQuery(e.target.value)}
                 className={styles.navSearchInput}

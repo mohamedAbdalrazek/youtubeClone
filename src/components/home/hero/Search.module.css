@@ -11,11 +11,16 @@
     flex: 1 1 auto; /* allow shrinking */
     min-width: 0;   /* prevents overflow from long placeholder text */
     padding: 0.9rem 1rem;
-    border: 2px solid var(--primary-color);
+    border: 1px solid var(--border-dark);
     border-radius: 8px 0 0 8px;
     font-size: 1rem;
     transition: all var(--transition-fast);
     box-sizing: border-box;
+}
+.inputField:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-100);
 }
 
 .submitButton {
