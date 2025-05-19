@@ -178,9 +178,10 @@ export interface WatchVideoMap {
 
 export async function getVideoDetails(videoId: string): Promise<WatchVideoMap | null> {
     try {
+        console.log({videoId})
         const youtube = new Client();
         const video = await youtube.getVideo(videoId);
-
+        console.log({video})
         if (!video) {
             return null;
         }
