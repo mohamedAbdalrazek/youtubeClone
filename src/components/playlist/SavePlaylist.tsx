@@ -48,7 +48,7 @@ export default function SavePlaylist({
             const data = await response.json();
 
             if (response.ok) {
-                toast.success("Playlist added successfully!");
+                toast.success("Playlist saved!");
                 setIsFavorite(true);
             } else {
                 console.error("Failed to add playlist:", data.message);

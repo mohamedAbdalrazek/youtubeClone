@@ -1,15 +1,13 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import React, {  Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import styles from "./VideosList.module.css";
 import VideoListSkeleton from "../../components/VideoListSkeleton";
-import {
-    PlaylistResultMap,
-    VideoResultMap,
-} from "@/utils/types";
+import { PlaylistResultMap, VideoResultMap } from "@/utils/types";
 import ResultVideoCard from "@/components/search/ResultVideoCard";
 import { ResultPlaylistCard } from "@/components/search/ResultPlaylistCard";
 import Loading from "../loading";
+import NotFound from "../not-found";
 
 const Search = () => {
     const searchParams = useSearchParams();
@@ -18,19 +16,39 @@ const Search = () => {
     const [videos, setVideos] = useState<VideoResultMap[]>();
     const [playlists, setPlaylists] = useState<PlaylistResultMap[]>();
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<{
+        message: string;
+        status: number;
+    } | null>(null);
+
     useEffect(() => {
-        if (!query) {
-            return;
-        }
+        if (!query) return;
+
         setLoading(true);
-        fetch(`/api/search?query=${query}&type=${type}`)
-            .then((res) => res.json())
-            .then((data) => {
+        setError(null); // Reset error
+
+        fetch(`/api/search?query=${encodeURIComponent(query)}&type=${type}`)
+            .then(async (res) => {
+                const data = await res.json();
+                if (!res.ok) {
+                    return Promise.reject({
+                        message: data?.error || "An unexpected error occurred.",
+                        status: res.status,
+                    });
+                }
+
                 if (type === "playlist") {
                     setPlaylists(data.playlists);
                 } else {
                     setVideos(data.videosList);
                 }
+            })
+            .catch((err) => {
+                setError({
+                    message: err.message || "Something went wrong.",
+                    status: err.status || 500,
+                });
+                console.error("Search fetch error:", err);
             })
             .finally(() => {
                 setLoading(false);
@@ -38,6 +56,15 @@ const Search = () => {
     }, [query, type]);
     if (loading) {
         return <Loading height="65vh" />;
+    }
+    if (error) {
+        return (
+            <NotFound
+                errorMessage={error.message}
+                statusCode={error.status}
+                isButton={false}
+            />
+        );
     }
     const SearchResultList = () => {
         if (type === "playlist") {

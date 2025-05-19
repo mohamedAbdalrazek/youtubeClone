@@ -1,13 +1,20 @@
+"use server"
 import { cookies } from "next/headers";
 import React from "react";
 import Playlists from "./Playlists";
+import NotFound from "../not-found";
 
 const getPlaylists = async () => {
     const cookieStore = cookies();
     const authToken = (await cookieStore).get("token")?.value;
+
     if (!authToken) {
-        console.error("No auth token found in cookies");
-        return { ok: false, message: "No auth token" };
+        return {
+            ok: false,
+            message:
+                "You're not signed in. Please log in to view your playlists.",
+            status: 401,
+        };
     }
 
     try {
@@ -15,32 +22,45 @@ const getPlaylists = async () => {
             headers: {
                 Authorization: `Bearer ${authToken}`,
             },
-            next: { revalidate: 60 },
+            cache:"no-cache"
         });
 
-        return res.json();
+        const json = await res.json();
+
+        if (!res.ok) {
+            return {
+                ok: false,
+                message: json?.message || "Failed to load playlists.",
+                status: res.status,
+            };
+        }
+
+        return {
+            ok: true,
+            myPlaylists: json.myPlaylists,
+            favPlaylists: json.favPlaylists,
+        };
     } catch (err) {
-        console.error("Failed to fetch playlists:", err);
-        return { ok: false, message: "Failed to fetch playlists" };
+        console.error("Unexpected error fetching playlists:", err);
+        return {
+            ok: false,
+            message: "Something went wrong while contacting the server.",
+            status: 500,
+        };
     }
 };
 
 export default async function Page() {
-    const { ok, message, myPlaylists, favPlaylists } = await getPlaylists();
+    const { ok, message, status, myPlaylists, favPlaylists } =
+        await getPlaylists();
 
     if (!ok) {
-        return (
-            <div>
-                <p>{message || "Something went wrong."}</p>
-            </div>
-        );
+        return <NotFound statusCode={status} errorMessage={message} />;
     }
 
     if (!myPlaylists || myPlaylists.length === 0) {
         return (
-            <div>
-                <p>No playlists found.</p>
-            </div>
+            <NotFound statusCode={404} errorMessage={"No playlists found."} />
         );
     }
 

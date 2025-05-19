@@ -1,11 +1,8 @@
-"use server";
 import React from "react";
 import DiscoverPlaylist from "./DiscoverPlaylist";
 const getPlaylists = async () => {
     try {
-        const res = await fetch(`${process.env.ROOT}/api/getPublicPlaylists`, {
-            cache: "no-store",
-        });
+        const res = await fetch(`${process.env.ROOT}/api/getPublicPlaylists`);
 
         return res.json();
     } catch (err) {

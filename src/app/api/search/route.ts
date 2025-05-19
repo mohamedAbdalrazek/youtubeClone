@@ -1,29 +1,35 @@
 import { searchPlaylists, searchVideos } from '@/lib/fetchFunction';
 import { PlaylistResultMap, VideoResultMap } from '@/utils/types';
 import { NextRequest, NextResponse } from 'next/server';
-export async function GET(request: NextRequest) {
-    const query = request.nextUrl.searchParams.get('query');
-    const type = request.nextUrl.searchParams.get('type');
 
+export async function GET(request: NextRequest) {
     try {
+        const query = request.nextUrl.searchParams.get('query');
+        const type = request.nextUrl.searchParams.get('type');
+
         if (!query) {
             return NextResponse.json(
-                { error: 'Missing query parameter' },
+                { error: 'Search term is required.' },
                 { status: 400 }
             );
         }
-        
-        if (type === "playlist") {
-            const playlists = await searchPlaylists(query) as PlaylistResultMap[]
-            return NextResponse.json({ playlists }, { status: 200 });
-        } else{
-            const videosList = await searchVideos(query) as VideoResultMap[]
-            return NextResponse.json({ videosList }, { status: 200 });
+
+        if (type === 'playlist') {
+            const playlists = await searchPlaylists(query) as PlaylistResultMap[];
+            return NextResponse.json({ playlists });
+        } else if (type === 'video') {
+            const videosList = await searchVideos(query) as VideoResultMap[];
+            return NextResponse.json({ videosList });
+        } else {
+            return NextResponse.json(
+                { error: 'Invalid search type. Must be "playlist" or "video".' },
+                { status: 400 }
+            );
         }
     } catch (error) {
-        console.error('YouTube search failed:', error);
+        console.error('Search API error:', error);
         return NextResponse.json(
-            { error: 'Failed to fetch playlists' },
+            { error: 'Something went wrong while searching. Please try again later.' },
             { status: 500 }
         );
     }

@@ -55,9 +55,13 @@ export async function GET(req: NextRequest) {
                     userRef.update({
                         favoritePlaylists: updatedPlaylists
                     })
+                    return NextResponse.json(
+                        { ok: false, message: "This playlist was deleted or set to private." },
+                        { status: 404 }
+                    );
                 }
                 return NextResponse.json(
-                    { ok: false, message: "Playlist not found." },
+                    { ok: false, message: "This playlist is not found" },
                     { status: 404 }
                 );
             }
@@ -86,10 +90,14 @@ export async function GET(req: NextRequest) {
                 userRef.update({
                     favoritePlaylists: updatedPlaylists
                 });
+                return NextResponse.json(
+                    { ok: false, message: "This playlist was deleted." },
+                    { status: 404 }
+                );
             }
 
             return NextResponse.json(
-                { ok: false, message: "Playlist not found." },
+                { ok: false, message: "This playlist is not found." },
                 { status: 404 }
             );
         }
@@ -110,9 +118,9 @@ export async function GET(req: NextRequest) {
             });
         }
         if (!data.isPublic) {
-            if (!token) return unauthorized("Authentication token is missing.");
+            if (!token) return unauthorized( "This playlist is private.");
             if (!isOwner) {
-                return forbidden("You do not have permission to view this playlist.");
+                return forbidden("This playlist is private.");
             }
         }
         

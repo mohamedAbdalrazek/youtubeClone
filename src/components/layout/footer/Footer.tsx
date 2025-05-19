@@ -29,7 +29,7 @@ export default function Footer() {
                         <h3 className={styles.footerHeading}>Legal</h3>
                         <ul className={styles.footerLinks}>
                             <li>
-                                <Link href="/privacy-policy">Privacy Policy</Link>
+                                <Link href="/privacy">Privacy Policy</Link>
                             </li>
                             <li>
                                 <Link href="/contact">Contact</Link>

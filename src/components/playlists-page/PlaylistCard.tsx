@@ -50,7 +50,7 @@ export default function PlaylistCard({
                     <div className={styles.imageWrapper}>
                         <Image
                             src={playlist.thumbnail}
-                            height={270}
+                            height={360}
                             width={480}
                             alt={playlist.title + "playlist"}
                             className={styles.image}

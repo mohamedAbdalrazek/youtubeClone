@@ -9,6 +9,7 @@ import PlaylistVideoMobility from "@/components/playlist/PlaylistVideoMobility";
 import { PlaylistMap } from "@/utils/types";
 import { useOpenedBox } from "@/context/OpenedBoxContext";
 import Loading from "@/app/loading";
+import NotFound from "@/app/not-found";
 
 export default function Page() {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -17,54 +18,77 @@ export default function Page() {
     const playlistId = params.id;
     const isYoutube = useSearchParams().get("youtube");
     const [playlist, setPlaylist] = useState<PlaylistMap>();
-    const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const { setOpenedBoxId } = useOpenedBox();
-
+    const [error, setError] = useState<{
+        message: string;
+        status: number;
+    } | null>(null);
     useEffect(() => {
         setLoading(true);
-        const fetchUserData = async () => {
-            try {
-                const cookies = parseCookies();
-                const authToken = cookies.token;
-                const res = await fetch(
-                    `/api/getOnePlaylist?playlistId=${playlistId}&youtube=${isYoutube}`,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${authToken}`,
-                        },
-                    }
-                );
-                const data = await res.json();
-                if (!res.ok) {
-                    setErrorMessage(
-                        data.message || "Failed to fetch play  ls."
-                    );
-                    console.error(data.message || "Failed to fetch play  ls.");
-                    return;
-                }
-                setPlaylist(data.playlist);
-            } catch (err) {
-                console.error("Failed to fetch user data:", err);
-                setErrorMessage("An error occurred.");
-            } finally {
-                setLoading(false);
+        const cookies = parseCookies();
+        const authToken = cookies.token;
+
+        fetch(
+            `/api/getOnePlaylist?playlistId=${playlistId}&youtube=${isYoutube}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${authToken}`,
+                },
             }
-        };
-        fetchUserData();
+        )
+            .then(async (res) => {
+                const data = await res.json();
+
+                if (!res.ok) {
+                    return Promise.reject({
+                        message: data.message,
+                        status: res.status,
+                    });
+                }
+
+                setPlaylist(data.playlist);
+            })
+            .catch((err) => {
+                setError({
+                    message: err.message || "Something went wrong.",
+                    status: err.status || 500,
+                });
+                console.error("Search fetch error:", err);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, [playlistId, isYoutube]);
+
     if (!playlistId) {
         return <div>Invalid playlist link.</div>;
     }
     if (loading) {
         return <Loading height="85vh" />;
     }
-    if (errorMessage || !playlist) {
-        return <div>{errorMessage}</div>;
+    if (error) {
+        return (
+            <NotFound
+                target="back"
+                errorMessage={error.message}
+                statusCode={error.status}
+                buttonText="Go back"
+            />
+        );
+    }
+    if (!playlist) {
+        return (
+            <NotFound
+                target="back"
+                errorMessage={"Playlist isn't found"}
+                statusCode={404}
+                buttonText="Go back"
+            />
+        );
     }
     return (
         <div
             className={styles.playlistPage}
-
             onClick={() => setOpenedBoxId(null)}
         >
             <PlaylistVideoMobility
@@ -72,10 +96,7 @@ export default function Page() {
                 currentIndex={currentIndex}
                 videosLength={playlist.videos.length}
             />
-            <div
-                className={styles.playlistContainer}
-                
-            >
+            <div className={styles.playlistContainer}>
                 <YouTubePlaylist
                     currentIndex={currentIndex}
                     setCurrentIndex={setCurrentIndex}

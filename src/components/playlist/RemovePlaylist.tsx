@@ -40,7 +40,7 @@ export default function RemovePlaylist({
             const data = await response.json();
 
             if (response.ok) {
-                toast.success("Playlist removed successfully!");
+                toast.success("Playlist removed!");
                 if (setIsFavorite) {
                     setIsFavorite(false);
                 } else {

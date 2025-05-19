@@ -1,0 +1,56 @@
+.notFound {
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background-color: var(--surface-color);
+    text-align: center;
+    color: var(--text-color);
+    gap: 1rem;
+}
+
+.notFoundImage {
+    width: 400px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 0.5rem;
+}
+.errorCode {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--error-color);
+    margin-bottom: 0.5rem;
+}
+
+.errorMessage {
+    font-size: 1.2rem;
+    color: var(--text-semi-light);
+    margin-bottom: 1.5rem;
+    max-width: 400px;
+}
+.notFoundButton {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: var(--text-on-primary);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: var(--shadow);
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.notFoundButton:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+.notFoundButton:active {
+    background-color: var(--primary-active);
+    transform: translateY(0);
+}
