@@ -62,10 +62,10 @@
 }
 
 @media (max-width: 480px) {
-    
     .hero{
-        padding: 10px;
-        height: auto;
+        padding-right: 10px;
+        padding-bottom: 10px;
+        /* height: auto; */
         display: block;
     }
     .container{

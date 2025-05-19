@@ -66,10 +66,7 @@
     width: 18px;
     height: 18px;
 }
-.changeButton svg{
-    width: 27px;
-    height: 27px;
-}
+
 .watchLaterButton:hover:not(:disabled),
 .changeButton:hover:not(:disabled){
     color: var(--primary-hover);

@@ -21,6 +21,9 @@
     width: 100%;
     height: auto;
 }
+.mobilelogo{
+    display: none;
+}
 .searchContainer {
     justify-content: center;
     gap: 5px;
@@ -64,19 +67,14 @@
 /* Add these to your existing nav styles */
 
 
-@media (max-width: 540px) {
-    .nav{
-        flex-direction: row;
-        flex-wrap: wrap;
+@media (max-width: 540px) {    
+    .logo{
+        display: none;
     }
-    .searchContainer{
-        order: 3;
-        width: 100%;
+    .mobilelogo{
+        display: block;
     }
-    
-}
-@media (max-width: 400px) {
     .logoWrapper{
-        width: 150px;
+        width: fit-content;
     }
 }

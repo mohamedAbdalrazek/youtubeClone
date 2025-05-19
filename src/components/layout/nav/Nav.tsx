@@ -21,6 +21,13 @@ export default function Nav() {
                             className={styles.logo}
                             height={73}
                         />
+                        <Image
+                            className={styles.mobilelogo}
+                            src={"/icon.png"}
+                            alt="Streamura"
+                            width={35}
+                            height={35}
+                        />
                     </Link>
 
                     <div className={styles.searchContainer}>

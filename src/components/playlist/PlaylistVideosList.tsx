@@ -12,6 +12,7 @@ import PlaylistOptionsBox from "../refactor/PlaylistOptionsBox";
 import { useOpenedBox } from "@/context/OpenedBoxContext";
 import GlobeIcon from "@/icons/GlobeIcon";
 import LockIcon from "@/icons/LockIcon";
+import { htmlDecode } from "@/utils/utils";
 export default function PlaylistVideosList({
     currentIndex,
     setCurrentIndex,
@@ -131,7 +132,7 @@ export default function PlaylistVideosList({
                             <div className={styles.info}>
                                 <div className={styles.titleWrapper}>
                                     <p className={styles.videoTitle}>
-                                        {video.title}
+                                        {htmlDecode(video.title)}
                                     </p>
                                     <div
                                         onClick={(e) => {

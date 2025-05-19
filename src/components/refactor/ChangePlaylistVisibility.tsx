@@ -70,7 +70,7 @@ export default function ChangePlaylistVisibility({
             aria-label="change playlist visibility"
             disabled={loading}
         >
-            <span>{`Make the playlist ${visibility}`}</span>
+            <span>{`Make it ${visibility}`}</span>
             {visibility === "public" ? <GlobeIcon /> : <LockIcon />}
         </button>
     );
