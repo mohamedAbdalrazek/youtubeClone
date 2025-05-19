@@ -29,7 +29,7 @@ export default function Page() {
         const authToken = cookies.token;
 
         fetch(
-            `/api/getOnePlaylist?playlistId=${playlistId}&youtube=${isYoutube}`,
+            `https://streamura.vercel.app/api/getOnePlaylist?playlistId=${playlistId}&youtube=${isYoutube}`,
             {
                 headers: {
                     Authorization: `Bearer ${authToken}`,
@@ -40,7 +40,10 @@ export default function Page() {
                 const data = await res.json();
 
                 if (!res.ok) {
-                    console.log(res)
+                    return Promise.reject({
+                        message: data.message,
+                        status: res.status,
+                    });
                 }
 
                 setPlaylist(data.playlist);
