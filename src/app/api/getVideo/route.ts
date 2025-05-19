@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
 
     try {
         const videoDetails = await getVideoDetails(videoId) as WatchVideoMap;
-
+        console.log(videoDetails)
         if (!videoDetails) {
             return NextResponse.json(
                 { error: "The requested video could not be found." },

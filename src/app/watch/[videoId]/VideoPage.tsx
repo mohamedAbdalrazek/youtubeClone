@@ -21,7 +21,7 @@ export default function VideoPage({ videoId }: { videoId: string }) {
 
         setLoading(true);
 
-        fetch(`${process.env.NEXT_PUBLIC_ROOT}/api/getVideo?videoId=${videoId}`)
+        fetch(`/api/getVideo?videoId=${videoId}`)
             .then((res) =>
                 res.json().then((jsonRes) => {
                     if (!res.ok) {
