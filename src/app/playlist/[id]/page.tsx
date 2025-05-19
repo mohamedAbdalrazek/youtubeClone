@@ -40,10 +40,7 @@ export default function Page() {
                 const data = await res.json();
 
                 if (!res.ok) {
-                    return Promise.reject({
-                        message: data.message,
-                        status: res.status,
-                    });
+                    console.log(res)
                 }
 
                 setPlaylist(data.playlist);
