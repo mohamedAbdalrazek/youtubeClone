@@ -17,7 +17,13 @@ export async function GET(req: NextRequest) {
     }
     const token = req.headers.get("Authorization")?.split(" ")[1];
     let decodedToken;
-    if (token) decodedToken = await authAdmin.verifyIdToken(token);
+    try {
+        if (token) {
+            decodedToken = await authAdmin.verifyIdToken(token);
+        }
+    } catch (err) {
+        console.error("Failed to verify token:", err);
+    }
     let userData
     let userRef
 
@@ -83,7 +89,7 @@ export async function GET(req: NextRequest) {
     }
     try {
         const playlistDoc = await firestoreAdmin.collection("playlists").doc(playlistId).get()
-        const data = playlistDoc.data() ;
+        const data = playlistDoc.data();
         if (!data) {
             if (isPlaylistSaved && userData && userRef) {
                 const updatedPlaylists = getUpdatedPlaylist(false, userData.favoritePlaylists)
@@ -118,13 +124,13 @@ export async function GET(req: NextRequest) {
             });
         }
         if (!data.isPublic) {
-            if (!token) return unauthorized( "This playlist is private.");
+            if (!token) return unauthorized("This playlist is private.");
             if (!isOwner) {
                 return forbidden("This playlist is private.");
             }
         }
-        
-        
+
+
 
         return NextResponse.json({ ok: true, playlist }, { status: 200 });
     } catch (error) {
