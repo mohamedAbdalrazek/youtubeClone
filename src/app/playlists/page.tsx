@@ -1,4 +1,4 @@
-"use server"
+"use server";
 import { cookies } from "next/headers";
 import React from "react";
 import Playlists from "./Playlists";
@@ -22,7 +22,7 @@ const getPlaylists = async () => {
             headers: {
                 Authorization: `Bearer ${authToken}`,
             },
-            cache:"no-cache"
+            cache: "no-cache",
         });
 
         const json = await res.json();
@@ -58,16 +58,14 @@ export default async function Page() {
         return <NotFound statusCode={status} errorMessage={message} />;
     }
 
-    if (!myPlaylists || myPlaylists.length === 0) {
-        return (
-            <NotFound statusCode={404} errorMessage={"No playlists found."} />
-        );
-    }
-
     return (
         <>
-            <Playlists header="My Playlists" playlists={myPlaylists} />
-            <Playlists header="Saved Playlists" playlists={favPlaylists} />
+            {myPlaylists && myPlaylists.length !== 0 && (
+                <Playlists header="My Playlists" playlists={myPlaylists} />
+            )}
+            {favPlaylists && favPlaylists.length !== 0 && (
+                <Playlists header="Saved Playlists" playlists={favPlaylists} />
+            )}
         </>
     );
 }

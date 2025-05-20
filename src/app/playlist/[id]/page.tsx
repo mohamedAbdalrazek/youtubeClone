@@ -23,42 +23,6 @@ export default function Page() {
         message: string;
         status: number;
     } | null>(null);
-    // useEffect(() => {
-    //     setLoading(true);
-    //     const cookies = parseCookies();
-    //     const authToken = cookies.token;
-
-    //     fetch(
-    //         `/api/getOnePlaylist?playlistId=${playlistId}&youtube=${isYoutube}`,
-    //         {
-    //             headers: {
-    //                 Authorization: `Bearer ${authToken}`,
-    //             },
-    //         }
-    //     )
-    //         .then(async (res) => {
-    //             const data = await res.json();
-
-    //             if (!res.ok) {
-    //                 return Promise.reject({
-    //                     message: data.message,
-    //                     status: res.status,
-    //                 });
-    //             }
-
-    //             setPlaylist(data.playlist);
-    //         })
-    //         .catch((err) => {
-    //             setError({
-    //                 message: err.message || "Something went wrong.",
-    //                 status: err.status || 500,
-    //             });
-    //             console.error("Search fetch error:", err);
-    //         })
-    //         .finally(() => {
-    //             setLoading(false);
-    //         });
-    // }, [playlistId, isYoutube]);
     useEffect(() => {
         setLoading(true);
         const fetchUserData = async () => {
@@ -66,7 +30,7 @@ export default function Page() {
                 const cookies = parseCookies();
                 const authToken = cookies.token;
                 const res = await fetch(
-                    ` /api/getOnePlaylist?playlistId=${playlistId}&youtube=${isYoutube}`,
+                    `/api/getOnePlaylist?playlistId=${playlistId}&youtube=${isYoutube}`,
                     {
                         headers: {
                             Authorization: `Bearer ${authToken}`,
@@ -74,12 +38,12 @@ export default function Page() {
                     }
                 );
                 const data = await res.json();
-                // if (!res.ok) {
-                //     throw {
-                //         message: data.message,
-                //         status: res.status,
-                //     };
-                // }
+                if (!res.ok) {
+                    throw {
+                        message: data.message,
+                        status: res.status,
+                    };
+                }
                 setPlaylist(data.playlist);
             } catch (error) {
                 const err = error as FetchError;
