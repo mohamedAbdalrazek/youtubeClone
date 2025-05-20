@@ -20,10 +20,8 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
     
-      - name: Debug check for API key
-        run: |
-            echo "NEXT_PUBLIC_API_KEY=${{ secrets.NEXT_PUBLIC_API_KEY }}" | sed 's/./& /g'
-
+      - name: Install jq
+        run: sudo apt-get install jq -y
       - name: Create .env.local file
         run: |
           cat > .env.local << EOL
@@ -40,7 +38,7 @@ jobs:
           NODE_ENV=${{ secrets.NODE_ENV }}
           EOL
           echo 'FIREBASE_ADMIN_CREDENTIALS=`' >> .env.local
-          printf "%s\n" "${{ secrets.FIREBASE_ADMIN_CREDENTIALS }}" >> .env.local
+          echo "${{ secrets.FIREBASE_ADMIN_CREDENTIALS }}" | jq . >> .env.local
           echo '`' >> .env.local
 
       - name: Copy project to server
