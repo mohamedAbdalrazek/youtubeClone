@@ -39,7 +39,7 @@ jobs:
                     echo "NEXT_PUBLIC_APP_ID=${{ secrets.NEXT_PUBLIC_APP_ID }}"> .env.local
                     echo "NEXT_PUBLIC_MEASUREMENT_ID=${{ secrets.NEXT_PUBLIC_MEASUREMENT_ID }}"> .env.local
                     echo "NODE_ENV=${{ secrets.NODE_ENV }}"> .env.local
-                    echo "FIREBASE_ADMIN_CREDENTIALS=${{ secrets.FIREBASE_ADMIN_CREDENTIALS }}"> .env.local
+                    echo "FIREBASE_ADMIN_CREDENTIALS='${{ secrets.FIREBASE_ADMIN_CREDENTIALS }}'"> .env.local
                     npm install
                     npm run build
                   EOF
