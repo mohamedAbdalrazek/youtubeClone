@@ -38,8 +38,10 @@ jobs:
           NEXT_PUBLIC_APP_ID=${{ secrets.NEXT_PUBLIC_APP_ID }}
           NEXT_PUBLIC_MEASUREMENT_ID=${{ secrets.NEXT_PUBLIC_MEASUREMENT_ID }}
           NODE_ENV=${{ secrets.NODE_ENV }}
-          FIREBASE_ADMIN_CREDENTIALS=${{ secrets.FIREBASE_ADMIN_CREDENTIALS }}
           EOL
+          echo 'FIREBASE_ADMIN_CREDENTIALS=`' >> .env.local
+          echo "${{ secrets.FIREBASE_ADMIN_CREDENTIALS }}" >> .env.local
+          echo '`' >> .env.local
 
       - name: Copy project to server
         run: |
