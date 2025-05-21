@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { forbidden, unauthorized } from "@/utils/responses";
+import { badRequest, forbidden, internalServerError, notFound, unauthorized } from "@/utils/responses";
 import { authAdmin, firestoreAdmin } from "@/utils/firebaseAdmin";
 import { PlaylistMap } from "@/utils/types";
 import { getYoutubePlaylist } from "@/lib/fetchFunction";
@@ -11,29 +11,28 @@ export async function GET(req: NextRequest) {
     const isYoutube = req.nextUrl.searchParams.get("youtube")
 
     if (!playlistId) {
-        return NextResponse.json(
-            { error: "Playlist id is required." },
-            { status: 400 }
-        );
+        return badRequest("Playlist id is required.")
     }
-    const token = req.headers.get("Authorization")?.split(" ")[1];
-    let decodedToken;
+    let uid = null;
+
     try {
-        if (token) {
-            decodedToken = await authAdmin.verifyIdToken(token);
+        const token = req.headers.get("Authorization")?.split(" ")[1];
+        if (token){
+            const decodedToken = await authAdmin.verifyIdToken(token);
+            uid = decodedToken.uid
         }
-    } catch (err) {
-        console.error("Failed to verify token:", err);
+    } catch (authError) {
+        console.error("Authentication error:", authError);
     }
     let userData = null
     let userRef = null
 
-    if (decodedToken) {
-        userRef = firestoreAdmin.collection("users").doc(decodedToken.uid);
+    if (uid) {
+        userRef = firestoreAdmin.collection("users").doc(uid);
         const userDoc = await userRef.get()
         userData = userDoc.data();
     }
-    const isPlaylistSaved = userData
+    const isPlaylistSaved = userData?.favoritePlaylists
         ? checkSavedPlaylist(playlistId, userData.favoritePlaylists)
         : false;
 
@@ -46,15 +45,9 @@ export async function GET(req: NextRequest) {
                     userRef.update({
                         favoritePlaylists: updatedPlaylists
                     })
-                    return NextResponse.json(
-                        { ok: false, message: "This playlist was deleted or set to private." },
-                        { status: 404 }
-                    );
+                    return notFound("This playlist was deleted or set to private." )
                 }
-                return NextResponse.json(
-                    { ok: false, message: "This playlist is not found" },
-                    { status: 404 }
-                );
+                return notFound("This playlist is not found" )
             }
             if (userData && userRef && isPlaylistSaved) {
                 const updatedPlaylists = getUpdatedPlaylist(true, playlistId, userData.favoritePlaylists, playlist)
@@ -66,10 +59,7 @@ export async function GET(req: NextRequest) {
 
         } catch (error) {
             console.error("Error fetching user playlists:", error);
-            return NextResponse.json(
-                { ok: false, message: "Internal server error." },
-                { status: 500 }
-            );
+            return internalServerError ("Internal server error." )
         }
     }
     try {
@@ -81,19 +71,12 @@ export async function GET(req: NextRequest) {
                 userRef.update({
                     favoritePlaylists: updatedPlaylists
                 });
-                return NextResponse.json(
-                    { ok: false, message: "This playlist was deleted." },
-                    { status: 404 }
-                );
+                return notFound("This playlist was deleted.")
             }
-
-            return NextResponse.json(
-                { ok: false, message: "This playlist is not found." },
-                { status: 404 }
-            );
+            return notFound("This playlist is not found." )
         }
 
-        const isOwner = decodedToken ? data.userId === decodedToken.uid : false;
+        const isOwner = uid ? data.userId === uid : false;
         const playlistWithoutUserId = Object.fromEntries(
             Object.entries(data).filter(([key]) => key !== "userId")
         ) as PlaylistMap
@@ -109,20 +92,14 @@ export async function GET(req: NextRequest) {
             });
         }
         if (!data.isPublic) {
-            if (!token) return unauthorized("This playlist is private.");
+            if (!uid) return unauthorized("This playlist is private.");
             if (!isOwner) {
                 return forbidden("This playlist is private.");
             }
         }
-
-
-
         return NextResponse.json({ ok: true, playlist }, { status: 200 });
     } catch (error) {
         console.error("Error fetching user playlists:", error);
-        return NextResponse.json(
-            { ok: false, message: "Internal server error." },
-            { status: 500 }
-        );
+        return internalServerError("Internal server error." )
     }
 }

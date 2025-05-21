@@ -14,5 +14,5 @@ export function internalServerError(message: string = "Internal Server Error") {
 }
 
 export function notFound(message: string) {
-    return Response.json({ ok: false, message }, { status: 403 });
+    return Response.json({ ok: false, message }, { status: 404 });
 }

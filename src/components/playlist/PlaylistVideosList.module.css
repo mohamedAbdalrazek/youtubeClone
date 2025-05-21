@@ -26,6 +26,9 @@
     height: 22px;
     fill: var(--primary-dark-color);
 }
+.playlistTitleWrapper h3{
+    width: calc(100% -  35px);
+}
 .optionsBox {
     right: 18px !important;
     top: -2px !important;
