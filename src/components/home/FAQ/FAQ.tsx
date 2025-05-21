@@ -35,9 +35,9 @@ export default function FAQ() {
             answer: "While we're web-based, you can cast from your device or use a browser on smart TVs for full-screen viewing.",
         },
         {
-            question: "How often is new functionality added?",
-            answer: "We release updates every 2-3 weeks based on user feedback. You can suggest features through our feedback system.",
-        },
+            question: "Sometimes I open a YouTube playlist and I get an error saying 'playlist was deleted or set to private', but it's not. Why is that?",
+            answer: "Sometimes YouTube temporarily interrupts our ability to fetch certain playlists. If you're sure the playlist is public and hasn't been deleted, just try again later — it should work normally.",
+        }
     ];
 
     return (
