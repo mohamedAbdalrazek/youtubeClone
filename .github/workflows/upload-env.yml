@@ -50,7 +50,7 @@ jobs:
       - name: Build on server
         run: |
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << EOF
-            cd ~/home/root/youtubeClone
+            cd /home/root/youtubeClone
             npm install
             npm run build
           EOF
