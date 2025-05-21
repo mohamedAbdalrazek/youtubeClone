@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { forbidden, unauthorized } from "@/utils/responses";
 import { authAdmin, firestoreAdmin } from "@/utils/firebaseAdmin";
-import { PlaylistMap, UserFavoritePlaylistMap } from "@/utils/types";
+import { PlaylistMap } from "@/utils/types";
 import { getYoutubePlaylist } from "@/lib/fetchFunction";
 import { checkSavedPlaylist } from "@/lib/serverHelperFunctions";
+import { getUpdatedPlaylist } from "@/lib/searchFunctions";
 
 export async function GET(req: NextRequest) {
     const playlistId = req.nextUrl.searchParams.get("playlistId")
@@ -24,8 +25,8 @@ export async function GET(req: NextRequest) {
     } catch (err) {
         console.error("Failed to verify token:", err);
     }
-    let userData
-    let userRef
+    let userData = null
+    let userRef = null
 
     if (decodedToken) {
         userRef = firestoreAdmin.collection("users").doc(decodedToken.uid);
@@ -35,29 +36,13 @@ export async function GET(req: NextRequest) {
     const isPlaylistSaved = userData
         ? checkSavedPlaylist(playlistId, userData.favoritePlaylists)
         : false;
-    const getUpdatedPlaylist = (available: boolean, favoritePlaylists: UserFavoritePlaylistMap[], playlist?: PlaylistMap) => {
-        const updatedPlaylists = favoritePlaylists.map(p =>
-            p.playlistId === playlistId
-                ? available && playlist
-                    ? {
-                        playlistId: playlist.playlistId,
-                        title: playlist.title,
-                        isAvailable: true,
-                        isYoutube: true,
-                        thumbnail: playlist.videos[0]?.thumbnail,
-                        videoCount: playlist.videos.length,
-                    }
-                    : { ...p, isAvailable: false }
-                : p
-        );
-        return updatedPlaylists
-    };
+
     if (isYoutube !== "null") {
         try {
             const playlist = await getYoutubePlaylist(playlistId) as PlaylistMap
-            if (!playlist || !playlist.videos || playlist.videos.length === 0) {
+            if (!playlist?.videos?.length) {
                 if (isPlaylistSaved && userData && userRef) {
-                    const updatedPlaylists = getUpdatedPlaylist(false, userData.favoritePlaylists)
+                    const updatedPlaylists = getUpdatedPlaylist(false, playlistId, userData.favoritePlaylists)
                     userRef.update({
                         favoritePlaylists: updatedPlaylists
                     })
@@ -72,7 +57,7 @@ export async function GET(req: NextRequest) {
                 );
             }
             if (userData && userRef && isPlaylistSaved) {
-                const updatedPlaylists = getUpdatedPlaylist(true, userData.favoritePlaylists, playlist)
+                const updatedPlaylists = getUpdatedPlaylist(true, playlistId, userData.favoritePlaylists, playlist)
                 userRef.update({
                     favoritePlaylists: updatedPlaylists
                 });
@@ -92,7 +77,7 @@ export async function GET(req: NextRequest) {
         const data = playlistDoc.data();
         if (!data) {
             if (isPlaylistSaved && userData && userRef) {
-                const updatedPlaylists = getUpdatedPlaylist(false, userData.favoritePlaylists)
+                const updatedPlaylists = getUpdatedPlaylist(false, playlistId, userData.favoritePlaylists)
                 userRef.update({
                     favoritePlaylists: updatedPlaylists
                 });
@@ -118,7 +103,7 @@ export async function GET(req: NextRequest) {
             isOwner
         }
         if (userData && userRef && isPlaylistSaved && !isOwner) {
-            const updatedPlaylists = getUpdatedPlaylist(true, userData.favoritePlaylists, playlist)
+            const updatedPlaylists = getUpdatedPlaylist(true, playlistId, userData.favoritePlaylists, playlist)
             userRef.update({
                 favoritePlaylists: updatedPlaylists
             });
@@ -140,6 +125,4 @@ export async function GET(req: NextRequest) {
             { status: 500 }
         );
     }
-
-
 }

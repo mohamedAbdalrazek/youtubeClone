@@ -1,3 +1,5 @@
+import { PlaylistMap, UserFavoritePlaylistMap } from "@/utils/types";
+
 export function isValidYouTubeUrl(url: string): boolean {
     const regex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/(watch\?v=|embed\/|v\/|shorts\/)?([A-Za-z0-9_-]{11})(\S*)?$/;
     return regex.test(url);
@@ -32,3 +34,21 @@ export function extractVideoIdFromMixedUrl(url: string): string {
     const videoMatch = url.match(videoRegex);
     return videoMatch ? videoMatch[1] : "";
 }
+
+export const getUpdatedPlaylist = (available: boolean, playlistId: string, favoritePlaylists: UserFavoritePlaylistMap[], playlist?: PlaylistMap,) => {
+    const updatedPlaylists = favoritePlaylists.map(p =>
+        p.playlistId === playlistId
+            ? available && playlist
+                ? {
+                    playlistId: playlist.playlistId,
+                    title: playlist.title,
+                    isAvailable: true,
+                    isYoutube: true,
+                    thumbnail: playlist.videos[0]?.thumbnail,
+                    videoCount: playlist.videos.length,
+                }
+                : { ...p, isAvailable: false }
+            : p
+    );
+    return updatedPlaylists
+};

@@ -22,7 +22,8 @@
     "react-hot-toast": "^2.5.2",
     "youtubei": "^1.6.7",
     "youtubei.js": "^13.4.0",
-    "yt-dlp-wrap": "^2.3.12"
+    "yt-dlp-wrap": "^2.3.12",
+    "ytpl": "^2.3.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
