@@ -2,7 +2,6 @@
 import { useSearchParams } from "next/navigation";
 import React, { Suspense, useEffect, useState } from "react";
 import styles from "./VideosList.module.css";
-import VideoListSkeleton from "../../components/VideoListSkeleton";
 import { PlaylistResultMap, VideoResultMap } from "@/utils/types";
 import ResultVideoCard from "@/components/search/ResultVideoCard";
 import { ResultPlaylistCard } from "@/components/search/ResultPlaylistCard";
@@ -108,7 +107,7 @@ const Search = () => {
 };
 export default function VideosList() {
     return (
-        <Suspense fallback={<VideoListSkeleton number={10} />}>
+        <Suspense fallback={<Loading height="65vh"/>}>
             <Search />
         </Suspense>
     );

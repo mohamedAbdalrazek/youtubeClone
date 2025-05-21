@@ -101,16 +101,21 @@
         align-items: flex-start;
     }
 }
-@media (max-width: 380px) {
+@media (max-width: 480px) {
     .videoWrapper{
-        padding: 5px;
+        width: 100%;
+        padding: 0;
     }
-    .info {
-        flex-direction: row;
-        align-items: center;
+    .video{
+        border-radius: 0;
     }
-    .addButton span,
-    .watchLaterButton span {
-        display: none;
+    .videoTitle {
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
+    .info{
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
 }

@@ -11,3 +11,8 @@
         flex-direction: column;
     }
 }
+@media (max-width: 480px) {
+    .playlistPage {
+        padding: 0px;
+    }
+}

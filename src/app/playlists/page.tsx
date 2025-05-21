@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import React from "react";
 import Playlists from "./Playlists";
 import NotFound from "../not-found";
-
+import styles from "./PlaylistsPage.module.css"
 const getPlaylists = async () => {
     const cookieStore = cookies();
     const authToken = (await cookieStore).get("token")?.value;
@@ -57,7 +57,15 @@ export default async function Page() {
     if (!ok) {
         return <NotFound statusCode={status} errorMessage={message} />;
     }
-
+    if(!myPlaylists?.legnth && !favPlaylists?.length){
+        return (
+            <div className={styles.noPlaylistsFound}>
+                <p>
+                    You have no playlists
+                </p>
+            </div>
+        )
+    }
     return (
         <>
             {myPlaylists && myPlaylists.length !== 0 && (
